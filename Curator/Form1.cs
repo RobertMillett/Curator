@@ -8,15 +8,19 @@ using MetroFramework;
 using VDFParser.Models;
 using System.IO;
 using System.Text;
+using System.Reflection;
 using Crc32;
+using System.ComponentModel;
 
 namespace Curator
 {
     public partial class Form1 : MetroForm
     {
         public static string ShortcutsPath;
-        public static SampleDataSet.consoleRow ActiveConsole;
-        
+        public static string DataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Curator", "XmlDoc.xml");
+        public static CuratorDataSet.ConsoleRow ActiveConsole;
+        public static bool PromptSave;
+
         public Form1()
         {
             InitializeComponent();
@@ -25,20 +29,28 @@ namespace Curator
                 ShortcutsPath = Properties.Settings.Default.ShortcutsPath;
                 this.Text = $"Curator - {ShortcutsPath}";
             }
+
+            if (!File.Exists(DataPath))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(DataPath));
+                CuratorDataSet.WriteXml(DataPath);
+            }
+
+            CuratorDataSet.ReadXml(DataPath);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.romTableAdapter.Fill(this.sampleDataSet.rom);
-            this.romfolderTableAdapter.Fill(this.sampleDataSet.romfolder);          
-            this.consoleTableAdapter.Fill(this.sampleDataSet.console);
-
             //this.StyleManager = metroStyleManager1;
             //metroStyleManager1.Theme = MetroThemeStyle.Dark;
             Shown += FirstTimeGetSteamShortcutsFile;
             FormClosing += OnFormClosing;
             Resize += OnFormResized;
-            
+
+            CuratorDataSet.Console.RowChanged += PromptSaveTrue;
+            CuratorDataSet.RomFolder.RowChanged += PromptSaveTrue;
+            CuratorDataSet.ROM.RowChanged += PromptSaveTrue;            
+
             comboBox1.SelectedIndexChanged += ConsoleHasChanged;
 
             ConsoleHasChanged(sender, e);
@@ -48,15 +60,21 @@ namespace Curator
             romListView.ItemCheck += RomEnabled;
         }
 
-        private void RomEnabled(object sender, ItemCheckEventArgs e)
+        private void PromptSaveTrue(object sender, DataRowChangeEventArgs e)
         {
-            var rom = sampleDataSet.rom.Where(x => RomNameConstructor(x) == romListView.Items[e.Index].Text).First();
-            rom.enabled = e.NewValue == CheckState.Checked;
+            PromptSave = true;            
+            this.consoleBindingSource2.ResetBindings(false);
         }
 
-        private string RomNameConstructor(SampleDataSet.romRow romItem)
+        private void RomEnabled(object sender, ItemCheckEventArgs e)
+        {            
+            var rom = CuratorDataSet.ROM.Where(x => RomNameConstructor(x) == romListView.Items[e.Index].Text).First();
+            rom.Enabled = e.NewValue == CheckState.Checked;
+        }
+
+        private string RomNameConstructor(CuratorDataSet.ROMRow romItem)
         {
-            return $"{romItem.name} ({romItem.extension.Trim('.').ToUpper()})";
+            return $"{romItem.Name} ({romItem.Extension.Trim('.').ToUpper()})";
         }
 
         private void OnFormResized(object sender, EventArgs e)
@@ -71,16 +89,15 @@ namespace Curator
             if (e.CloseReason != CloseReason.UserClosing)
                 return;
 
-            if (!sampleDataSet.HasChanges())
+            if (!PromptSave)
                 return;
 
             var saveChanges = MetroMessageBox.Show(this, "Save changes?", "", MessageBoxButtons.OKCancel);
 
             if (saveChanges == DialogResult.OK)
             {
-                consoleTableAdapter.Update(this.sampleDataSet.console);
-                romfolderTableAdapter.Update(this.sampleDataSet.romfolder);
-                romTableAdapter.Update(this.sampleDataSet.rom);
+                //New DB code
+                CuratorDataSet.WriteXml(DataPath);
             }
         }
 
@@ -98,11 +115,11 @@ namespace Curator
             }
 
             //Step 2 - Add the ROMS to the list
-            foreach (var rom in romTableAdapter.GetData().ToList())
+            foreach (var rom in CuratorDataSet.ROM.ToList())
             {
-                var existingRomEntry = currentShortcuts.Where(x => x.AppName == rom.name && x.Exe.Contains(rom.extension)).FirstOrDefault();
+                var existingRomEntry = currentShortcuts.Where(x => x.AppName == rom.Name && x.Exe.Contains(rom.Extension)).FirstOrDefault();
 
-                if (rom.enabled == false)
+                if (rom.Enabled == false)
                 {
                     if (existingRomEntry != null)
                     {
@@ -111,26 +128,26 @@ namespace Curator
                     continue;
                 }
 
-                var romFolder = romfolderTableAdapter.GetData().Where(x => x.romfolder_id == rom.romfolder_id).First();
-                var console = consoleTableAdapter.GetData().Where(y => y.console_Id == romFolder.console_id).First();
+                var RomFolder = CuratorDataSet.RomFolder.Where(x => x.Id == rom.RomFolder_Id).First();
+                var console = CuratorDataSet.Console.Where(y => y.Id == RomFolder.Console_Id).First();
 
-                var exepath = $"\"{console.emulator_path}\" {console.emulator_args} \"{romFolder.path}\\{rom.name + rom.extension}\"";
+                var exepath = $"\"{console.EmulatorPath}\" {console.EmulatorArgs} \"{RomFolder.Path}\\{rom.Name + rom.Extension}\"";
 
-                if (!string.IsNullOrEmpty(console.rom_args))
-                    exepath = exepath + " " + console.rom_args;
+                if (!string.IsNullOrEmpty(console.RomArgs))
+                    exepath = exepath + " " + console.RomArgs;
 
                 var newRomEntry = new VDFEntry
                 {
                     AllowDesktopConfig = 1,
-                    AppName = rom.name,
+                    AppName = rom.Name,
                     Exe = exepath,
-                    StartDir = Path.GetDirectoryName(console.emulator_path),
+                    StartDir = Path.GetDirectoryName(console.EmulatorPath),
                     Index = 0,
                     Icon = "",
                     IsHidden = 0,
                     OpenVR = 0,
                     ShortcutPath = "",
-                    Tags = new string[] { console.name }
+                    Tags = new string[] { console.Name }
                 };
 
                 // ############# GENERATE APP ID ##################
@@ -181,10 +198,10 @@ namespace Curator
         {
             if (ActiveConsole != null)
             {
-                systemDetailsName.Text = ActiveConsole.name;
-                emulatorPathTextBox.Text = ActiveConsole.emulator_path;
-                emulatorArgsTextBox.Text = ActiveConsole.emulator_args;
-                romArgsTextBox.Text = ActiveConsole.rom_args;
+                systemDetailsName.Text = ActiveConsole.Name;
+                emulatorPathTextBox.Text = ActiveConsole.EmulatorPath;
+                emulatorArgsTextBox.Text = ActiveConsole.EmulatorArgs;
+                romArgsTextBox.Text = ActiveConsole.RomArgs;
 
                 UpdateConsoleDetailsWithRomFolders();
             }
@@ -192,7 +209,7 @@ namespace Curator
 
         private void SetActiveConsole(object sender, EventArgs e)
         {
-            ActiveConsole = comboBox1.Text == string.Empty ? null : sampleDataSet.console.Where(x => x.name == comboBox1.Text).First();
+            ActiveConsole = comboBox1.Text == string.Empty ? null : CuratorDataSet.Console.Where(x => x.Name == comboBox1.Text).First();
         }
 
         private void FirstTimeGetSteamShortcutsFile(object sender, EventArgs e)
@@ -250,16 +267,18 @@ namespace Curator
         {
             this.Validate();
             this.consoleBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.sampleDataSet);
-
         }
 
         private void metroButton1_Click_1(object sender, EventArgs e)
         {
-            if (!sampleDataSet.Tables["console"].Select().Where(x => x["name"].ToString() == comboBox1.Text).Any())
+            if (!CuratorDataSet.Tables["console"].Select().Where(x => x["name"].ToString() == comboBox1.Text).Any())
             {
-                sampleDataSet.console.Rows.Add(null, comboBox1.Text);
-                consoleTableAdapter.Update(this.sampleDataSet.console);
+                CuratorDataSet.Console.Rows.Add(null, comboBox1.Text);                
+            }
+
+            if (!CuratorDataSet.Console.Where(x => x.Name == comboBox1.Text).Any())
+            {
+                CuratorDataSet.Console.Rows.Add(null, comboBox1.Text);
             }
 
             //This will always set to the most recently added item as it is added to the bottom of the list.
@@ -270,15 +289,13 @@ namespace Curator
         {   
             if (MetroMessageBox.Show(this, "This will delete the console and all of it's associated data!", "Are you sure?", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                var romFolderRows = sampleDataSet.romfolder.Where(x => x.console_id == ActiveConsole.console_Id);
-                foreach (var row in romFolderRows)
+                var RomFolderRows = CuratorDataSet.RomFolder.Where(x => x.Console_Id == ActiveConsole.Id);
+                foreach (var row in RomFolderRows)
                 {
-                    sampleDataSet.romfolder.Rows.Remove(row);
-                }
+                    CuratorDataSet.RomFolder.Rows.Remove(row);
+                }                
 
-                consoleTableAdapter.Delete(ActiveConsole.console_Id);
-
-                sampleDataSet.console.Rows.Remove(ActiveConsole);
+                CuratorDataSet.Console.Rows.Remove(ActiveConsole);
             }
         }
 
@@ -286,9 +303,10 @@ namespace Curator
         {
             if (emulatorPathFileDialog.ShowDialog() == DialogResult.OK)
             {
-                ActiveConsole.emulator_path = emulatorPathFileDialog.FileName;
+                ActiveConsole.EmulatorPath = emulatorPathFileDialog.FileName;
 
-                sampleDataSet.console.Where(x => x.name == ActiveConsole.name).First().emulator_path = emulatorPathFileDialog.FileName;
+                //CuratorDataSet.Console.Where(x => x.Name == ActiveConsole.Name).First().EmulatorPath = emulatorPathFileDialog.FileName;
+                this.Refresh();
 
                 emulatorPathTextBox.Text = emulatorPathFileDialog.FileName;
             }
@@ -301,21 +319,19 @@ namespace Curator
 
         private void emulatorArgsTextBox_Leave(object sender, EventArgs e)
         {
-            ActiveConsole.emulator_args = emulatorArgsTextBox.Text;
+            ActiveConsole.EmulatorArgs = emulatorArgsTextBox.Text;
         }
 
         private void romArgsTextBox_Leave(object sender, EventArgs e)
         {
-            ActiveConsole.rom_args = romArgsTextBox.Text;
+            ActiveConsole.RomArgs = romArgsTextBox.Text;
         }
 
         private void metroButton3_Click(object sender, EventArgs e)
         {
             if (romFolderDialog.ShowDialog() == DialogResult.OK)
-            {               
-                sampleDataSet.romfolder.Rows.Add(null, romFolderDialog.SelectedPath, ActiveConsole.console_Id);
-                romfolderTableAdapter.Update(this.sampleDataSet.romfolder);
-
+            {
+                CuratorDataSet.RomFolder.Rows.Add(null, romFolderDialog.SelectedPath, ActiveConsole.Id);
                 UpdateConsoleDetailsWithRomFolders();
             }
         }
@@ -324,11 +340,11 @@ namespace Curator
         {
             romFolderListBox.Items.Clear();
 
-            foreach (var romFolder in sampleDataSet.romfolder.Where(x => x.console_id == ActiveConsole.console_Id))
+            foreach (var RomFolder in CuratorDataSet.RomFolder.Where(x => x.Console_Id == ActiveConsole.Id))
             {
-                var romFolderPath = romFolder.path;
-                if (!romFolderListBox.Items.Contains(romFolderPath))
-                    romFolderListBox.Items.Add(romFolderPath);
+                var RomFolderPath = RomFolder.Path;
+                if (!romFolderListBox.Items.Contains(RomFolderPath))
+                    romFolderListBox.Items.Add(RomFolderPath);
             }
 
             GetRoms();
@@ -344,23 +360,24 @@ namespace Curator
             if (ActiveConsole == null)
                 return;
 
-            var romFolders = sampleDataSet.romfolder.Where(x => x.console_id == ActiveConsole.console_Id);
+            var RomFolders = CuratorDataSet.RomFolder.Where(x => x.Console_Id == ActiveConsole.Id);
 
-            foreach (var romFolder in romFolders)
+            foreach (var RomFolder in RomFolders)
             {
-                var romList = Directory.GetFiles(romFolder.path);
+                var romList = Directory.GetFiles(RomFolder.Path);
 
                 foreach (var rom in romList)
                 {
                     var romName = Path.GetFileNameWithoutExtension(rom);
-                    if (!sampleDataSet.rom.Where(x => x.name == romName).Any())
+                    if (!CuratorDataSet.ROM.Where(x => x.Name == romName).Any())
                     {
-                        sampleDataSet.rom.Rows.Add(
-                        null,
-                        romName,
-                        Path.GetExtension(rom),
-                        romFolder.romfolder_id,
-                        true);
+                        var romRow = CuratorDataSet.ROM.NewROMRow();
+                        romRow.Name = romName;
+                        romRow.Extension = Path.GetExtension(rom);
+                        romRow.RomFolder_Id = RomFolder.Id;
+                        romRow.Enabled = true;
+
+                        CuratorDataSet.ROM.Rows.Add(romRow);
                     }                    
                 }
             }
@@ -372,18 +389,18 @@ namespace Curator
         {
             romListView.Items.Clear();
 
-            var romFolders = sampleDataSet.romfolder.Where(x => x.console_id == ActiveConsole.console_Id);
+            var RomFolders = CuratorDataSet.RomFolder.Where(x => x.Console_Id == ActiveConsole.Id);
             
-            foreach (var romFolder in romFolders)
+            foreach (var RomFolder in RomFolders)
             {
-                foreach (var romItem in sampleDataSet.rom.ToList())
+                foreach (var romItem in CuratorDataSet.ROM.ToList())
                 {
-                    if (romItem.romfolder_id == romFolder.romfolder_id)
+                    if (romItem.RomFolder_Id == RomFolder.Id)
                     {
                         var romListViewItem = new ListViewItem
                         {
                             Text = RomNameConstructor(romItem),
-                            Checked = romItem.enabled
+                            Checked = romItem.Enabled
                         };
 
                         romListView.Items.Add(romListViewItem);

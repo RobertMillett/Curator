@@ -38,8 +38,10 @@
             this.metroButton4 = new MetroFramework.Controls.MetroButton();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.consoleBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.sampleDataSet = new Curator.SampleDataSet();
+            this.consoleBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.CuratorDataSet = new Curator.CuratorDataSet();
+            this.consoleBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.curatorDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.metroButton1 = new MetroFramework.Controls.MetroButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
@@ -58,10 +60,8 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.romListView = new MetroFramework.Controls.MetroListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.consoleTableAdapter = new Curator.SampleDataSetTableAdapters.consoleTableAdapter();
-            this.tableAdapterManager = new Curator.SampleDataSetTableAdapters.TableAdapterManager();
+            this.consoleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.emulatorPathFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.consoleBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
@@ -75,22 +75,18 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.romFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.romfolderBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.romfolderTableAdapter = new Curator.SampleDataSetTableAdapters.romfolderTableAdapter();
-            this.romBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.romTableAdapter = new Curator.SampleDataSetTableAdapters.romTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sampleDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CuratorDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.curatorDataSetBindingSource)).BeginInit();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.romfolderBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.romBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -170,24 +166,33 @@
             // comboBox1
             // 
             this.comboBox1.BackColor = System.Drawing.Color.Silver;
-            this.comboBox1.DataSource = this.consoleBindingSource;
-            this.comboBox1.DisplayMember = "name";
+            this.comboBox1.DataSource = this.consoleBindingSource2;
+            this.comboBox1.DisplayMember = "Name";
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(3, 29);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(168, 21);
             this.comboBox1.TabIndex = 17;
-            this.comboBox1.ValueMember = "console_Id";
             // 
-            // consoleBindingSource
+            // consoleBindingSource1
             // 
-            this.consoleBindingSource.DataMember = "console";
-            this.consoleBindingSource.DataSource = this.sampleDataSet;
+            this.consoleBindingSource1.DataMember = "Console";
+            this.consoleBindingSource1.DataSource = this.CuratorDataSet;
             // 
-            // sampleDataSet
+            // CuratorDataSet
             // 
-            this.sampleDataSet.DataSetName = "SampleDataSet";
-            this.sampleDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.CuratorDataSet.DataSetName = "CuratorDataSet";
+            this.CuratorDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // consoleBindingSource2
+            // 
+            this.consoleBindingSource2.DataMember = "Console";
+            this.consoleBindingSource2.DataSource = this.curatorDataSetBindingSource;
+            // 
+            // curatorDataSetBindingSource
+            // 
+            this.curatorDataSetBindingSource.DataSource = this.CuratorDataSet;
+            this.curatorDataSetBindingSource.Position = 0;
             // 
             // metroButton1
             // 
@@ -480,17 +485,9 @@
             this.columnHeader2.Text = "ROMs";
             this.columnHeader2.Width = 244;
             // 
-            // consoleTableAdapter
+            // consoleBindingSource
             // 
-            this.consoleTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.consoleTableAdapter = this.consoleTableAdapter;
-            this.tableAdapterManager.romfolderTableAdapter = null;
-            this.tableAdapterManager.romTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Curator.SampleDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.consoleBindingSource.DataMember = "console";
             // 
             // emulatorPathFileDialog
             // 
@@ -589,24 +586,6 @@
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // romfolderBindingSource
-            // 
-            this.romfolderBindingSource.DataMember = "romfolder";
-            this.romfolderBindingSource.DataSource = this.sampleDataSet;
-            // 
-            // romfolderTableAdapter
-            // 
-            this.romfolderTableAdapter.ClearBeforeFill = true;
-            // 
-            // romBindingSource
-            // 
-            this.romBindingSource.DataMember = "rom";
-            this.romBindingSource.DataSource = this.sampleDataSet;
-            // 
-            // romTableAdapter
-            // 
-            this.romTableAdapter.ClearBeforeFill = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -626,16 +605,16 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sampleDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CuratorDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.curatorDataSetBindingSource)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.romfolderBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.romBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -660,15 +639,11 @@
         private MetroFramework.Controls.MetroLabel metroLabel4;
         private MetroFramework.Controls.MetroButton metroButton3;
         private MetroFramework.Controls.MetroLabel metroLabel6;
-        private SampleDataSet sampleDataSet;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.BindingSource consoleBindingSource;
-        private SampleDataSetTableAdapters.consoleTableAdapter consoleTableAdapter;
-        private SampleDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private MetroFramework.Controls.MetroButton metroButton4;
         private MetroFramework.Controls.MetroTextBox systemDetailsName;
         private System.Windows.Forms.OpenFileDialog emulatorPathFileDialog;
-        private System.Windows.Forms.BindingSource consoleBindingSource1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
@@ -681,16 +656,16 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ListBox romFolderListBox;
         private System.Windows.Forms.FolderBrowserDialog romFolderDialog;
-        private System.Windows.Forms.BindingSource romfolderBindingSource;
-        private SampleDataSetTableAdapters.romfolderTableAdapter romfolderTableAdapter;
         private MetroFramework.Controls.MetroLabel metroLabel7;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private MetroFramework.Controls.MetroListView romListView;
         public System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.BindingSource romBindingSource;
-        private SampleDataSetTableAdapters.romTableAdapter romTableAdapter;
         private System.Windows.Forms.ToolStripMenuItem setShortcutsvdfFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToSteamToolStripMenuItem;
+        private CuratorDataSet CuratorDataSet;
+        private System.Windows.Forms.BindingSource consoleBindingSource1;
+        private System.Windows.Forms.BindingSource curatorDataSetBindingSource;
+        private System.Windows.Forms.BindingSource consoleBindingSource2;
     }
 }
 
