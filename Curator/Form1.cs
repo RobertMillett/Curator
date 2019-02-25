@@ -15,27 +15,27 @@ namespace Curator
     public partial class Form1 : MetroForm
     {
         public static string ShortcutsPath;
-        public static Console ActiveConsoleTest;
         public static SampleDataSet.consoleRow ActiveConsole;
         
         public Form1()
         {
             InitializeComponent();
-            ShortcutsPath = Properties.Settings.Default.ShortcutsPath ?? "";
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.ShortcutsPath))
+            {
+                ShortcutsPath = Properties.Settings.Default.ShortcutsPath;
+                this.Text = $"Curator - {ShortcutsPath}";
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'sampleDataSet.rom' table. You can move, or remove it, as needed.
-            this.romTableAdapter.Fill(this.sampleDataSet.rom);
-            // TODO: This line of code loads data into the 'sampleDataSet.rom' table. You can move, or remove it, as needed.
             this.romTableAdapter.Fill(this.sampleDataSet.rom);
             this.romfolderTableAdapter.Fill(this.sampleDataSet.romfolder);          
             this.consoleTableAdapter.Fill(this.sampleDataSet.console);
 
             //this.StyleManager = metroStyleManager1;
             //metroStyleManager1.Theme = MetroThemeStyle.Dark;
-            Shown += GetSteamShortcutsFile;
+            Shown += FirstTimeGetSteamShortcutsFile;
             FormClosing += OnFormClosing;
             Resize += OnFormResized;
             
@@ -69,7 +69,10 @@ namespace Curator
             comboBox1.SelectedIndexChanged -= ConsoleHasChanged;
 
             if (e.CloseReason != CloseReason.UserClosing)
-                return;            
+                return;
+
+            if (!sampleDataSet.HasChanges())
+                return;
 
             var saveChanges = MetroMessageBox.Show(this, "Save changes?", "", MessageBoxButtons.OKCancel);
 
@@ -79,8 +82,6 @@ namespace Curator
                 romfolderTableAdapter.Update(this.sampleDataSet.romfolder);
                 romTableAdapter.Update(this.sampleDataSet.rom);
             }
-
-            ExportToSteam();
         }
 
         private void ExportToSteam()
@@ -194,32 +195,41 @@ namespace Curator
             ActiveConsole = comboBox1.Text == string.Empty ? null : sampleDataSet.console.Where(x => x.name == comboBox1.Text).First();
         }
 
-        private void GetSteamShortcutsFile(object sender, EventArgs e)
+        private void FirstTimeGetSteamShortcutsFile(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(ShortcutsPath))
+            if (!string.IsNullOrWhiteSpace(ShortcutsPath))
+                return;
+
+            var welcomeBox = MetroMessageBox.Show(this, "Please open your Steam Shortcuts .vdf file", "Welcome to Curator", MessageBoxButtons.OKCancel);
+
+            if (welcomeBox == DialogResult.Cancel)
             {
-                var welcomeBox = MetroMessageBox.Show(this, "Please open your Steam Shortcuts .vdf file", "Welcome to Curator", MessageBoxButtons.OKCancel);
-
-                if (welcomeBox == DialogResult.Cancel)
-                {
-                    Application.Exit();
-                }
-
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    Properties.Settings.Default["ShortcutsPath"] = openFileDialog1.FileName;
-                    Properties.Settings.Default.Save();
-
-                    ShortcutsPath = openFileDialog1.FileName;
-                }
-                else
-                {
-                    GetSteamShortcutsFile(this, e);
-                }
+                Application.Exit();
             }
 
-            this.Text = $"Curator - {ShortcutsPath}";
-        }        
+            var shortcutIsSet = SetSteamShortcutFile();
+
+            if (!shortcutIsSet)
+                FirstTimeGetSteamShortcutsFile(this, e);
+            
+        }
+
+        private bool SetSteamShortcutFile()
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default["ShortcutsPath"] = openFileDialog1.FileName;
+                Properties.Settings.Default.Save();
+
+                ShortcutsPath = openFileDialog1.FileName;
+
+                this.Text = $"Curator - {ShortcutsPath}";
+                this.Refresh();
+                return true;
+            }
+
+            return false;
+        }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
@@ -382,6 +392,17 @@ namespace Curator
             }         
         }
 
+        private void SetShortcutsvdfFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetSteamShortcutFile();
+        }
 
+        private void exportToSteamToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MetroMessageBox.Show(this, "Override current Shortcuts file?", "Export to Steam", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                ExportToSteam();
+            }
+        }
     }
 }

@@ -65,6 +65,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.setShortcutsvdfFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToSteamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -107,12 +109,12 @@
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(20, 60);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(20, 80);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 547F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(761, 547);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 527F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(761, 527);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -127,7 +129,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 62F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(290, 541);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(290, 521);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // panel1
@@ -216,7 +218,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 65);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(284, 473);
+            this.panel2.Size = new System.Drawing.Size(284, 453);
             this.panel2.TabIndex = 1;
             // 
             // metroLabel7
@@ -237,7 +239,7 @@
             this.romFolderListBox.Location = new System.Drawing.Point(8, 300);
             this.romFolderListBox.Name = "romFolderListBox";
             this.romFolderListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.romFolderListBox.Size = new System.Drawing.Size(266, 160);
+            this.romFolderListBox.Size = new System.Drawing.Size(266, 134);
             this.romFolderListBox.TabIndex = 31;
             // 
             // systemDetailsName
@@ -450,7 +452,7 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(459, 541);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(459, 521);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // romListView
@@ -467,7 +469,7 @@
             this.romListView.Location = new System.Drawing.Point(3, 3);
             this.romListView.Name = "romListView";
             this.romListView.OwnerDraw = true;
-            this.romListView.Size = new System.Drawing.Size(247, 535);
+            this.romListView.Size = new System.Drawing.Size(247, 515);
             this.romListView.TabIndex = 0;
             this.romListView.UseCompatibleStateImageBehavior = false;
             this.romListView.UseSelectable = true;
@@ -494,17 +496,12 @@
             // 
             this.emulatorPathFileDialog.Filter = "\"Exe Files (.exe)|*.exe";
             // 
-            // consoleBindingSource1
-            // 
-            this.consoleBindingSource1.DataSource = typeof(Curator.Console);
-            // 
             // menuStrip1
             // 
-            this.menuStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(733, 33);
+            this.menuStrip1.Location = new System.Drawing.Point(26, 53);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(45, 24);
             this.menuStrip1.TabIndex = 1;
@@ -514,6 +511,8 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator,
+            this.setShortcutsvdfFileToolStripMenuItem,
+            this.exportToSteamToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
@@ -524,7 +523,21 @@
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(89, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(181, 6);
+            // 
+            // setShortcutsvdfFileToolStripMenuItem
+            // 
+            this.setShortcutsvdfFileToolStripMenuItem.Name = "setShortcutsvdfFileToolStripMenuItem";
+            this.setShortcutsvdfFileToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.setShortcutsvdfFileToolStripMenuItem.Text = "Set Shortcuts.vdf File";
+            this.setShortcutsvdfFileToolStripMenuItem.Click += new System.EventHandler(this.SetShortcutsvdfFileToolStripMenuItem_Click);
+            // 
+            // exportToSteamToolStripMenuItem
+            // 
+            this.exportToSteamToolStripMenuItem.Name = "exportToSteamToolStripMenuItem";
+            this.exportToSteamToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.exportToSteamToolStripMenuItem.Text = "Export to Steam";
+            this.exportToSteamToolStripMenuItem.Click += new System.EventHandler(this.exportToSteamToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -538,7 +551,7 @@
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.ShowShortcutKeys = false;
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             // 
             // saveAllToolStripMenuItem
@@ -567,12 +580,12 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(89, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(181, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -604,6 +617,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "Form1";
+            this.Padding = new System.Windows.Forms.Padding(20, 80, 20, 20);
             this.Text = "Curator";
             this.Theme = MetroFramework.MetroThemeStyle.Default;
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -675,6 +689,8 @@
         public System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.BindingSource romBindingSource;
         private SampleDataSetTableAdapters.romTableAdapter romTableAdapter;
+        private System.Windows.Forms.ToolStripMenuItem setShortcutsvdfFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportToSteamToolStripMenuItem;
     }
 }
 
