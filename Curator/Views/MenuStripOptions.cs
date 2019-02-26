@@ -18,14 +18,15 @@ namespace Curator
 
         private void SetShortcutsvdfFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetSteamShortcutFile();
+            if (steamShortcutsFileDialog.ShowDialog() == DialogResult.OK)
+                _steamController.SetSteamShortcutFile(steamShortcutsFileDialog.FileName);
         }
 
         private void exportToSteamToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MetroMessageBox.Show(this, "Override current Shortcuts file?", "Export to Steam", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                ExportToSteam();
+                _steamController.ExportToSteam();
             }
         }
         #endregion

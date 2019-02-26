@@ -103,6 +103,7 @@
       <DependentUpon>CuratorDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Data\Controllers\ConsoleController.cs" />
+    <Compile Include="Data\Controllers\Steam.cs" />
     <Compile Include="Form1.cs" />
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>

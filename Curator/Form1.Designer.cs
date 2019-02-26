@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.steamShortcutsFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.metroStyleManager1 = new MetroFramework.Components.MetroStyleManager(this.components);
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -59,8 +59,6 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.romListView = new MetroFramework.Controls.MetroListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.consoleBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.consoleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.emulatorPathFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,14 +82,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.CuratorDataSet)).BeginInit();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // openFileDialog1
+            // steamShortcutsFileDialog
             // 
-            this.openFileDialog1.Filter = "\"Steam Shortcuts File (shortcuts.vdf)| shortcuts.vdf";
+            this.steamShortcutsFileDialog.Filter = "\"Steam Shortcuts File (shortcuts.vdf)| shortcuts.vdf";
             // 
             // metroStyleManager1
             // 
@@ -481,15 +477,6 @@
             this.columnHeader2.Text = "ROMs";
             this.columnHeader2.Width = 244;
             // 
-            // consoleBindingSource1
-            // 
-            this.consoleBindingSource1.DataMember = "Console";
-            this.consoleBindingSource1.DataSource = this.CuratorDataSet;
-            // 
-            // consoleBindingSource
-            // 
-            this.consoleBindingSource.DataMember = "console";
-            // 
             // emulatorPathFileDialog
             // 
             this.emulatorPathFileDialog.Filter = "\"Exe Files (.exe)|*.exe";
@@ -612,8 +599,6 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -622,7 +607,7 @@
         }
 
         #endregion
-        private global::System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private global::System.Windows.Forms.OpenFileDialog steamShortcutsFileDialog;
         private MetroFramework.Components.MetroStyleManager metroStyleManager1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
@@ -641,7 +626,6 @@
         private MetroFramework.Controls.MetroButton AddRomFolder_Button;
         private MetroFramework.Controls.MetroLabel metroLabel6;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.BindingSource consoleBindingSource;
         private MetroFramework.Controls.MetroButton DeleteConsole_Button;
         private MetroFramework.Controls.MetroTextBox systemDetailsName;
         private System.Windows.Forms.OpenFileDialog emulatorPathFileDialog;
@@ -664,7 +648,6 @@
         private System.Windows.Forms.ToolStripMenuItem setShortcutsvdfFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToSteamToolStripMenuItem;
         private Data.CuratorDataSet CuratorDataSet;
-        private System.Windows.Forms.BindingSource consoleBindingSource1;
         private System.Windows.Forms.BindingSource curatorDataSetBindingSource;
         private System.Windows.Forms.BindingSource consoleBindingSource2;
     }

@@ -15,6 +15,11 @@ namespace Curator
         }
         #endregion
 
+        private string RomNameConstructor(CuratorDataSet.ROMRow romItem)
+        {
+            return $"{romItem.Name} ({romItem.Extension.Trim('.').ToUpper()})";
+        }
+
         private void GetRoms()
         {
             if (ActiveConsole == null)
