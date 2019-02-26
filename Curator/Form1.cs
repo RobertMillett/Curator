@@ -23,6 +23,8 @@ namespace Curator
         public static bool PromptSave;
         private SteamController _steamController;
         private ConsoleController _consoleController;
+        private RomController _romController;
+        public static RomFolderController _romFolderController;
 
         public Form1()
         {
@@ -38,6 +40,8 @@ namespace Curator
 
             _steamController = new SteamController(CuratorDataSet);
             _consoleController = new ConsoleController(CuratorDataSet.Console);
+            _romController = new RomController(CuratorDataSet.ROM);
+            _romFolderController = new RomFolderController(CuratorDataSet.RomFolder);
         }
 
         private void Form1_Load(object sender, EventArgs e)

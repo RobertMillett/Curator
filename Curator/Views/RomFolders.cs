@@ -12,9 +12,18 @@ namespace Curator
         {
             if (romFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                CuratorDataSet.RomFolder.Rows.Add(null, romFolderDialog.SelectedPath, ActiveConsole.Id);
+                _romFolderController.Add(romFolderDialog.SelectedPath);
                 UpdateConsoleDetailsWithRomFolders();
             }
+        }
+
+        private void romFolderListBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+                _romFolderController.Remove(romFolderListBox.SelectedItem.ToString());
+
+            UpdateConsoleDetailsWithRomFolders();
+
         }
         #endregion
 
@@ -29,7 +38,9 @@ namespace Curator
                     romFolderListBox.Items.Add(RomFolderPath);
             }
 
-            GetRoms();
+            _romController.GetRoms();
+
+            UpdateRomListViewItems();
         }
     }
 }

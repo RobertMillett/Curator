@@ -237,6 +237,7 @@
             this.romFolderListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.romFolderListBox.Size = new System.Drawing.Size(266, 134);
             this.romFolderListBox.TabIndex = 31;
+            this.romFolderListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.romFolderListBox_KeyDown);
             // 
             // systemDetailsName
             // 

@@ -94,6 +94,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Controllers\RomController.cs" />
+    <Compile Include="Data\Controllers\RomFolderController.cs" />
     <Compile Include="Data\CuratorDataSet.cs">
       <DependentUpon>CuratorDataSet.xsd</DependentUpon>
     </Compile>
