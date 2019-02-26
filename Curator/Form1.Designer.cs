@@ -35,31 +35,31 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.metroButton4 = new MetroFramework.Controls.MetroButton();
+            this.DeleteConsole_Button = new MetroFramework.Controls.MetroButton();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.consoleBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.CuratorDataSet = new Curator.CuratorDataSet();
             this.consoleBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.curatorDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
+            this.CuratorDataSet = new Curator.Data.CuratorDataSet();
+            this.AddConsole_Button = new MetroFramework.Controls.MetroButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
             this.romFolderListBox = new System.Windows.Forms.ListBox();
             this.systemDetailsName = new MetroFramework.Controls.MetroTextBox();
-            this.metroButton3 = new MetroFramework.Controls.MetroButton();
+            this.AddRomFolder_Button = new MetroFramework.Controls.MetroButton();
             this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
             this.romArgsTextBox = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
             this.emulatorArgsTextBox = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
-            this.metroButton2 = new MetroFramework.Controls.MetroButton();
+            this.AddEmulatorPath_Button = new MetroFramework.Controls.MetroButton();
             this.emulatorPathTextBox = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.romListView = new MetroFramework.Controls.MetroListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.consoleBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.consoleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.emulatorPathFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -79,12 +79,12 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CuratorDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.curatorDataSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CuratorDataSet)).BeginInit();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -131,10 +131,10 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.metroButton4);
+            this.panel1.Controls.Add(this.DeleteConsole_Button);
             this.panel1.Controls.Add(this.metroLabel1);
             this.panel1.Controls.Add(this.comboBox1);
-            this.panel1.Controls.Add(this.metroButton1);
+            this.panel1.Controls.Add(this.AddConsole_Button);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.MaximumSize = new System.Drawing.Size(10000, 57);
@@ -143,15 +143,15 @@
             this.panel1.Size = new System.Drawing.Size(284, 57);
             this.panel1.TabIndex = 0;
             // 
-            // metroButton4
+            // DeleteConsole_Button
             // 
-            this.metroButton4.Location = new System.Drawing.Point(212, 29);
-            this.metroButton4.Name = "metroButton4";
-            this.metroButton4.Size = new System.Drawing.Size(26, 21);
-            this.metroButton4.TabIndex = 19;
-            this.metroButton4.Text = "-";
-            this.metroButton4.UseSelectable = true;
-            this.metroButton4.Click += new System.EventHandler(this.metroButton4_Click);
+            this.DeleteConsole_Button.Location = new System.Drawing.Point(212, 29);
+            this.DeleteConsole_Button.Name = "DeleteConsole_Button";
+            this.DeleteConsole_Button.Size = new System.Drawing.Size(26, 21);
+            this.DeleteConsole_Button.TabIndex = 19;
+            this.DeleteConsole_Button.Text = "-";
+            this.DeleteConsole_Button.UseSelectable = true;
+            this.DeleteConsole_Button.Click += new System.EventHandler(this.DeleteConsole_Button_Click);
             // 
             // metroLabel1
             // 
@@ -174,16 +174,6 @@
             this.comboBox1.Size = new System.Drawing.Size(168, 21);
             this.comboBox1.TabIndex = 17;
             // 
-            // consoleBindingSource1
-            // 
-            this.consoleBindingSource1.DataMember = "Console";
-            this.consoleBindingSource1.DataSource = this.CuratorDataSet;
-            // 
-            // CuratorDataSet
-            // 
-            this.CuratorDataSet.DataSetName = "CuratorDataSet";
-            this.CuratorDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // consoleBindingSource2
             // 
             this.consoleBindingSource2.DataMember = "Console";
@@ -194,15 +184,20 @@
             this.curatorDataSetBindingSource.DataSource = this.CuratorDataSet;
             this.curatorDataSetBindingSource.Position = 0;
             // 
-            // metroButton1
+            // CuratorDataSet
             // 
-            this.metroButton1.Location = new System.Drawing.Point(177, 29);
-            this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(26, 21);
-            this.metroButton1.TabIndex = 15;
-            this.metroButton1.Text = "+";
-            this.metroButton1.UseSelectable = true;
-            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click_1);
+            this.CuratorDataSet.DataSetName = "CuratorDataSet";
+            this.CuratorDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // AddConsole_Button
+            // 
+            this.AddConsole_Button.Location = new System.Drawing.Point(177, 29);
+            this.AddConsole_Button.Name = "AddConsole_Button";
+            this.AddConsole_Button.Size = new System.Drawing.Size(26, 21);
+            this.AddConsole_Button.TabIndex = 15;
+            this.AddConsole_Button.Text = "+";
+            this.AddConsole_Button.UseSelectable = true;
+            this.AddConsole_Button.Click += new System.EventHandler(this.AddConsole_Button_Click);
             // 
             // panel2
             // 
@@ -210,13 +205,13 @@
             this.panel2.Controls.Add(this.metroLabel7);
             this.panel2.Controls.Add(this.romFolderListBox);
             this.panel2.Controls.Add(this.systemDetailsName);
-            this.panel2.Controls.Add(this.metroButton3);
+            this.panel2.Controls.Add(this.AddRomFolder_Button);
             this.panel2.Controls.Add(this.metroLabel6);
             this.panel2.Controls.Add(this.romArgsTextBox);
             this.panel2.Controls.Add(this.metroLabel5);
             this.panel2.Controls.Add(this.emulatorArgsTextBox);
             this.panel2.Controls.Add(this.metroLabel4);
-            this.panel2.Controls.Add(this.metroButton2);
+            this.panel2.Controls.Add(this.AddEmulatorPath_Button);
             this.panel2.Controls.Add(this.emulatorPathTextBox);
             this.panel2.Controls.Add(this.metroLabel3);
             this.panel2.Controls.Add(this.metroLabel2);
@@ -276,17 +271,18 @@
             this.systemDetailsName.UseSelectable = true;
             this.systemDetailsName.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.systemDetailsName.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.systemDetailsName.Leave += new System.EventHandler(this.systemDetailsName_Leave);
             // 
-            // metroButton3
+            // AddRomFolder_Button
             // 
-            this.metroButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.metroButton3.Location = new System.Drawing.Point(240, 272);
-            this.metroButton3.Name = "metroButton3";
-            this.metroButton3.Size = new System.Drawing.Size(34, 24);
-            this.metroButton3.TabIndex = 29;
-            this.metroButton3.Text = "+";
-            this.metroButton3.UseSelectable = true;
-            this.metroButton3.Click += new System.EventHandler(this.metroButton3_Click);
+            this.AddRomFolder_Button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddRomFolder_Button.Location = new System.Drawing.Point(240, 272);
+            this.AddRomFolder_Button.Name = "AddRomFolder_Button";
+            this.AddRomFolder_Button.Size = new System.Drawing.Size(34, 24);
+            this.AddRomFolder_Button.TabIndex = 29;
+            this.AddRomFolder_Button.Text = "+";
+            this.AddRomFolder_Button.UseSelectable = true;
+            this.AddRomFolder_Button.Click += new System.EventHandler(this.AddRomFolder_Button_Click);
             // 
             // metroLabel6
             // 
@@ -381,16 +377,16 @@
             this.metroLabel4.TabIndex = 23;
             this.metroLabel4.Text = "Emulator Args";
             // 
-            // metroButton2
+            // AddEmulatorPath_Button
             // 
-            this.metroButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.metroButton2.Location = new System.Drawing.Point(240, 111);
-            this.metroButton2.Name = "metroButton2";
-            this.metroButton2.Size = new System.Drawing.Size(34, 24);
-            this.metroButton2.TabIndex = 22;
-            this.metroButton2.Text = "+";
-            this.metroButton2.UseSelectable = true;
-            this.metroButton2.Click += new System.EventHandler(this.metroButton2_Click);
+            this.AddEmulatorPath_Button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddEmulatorPath_Button.Location = new System.Drawing.Point(240, 111);
+            this.AddEmulatorPath_Button.Name = "AddEmulatorPath_Button";
+            this.AddEmulatorPath_Button.Size = new System.Drawing.Size(34, 24);
+            this.AddEmulatorPath_Button.TabIndex = 22;
+            this.AddEmulatorPath_Button.Text = "+";
+            this.AddEmulatorPath_Button.UseSelectable = true;
+            this.AddEmulatorPath_Button.Click += new System.EventHandler(this.AddEmulatorPath_Button_Click);
             // 
             // emulatorPathTextBox
             // 
@@ -484,6 +480,11 @@
             // 
             this.columnHeader2.Text = "ROMs";
             this.columnHeader2.Width = 244;
+            // 
+            // consoleBindingSource1
+            // 
+            this.consoleBindingSource1.DataMember = "Console";
+            this.consoleBindingSource1.DataSource = this.CuratorDataSet;
             // 
             // consoleBindingSource
             // 
@@ -605,13 +606,13 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CuratorDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.curatorDataSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CuratorDataSet)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.consoleBindingSource)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -629,19 +630,19 @@
         private System.Windows.Forms.Panel panel2;
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroLabel metroLabel1;
-        private MetroFramework.Controls.MetroButton metroButton1;
+        private MetroFramework.Controls.MetroButton AddConsole_Button;
         private MetroFramework.Controls.MetroTextBox emulatorPathTextBox;
         private MetroFramework.Controls.MetroLabel metroLabel3;
-        private MetroFramework.Controls.MetroButton metroButton2;
+        private MetroFramework.Controls.MetroButton AddEmulatorPath_Button;
         private MetroFramework.Controls.MetroTextBox romArgsTextBox;
         private MetroFramework.Controls.MetroLabel metroLabel5;
         private MetroFramework.Controls.MetroTextBox emulatorArgsTextBox;
         private MetroFramework.Controls.MetroLabel metroLabel4;
-        private MetroFramework.Controls.MetroButton metroButton3;
+        private MetroFramework.Controls.MetroButton AddRomFolder_Button;
         private MetroFramework.Controls.MetroLabel metroLabel6;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.BindingSource consoleBindingSource;
-        private MetroFramework.Controls.MetroButton metroButton4;
+        private MetroFramework.Controls.MetroButton DeleteConsole_Button;
         private MetroFramework.Controls.MetroTextBox systemDetailsName;
         private System.Windows.Forms.OpenFileDialog emulatorPathFileDialog;
         private System.Windows.Forms.MenuStrip menuStrip1;
@@ -662,7 +663,7 @@
         public System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ToolStripMenuItem setShortcutsvdfFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToSteamToolStripMenuItem;
-        private CuratorDataSet CuratorDataSet;
+        private Data.CuratorDataSet CuratorDataSet;
         private System.Windows.Forms.BindingSource consoleBindingSource1;
         private System.Windows.Forms.BindingSource curatorDataSetBindingSource;
         private System.Windows.Forms.BindingSource consoleBindingSource2;

@@ -8,6 +8,8 @@ using MetroFramework;
 using VDFParser.Models;
 using System.IO;
 using System.Text;
+using Curator.Data;
+using Curator.Data.Controllers;
 using System.Reflection;
 using Crc32;
 using System.ComponentModel;
@@ -20,6 +22,7 @@ namespace Curator
         public static string DataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Curator", "XmlDoc.xml");
         public static CuratorDataSet.ConsoleRow ActiveConsole;
         public static bool PromptSave;
+        private ConsoleController _consoleController;
 
         public Form1()
         {
@@ -37,6 +40,9 @@ namespace Curator
             }
 
             CuratorDataSet.ReadXml(DataPath);
+
+            _consoleController = new ConsoleController(CuratorDataSet.Console);
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -64,12 +70,6 @@ namespace Curator
         {
             PromptSave = true;            
             this.consoleBindingSource2.ResetBindings(false);
-        }
-
-        private void RomEnabled(object sender, ItemCheckEventArgs e)
-        {            
-            var rom = CuratorDataSet.ROM.Where(x => RomNameConstructor(x) == romListView.Items[e.Index].Text).First();
-            rom.Enabled = e.NewValue == CheckState.Checked;
         }
 
         private string RomNameConstructor(CuratorDataSet.ROMRow romItem)
@@ -187,31 +187,6 @@ namespace Curator
             File.WriteAllBytes(ShortcutsPath, serialisedShortcuts);
         }
 
-        private void ConsoleHasChanged(object sender, EventArgs e)
-        {   
-            SetActiveConsole(sender, e);
-            UpdateConsoleDetailsView(sender, e);
-            //GetRoms();
-        }
-
-        private void UpdateConsoleDetailsView(object sender, EventArgs e)
-        {
-            if (ActiveConsole != null)
-            {
-                systemDetailsName.Text = ActiveConsole.Name;
-                emulatorPathTextBox.Text = ActiveConsole.EmulatorPath;
-                emulatorArgsTextBox.Text = ActiveConsole.EmulatorArgs;
-                romArgsTextBox.Text = ActiveConsole.RomArgs;
-
-                UpdateConsoleDetailsWithRomFolders();
-            }
-        }
-
-        private void SetActiveConsole(object sender, EventArgs e)
-        {
-            ActiveConsole = comboBox1.Text == string.Empty ? null : CuratorDataSet.Console.Where(x => x.Name == comboBox1.Text).First();
-        }
-
         private void FirstTimeGetSteamShortcutsFile(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(ShortcutsPath))
@@ -267,159 +242,11 @@ namespace Curator
         {
             this.Validate();
             this.consoleBindingSource.EndEdit();
-        }
-
-        private void metroButton1_Click_1(object sender, EventArgs e)
-        {
-            if (!CuratorDataSet.Tables["console"].Select().Where(x => x["name"].ToString() == comboBox1.Text).Any())
-            {
-                CuratorDataSet.Console.Rows.Add(null, comboBox1.Text);                
-            }
-
-            if (!CuratorDataSet.Console.Where(x => x.Name == comboBox1.Text).Any())
-            {
-                CuratorDataSet.Console.Rows.Add(null, comboBox1.Text);
-            }
-
-            //This will always set to the most recently added item as it is added to the bottom of the list.
-            comboBox1.SelectedIndex = comboBox1.Items.Count -1;
-        }
-
-        private void metroButton4_Click(object sender, EventArgs e)
-        {   
-            if (MetroMessageBox.Show(this, "This will delete the console and all of it's associated data!", "Are you sure?", MessageBoxButtons.OKCancel) == DialogResult.OK)
-            {
-                var RomFolderRows = CuratorDataSet.RomFolder.Where(x => x.Console_Id == ActiveConsole.Id);
-                foreach (var row in RomFolderRows)
-                {
-                    CuratorDataSet.RomFolder.Rows.Remove(row);
-                }                
-
-                CuratorDataSet.Console.Rows.Remove(ActiveConsole);
-            }
-        }
-
-        private void metroButton2_Click(object sender, EventArgs e)
-        {
-            if (emulatorPathFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                ActiveConsole.EmulatorPath = emulatorPathFileDialog.FileName;
-
-                //CuratorDataSet.Console.Where(x => x.Name == ActiveConsole.Name).First().EmulatorPath = emulatorPathFileDialog.FileName;
-                this.Refresh();
-
-                emulatorPathTextBox.Text = emulatorPathFileDialog.FileName;
-            }
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void emulatorArgsTextBox_Leave(object sender, EventArgs e)
-        {
-            ActiveConsole.EmulatorArgs = emulatorArgsTextBox.Text;
-        }
-
-        private void romArgsTextBox_Leave(object sender, EventArgs e)
-        {
-            ActiveConsole.RomArgs = romArgsTextBox.Text;
-        }
-
-        private void metroButton3_Click(object sender, EventArgs e)
-        {
-            if (romFolderDialog.ShowDialog() == DialogResult.OK)
-            {
-                CuratorDataSet.RomFolder.Rows.Add(null, romFolderDialog.SelectedPath, ActiveConsole.Id);
-                UpdateConsoleDetailsWithRomFolders();
-            }
-        }
-
-        private void UpdateConsoleDetailsWithRomFolders()
-        {
-            romFolderListBox.Items.Clear();
-
-            foreach (var RomFolder in CuratorDataSet.RomFolder.Where(x => x.Console_Id == ActiveConsole.Id))
-            {
-                var RomFolderPath = RomFolder.Path;
-                if (!romFolderListBox.Items.Contains(RomFolderPath))
-                    romFolderListBox.Items.Add(RomFolderPath);
-            }
-
-            GetRoms();
-        }
+        }             
 
         private void metroListView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-        }
-
-        private void GetRoms()
-        {
-            if (ActiveConsole == null)
-                return;
-
-            var RomFolders = CuratorDataSet.RomFolder.Where(x => x.Console_Id == ActiveConsole.Id);
-
-            foreach (var RomFolder in RomFolders)
-            {
-                var romList = Directory.GetFiles(RomFolder.Path);
-
-                foreach (var rom in romList)
-                {
-                    var romName = Path.GetFileNameWithoutExtension(rom);
-                    if (!CuratorDataSet.ROM.Where(x => x.Name == romName).Any())
-                    {
-                        var romRow = CuratorDataSet.ROM.NewROMRow();
-                        romRow.Name = romName;
-                        romRow.Extension = Path.GetExtension(rom);
-                        romRow.RomFolder_Id = RomFolder.Id;
-                        romRow.Enabled = true;
-
-                        CuratorDataSet.ROM.Rows.Add(romRow);
-                    }                    
-                }
-            }
-
-            UpdateRomListViewItems();
-        }
-
-        private void UpdateRomListViewItems()
-        {
-            romListView.Items.Clear();
-
-            var RomFolders = CuratorDataSet.RomFolder.Where(x => x.Console_Id == ActiveConsole.Id);
-            
-            foreach (var RomFolder in RomFolders)
-            {
-                foreach (var romItem in CuratorDataSet.ROM.ToList())
-                {
-                    if (romItem.RomFolder_Id == RomFolder.Id)
-                    {
-                        var romListViewItem = new ListViewItem
-                        {
-                            Text = RomNameConstructor(romItem),
-                            Checked = romItem.Enabled
-                        };
-
-                        romListView.Items.Add(romListViewItem);
-                    }
-                }
-            }         
-        }
-
-        private void SetShortcutsvdfFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetSteamShortcutFile();
-        }
-
-        private void exportToSteamToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (MetroMessageBox.Show(this, "Override current Shortcuts file?", "Export to Steam", MessageBoxButtons.OKCancel) == DialogResult.OK)
-            {
-                ExportToSteam();
-            }
         }
     }
 }

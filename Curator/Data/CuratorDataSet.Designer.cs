@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace Curator {
+namespace Curator.Data {
     
     
     /// <summary>

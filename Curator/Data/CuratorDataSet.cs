@@ -1,4 +1,4 @@
-﻿namespace Curator
+﻿namespace Curator.Data
 {
 
 

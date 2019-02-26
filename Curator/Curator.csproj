@@ -94,24 +94,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CuratorDataSet.cs">
+    <Compile Include="Data\CuratorDataSet.cs">
       <DependentUpon>CuratorDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="CuratorDataSet.Designer.cs">
+    <Compile Include="Data\CuratorDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CuratorDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Data\Console.cs" />
-    <Compile Include="Data\ROM.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Data\Controllers\ConsoleController.cs" />
+    <Compile Include="Form1.cs" />
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\MenuStripOptions.cs" />
+    <Compile Include="Views\RomFolders.cs" />
+    <Compile Include="Views\RomList.cs" />
+    <Compile Include="Views\SystemDetails.cs" />
+    <Compile Include="Views\SystemSelector.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -124,15 +126,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="CuratorDataSet.xsc">
+    <None Include="Data\CuratorDataSet.xsc">
       <DependentUpon>CuratorDataSet.xsd</DependentUpon>
     </None>
-    <None Include="CuratorDataSet.xsd">
+    <None Include="Data\CuratorDataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>CuratorDataSet.Designer.cs</LastGenOutput>
     </None>
-    <None Include="CuratorDataSet.xss">
+    <None Include="Data\CuratorDataSet.xss">
       <DependentUpon>CuratorDataSet.xsd</DependentUpon>
     </None>
     <None Include="packages.config">
