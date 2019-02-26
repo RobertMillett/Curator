@@ -694,6 +694,10 @@ namespace Curator.Data {
             
             private global::System.Data.DataColumn columnExtension;
             
+            private global::System.Data.DataColumn columnCustomArgs;
+            
+            private global::System.Data.DataColumn columnOverrideArgs;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public ROMDataTable() {
@@ -769,6 +773,22 @@ namespace Curator.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn CustomArgsColumn {
+                get {
+                    return this.columnCustomArgs;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn OverrideArgsColumn {
+                get {
+                    return this.columnOverrideArgs;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -804,14 +824,16 @@ namespace Curator.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public ROMRow AddROMRow(string Name, bool Enabled, int RomFolder_Id, string Extension) {
+            public ROMRow AddROMRow(string Name, bool Enabled, int RomFolder_Id, string Extension, string CustomArgs, bool OverrideArgs) {
                 ROMRow rowROMRow = ((ROMRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Name,
                         Enabled,
                         RomFolder_Id,
-                        Extension};
+                        Extension,
+                        CustomArgs,
+                        OverrideArgs};
                 rowROMRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowROMRow);
                 return rowROMRow;
@@ -846,6 +868,8 @@ namespace Curator.Data {
                 this.columnEnabled = base.Columns["Enabled"];
                 this.columnRomFolder_Id = base.Columns["RomFolder_Id"];
                 this.columnExtension = base.Columns["Extension"];
+                this.columnCustomArgs = base.Columns["CustomArgs"];
+                this.columnOverrideArgs = base.Columns["OverrideArgs"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -861,6 +885,10 @@ namespace Curator.Data {
                 base.Columns.Add(this.columnRomFolder_Id);
                 this.columnExtension = new global::System.Data.DataColumn("Extension", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnExtension);
+                this.columnCustomArgs = new global::System.Data.DataColumn("CustomArgs", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCustomArgs);
+                this.columnOverrideArgs = new global::System.Data.DataColumn("OverrideArgs", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOverrideArgs);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -871,6 +899,9 @@ namespace Curator.Data {
                 this.columnEnabled.DefaultValue = ((bool)(true));
                 this.columnRomFolder_Id.AllowDBNull = false;
                 this.columnExtension.AllowDBNull = false;
+                this.columnExtension.DefaultValue = ((string)(""));
+                this.columnCustomArgs.DefaultValue = ((string)(""));
+                this.columnOverrideArgs.DefaultValue = ((bool)(false));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1484,6 +1515,38 @@ namespace Curator.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string CustomArgs {
+                get {
+                    try {
+                        return ((string)(this[this.tableROM.CustomArgsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CustomArgs\' in table \'ROM\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableROM.CustomArgsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool OverrideArgs {
+                get {
+                    try {
+                        return ((bool)(this[this.tableROM.OverrideArgsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'OverrideArgs\' in table \'ROM\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableROM.OverrideArgsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsEnabledNull() {
                 return this.IsNull(this.tableROM.EnabledColumn);
             }
@@ -1492,6 +1555,30 @@ namespace Curator.Data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetEnabledNull() {
                 this[this.tableROM.EnabledColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsCustomArgsNull() {
+                return this.IsNull(this.tableROM.CustomArgsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetCustomArgsNull() {
+                this[this.tableROM.CustomArgsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsOverrideArgsNull() {
+                return this.IsNull(this.tableROM.OverrideArgsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetOverrideArgsNull() {
+                this[this.tableROM.OverrideArgsColumn] = global::System.Convert.DBNull;
             }
         }
         

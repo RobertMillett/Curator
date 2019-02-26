@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Curator.Data.Controllers
 {
@@ -13,6 +14,11 @@ namespace Curator.Data.Controllers
         public RomFolderController(CuratorDataSet.RomFolderDataTable romFolderData)
         {
             RomFolderData = romFolderData;
+        }
+
+        public CuratorDataSet.RomFolderRow GetRomFolderById(int romFolder_Id)
+        {
+            return RomFolderData.Where(x => x.Id == romFolder_Id).First();
         }
 
         internal void Add(string path)

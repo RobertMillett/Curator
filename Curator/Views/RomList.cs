@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using System.IO;
-using System.Windows.Forms;
-using Curator.Data;
+﻿using System.Windows.Forms;
+using System;
 
 namespace Curator
 {
@@ -10,8 +8,16 @@ namespace Curator
         #region Event Handlers
         private void RomEnabled(object sender, ItemCheckEventArgs e)
         {
-            var rom = CuratorDataSet.ROM.Where(x => _romController.RomNameConstructor(x) == romListView.Items[e.Index].Text).First();
-            rom.Enabled = e.NewValue == CheckState.Checked;
+            _romController.SetRomEnabledState(romListView.Items[e.Index].Text, e.NewValue == CheckState.Checked);
+        }
+
+        private void romListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (romListView.FocusedItem == null)
+                return;
+
+            var rom = _romController.GetRom(romListView.FocusedItem.Text);
+            UpdateSelectedRomDetails(rom);
         }
         #endregion
 
@@ -19,22 +25,19 @@ namespace Curator
         {
             romListView.Items.Clear();
 
-            var RomFolders = CuratorDataSet.RomFolder.Where(x => x.Console_Id == ActiveConsole.Id);
+            var RomFolders = _romFolderController.GetRomFoldersForActiveConsole();
 
             foreach (var RomFolder in RomFolders)
             {
-                foreach (var romItem in CuratorDataSet.ROM.ToList())
+                foreach (var romItem in _romController.GetRomsByRomFolderId(RomFolder.Id))
                 {
-                    if (romItem.RomFolder_Id == RomFolder.Id)
+                    var romListViewItem = new ListViewItem
                     {
-                        var romListViewItem = new ListViewItem
-                        {
-                            Text = _romController.RomNameConstructor(romItem),
-                            Checked = romItem.Enabled
-                        };
+                        Text = _romController.RomNameConstructor(romItem),
+                        Checked = romItem.Enabled
+                    };
 
-                        romListView.Items.Add(romListViewItem);
-                    }
+                    romListView.Items.Add(romListViewItem);
                 }
             }
         }

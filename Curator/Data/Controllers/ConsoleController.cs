@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace Curator.Data.Controllers
 {
@@ -15,6 +11,11 @@ namespace Curator.Data.Controllers
             Consoles = consoles;
         }
 
+        public void SetActiveConsole(string name)
+        {
+            Form1.ActiveConsole = name == string.Empty ? null : Consoles.Where(x => x.Name == name).First();
+        }
+
         public void UpdateName(string consoleName)
         {
             Form1.ActiveConsole.Name = consoleName;
@@ -25,12 +26,19 @@ namespace Curator.Data.Controllers
             Form1.ActiveConsole.EmulatorPath = fileName;
         }
 
-        public void AddConsole(string consoleName)
+        public bool Add(string consoleName)
         {
             if (!Consoles.Where(x => x.Name == consoleName).Any())
             {
                 Consoles.Rows.Add(null, consoleName);
+                return true;
             }
+            return false;
+        }
+
+        public void Remove(string name)
+        {
+            Consoles.Rows.Remove(Consoles.Where(x => x.Name == name).First());
         }
 
         public void SetEmulatorArgs(string emuArgs)

@@ -21,11 +21,20 @@ namespace Curator.Data.Controllers
             return $"{romItem.Name} ({romItem.Extension.Trim('.').ToUpper()})";
         }
 
+        public CuratorDataSet.ROMRow GetRom(string romName)
+        {
+            return RomData.Where(x => RomNameConstructor(x) == romName).First();
+        }
+
+        public void SetRomEnabledState(string romName, bool enabled)
+        {
+            GetRom(romName).Enabled = enabled;
+        }
+
         public void GetRoms()
         {
             if (Form1.ActiveConsole == null)
                 return;
-
 
             var RomFolders = Form1._romFolderController.GetRomFoldersForActiveConsole();
 
@@ -48,6 +57,11 @@ namespace Curator.Data.Controllers
                     }
                 }
             }
+        }
+
+        public IEnumerable<CuratorDataSet.ROMRow> GetRomsByRomFolderId(int romFolderId)
+        {
+            return RomData.Where(x => x.RomFolder_Id == romFolderId);
         }
     }
 }

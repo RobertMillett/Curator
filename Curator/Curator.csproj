@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="Data\Controllers\RomController.cs" />
     <Compile Include="Data\Controllers\RomFolderController.cs" />
+    <Compile Include="Data\Controllers\SaveLoadController.cs" />
     <Compile Include="Data\CuratorDataSet.cs">
       <DependentUpon>CuratorDataSet.xsd</DependentUpon>
     </Compile>
@@ -105,7 +106,7 @@
       <DependentUpon>CuratorDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Data\Controllers\ConsoleController.cs" />
-    <Compile Include="Data\Controllers\Steam.cs" />
+    <Compile Include="Data\Controllers\SteamController.cs" />
     <Compile Include="Form1.cs" />
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -113,6 +114,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\MenuStripOptions.cs" />
+    <Compile Include="Views\RomDetails.cs" />
     <Compile Include="Views\RomFolders.cs" />
     <Compile Include="Views\RomList.cs" />
     <Compile Include="Views\SystemDetails.cs" />

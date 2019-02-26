@@ -38,9 +38,8 @@ namespace Curator
 
         private void ConsoleHasChanged(object sender, EventArgs e)
         {
-            SetActiveConsole(sender, e);
+            _consoleController.SetActiveConsole(comboBox1.Text);
             UpdateConsoleDetailsView(sender, e);
-            //GetRoms();
         }
 
         private void UpdateConsoleDetailsView(object sender, EventArgs e)
@@ -54,11 +53,6 @@ namespace Curator
 
                 UpdateConsoleDetailsWithRomFolders();
             }
-        }
-
-        private void SetActiveConsole(object sender, EventArgs e)
-        {
-            ActiveConsole = comboBox1.Text == string.Empty ? null : CuratorDataSet.Console.Where(x => x.Name == comboBox1.Text).First();
         }
     }
 }

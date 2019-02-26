@@ -17,31 +17,30 @@ using System.ComponentModel;
 namespace Curator
 {
     public partial class Form1 : MetroForm
-    {        
-        public static string DataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Curator", "XmlDoc.xml");
+    {   
         public static CuratorDataSet.ConsoleRow ActiveConsole;
-        public static bool PromptSave;
         private SteamController _steamController;
         private ConsoleController _consoleController;
         private RomController _romController;
         public static RomFolderController _romFolderController;
+        private SaveLoadController _saveLoadController;
 
         public Form1()
         {
-            InitializeComponent();           
+            InitializeComponent();
 
-            if (!File.Exists(DataPath))
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(DataPath));
-                CuratorDataSet.WriteXml(DataPath);
-            }
+            RegisterControllers();
 
-            CuratorDataSet.ReadXml(DataPath);
+            _saveLoadController.Load();
+        }
 
+        private void RegisterControllers()
+        {
             _steamController = new SteamController(CuratorDataSet);
             _consoleController = new ConsoleController(CuratorDataSet.Console);
             _romController = new RomController(CuratorDataSet.ROM);
             _romFolderController = new RomFolderController(CuratorDataSet.RomFolder);
+            _saveLoadController = new SaveLoadController(CuratorDataSet);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -63,18 +62,17 @@ namespace Curator
             Resize += OnFormResized;
 
             //Data Event Handlers
-            CuratorDataSet.Console.RowChanged += PromptSaveTrue;
-            CuratorDataSet.RomFolder.RowChanged += PromptSaveTrue;
-            CuratorDataSet.ROM.RowChanged += PromptSaveTrue;
+            CuratorDataSet.Console.RowChanged += OnRowChanged;
+            CuratorDataSet.RomFolder.RowChanged += OnRowChanged;
+            CuratorDataSet.ROM.RowChanged += OnRowChanged;
 
             //UI Event Handlers
             comboBox1.SelectedIndexChanged += ConsoleHasChanged;
             romListView.ItemCheck += RomEnabled;
         }
 
-        private void PromptSaveTrue(object sender, DataRowChangeEventArgs e)
-        {
-            PromptSave = true;            
+        private void OnRowChanged(object sender, DataRowChangeEventArgs e)
+        {        
             this.consoleBindingSource2.ResetBindings(false);
         }
 
@@ -106,13 +104,11 @@ namespace Curator
         {            
             comboBox1.SelectedIndexChanged -= ConsoleHasChanged;
 
-            if (e.CloseReason != CloseReason.UserClosing || !PromptSave)
+            if (e.CloseReason != CloseReason.UserClosing || !CuratorDataSet.HasChanges())
                 return;
 
-            var saveChanges = MetroMessageBox.Show(this, "Save changes?", "", MessageBoxButtons.OKCancel);
-
-            if (saveChanges == DialogResult.OK)
-                CuratorDataSet.WriteXml(DataPath);
+            if (MetroMessageBox.Show(this, "Save changes?", "", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                _saveLoadController.Save();                
         }
         #endregion
     }

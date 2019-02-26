@@ -23,7 +23,6 @@ namespace Curator
                 _romFolderController.Remove(romFolderListBox.SelectedItem.ToString());
 
             UpdateConsoleDetailsWithRomFolders();
-
         }
         #endregion
 
@@ -31,7 +30,7 @@ namespace Curator
         {
             romFolderListBox.Items.Clear();
 
-            foreach (var RomFolder in CuratorDataSet.RomFolder.Where(x => x.Console_Id == ActiveConsole.Id))
+            foreach (var RomFolder in _romFolderController.GetRomFoldersForActiveConsole())
             {
                 var RomFolderPath = RomFolder.Path;
                 if (!romFolderListBox.Items.Contains(RomFolderPath))
