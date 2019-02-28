@@ -10,6 +10,7 @@ using System.IO;
 using System.Text;
 using Curator.Data;
 using Curator.Data.Controllers;
+using Curator.Data.SteamDb;
 using System.Reflection;
 using Crc32;
 using System.ComponentModel;
@@ -27,6 +28,11 @@ namespace Curator
 
         public Form1()
         {
+
+
+
+
+
             InitializeComponent();
 
             RegisterControllers();
@@ -111,5 +117,11 @@ namespace Curator
                 _saveLoadController.Save();                
         }
         #endregion
+
+        private async void getGridPicturesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var gameName = "someName";
+            await SteamGridDbClient.FetchGamePictures(gameName);
+        }
     }
 }

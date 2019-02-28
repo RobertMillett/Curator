@@ -3,7 +3,11 @@ using System.Linq;
 using System.Text;
 using VDFParser.Models;
 using System.IO;
-using System;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Curator.Data.SteamDb;
 
 namespace Curator.Data
 {

@@ -86,6 +86,8 @@
             this.systemDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.steamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.getGridPicturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.romFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.metroContextMenu1 = new MetroFramework.Controls.MetroContextMenu(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).BeginInit();
@@ -647,10 +649,11 @@
             // 
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.steamToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(26, 53);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(45, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(217, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -735,6 +738,21 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // steamToolStripMenuItem
+            // 
+            this.steamToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.getGridPicturesToolStripMenuItem});
+            this.steamToolStripMenuItem.Name = "steamToolStripMenuItem";
+            this.steamToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.steamToolStripMenuItem.Text = "Steam";
+            // 
+            // getGridPicturesToolStripMenuItem
+            // 
+            this.getGridPicturesToolStripMenuItem.Name = "getGridPicturesToolStripMenuItem";
+            this.getGridPicturesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.getGridPicturesToolStripMenuItem.Text = "Get Grid Pictures";
+            this.getGridPicturesToolStripMenuItem.Click += new System.EventHandler(this.getGridPicturesToolStripMenuItem_Click);
             // 
             // metroContextMenu1
             // 
@@ -835,6 +853,8 @@
         private MetroFramework.Controls.MetroLabel metroLabel11;
         private System.Windows.Forms.TextBox romDetailsFolder;
         private MetroFramework.Controls.MetroLabel metroLabel9;
+        private System.Windows.Forms.ToolStripMenuItem steamToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem getGridPicturesToolStripMenuItem;
     }
 }
 
