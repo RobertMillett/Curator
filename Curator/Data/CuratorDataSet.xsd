@@ -12,7 +12,7 @@
   <xs:element name="CuratorDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="CuratorDataSet" msprop:Generator_UserDSName="CuratorDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Console" msprop:Generator_TableClassName="ConsoleDataTable" msprop:Generator_TableVarName="tableConsole" msprop:Generator_RowChangedName="ConsoleRowChanged" msprop:Generator_TablePropName="Console" msprop:Generator_RowDeletingName="ConsoleRowDeleting" msprop:Generator_RowChangingName="ConsoleRowChanging" msprop:Generator_RowEvHandlerName="ConsoleRowChangeEventHandler" msprop:Generator_RowDeletedName="ConsoleRowDeleted" msprop:Generator_RowClassName="ConsoleRow" msprop:Generator_UserTableName="Console" msprop:Generator_RowEvArgName="ConsoleRowChangeEvent">
+        <xs:element name="Console" msprop:Generator_TableClassName="ConsoleDataTable" msprop:Generator_TableVarName="tableConsole" msprop:Generator_TablePropName="Console" msprop:Generator_RowDeletingName="ConsoleRowDeleting" msprop:Generator_RowChangingName="ConsoleRowChanging" msprop:Generator_RowEvHandlerName="ConsoleRowChangeEventHandler" msprop:Generator_RowDeletedName="ConsoleRowDeleted" msprop:Generator_UserTableName="Console" msprop:Generator_RowChangedName="ConsoleRowChanged" msprop:Generator_RowEvArgName="ConsoleRowChangeEvent" msprop:Generator_RowClassName="ConsoleRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
@@ -23,7 +23,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="ROM" msprop:Generator_TableClassName="ROMDataTable" msprop:Generator_TableVarName="tableROM" msprop:Generator_RowChangedName="ROMRowChanged" msprop:Generator_TablePropName="ROM" msprop:Generator_RowDeletingName="ROMRowDeleting" msprop:Generator_RowChangingName="ROMRowChanging" msprop:Generator_RowEvHandlerName="ROMRowChangeEventHandler" msprop:Generator_RowDeletedName="ROMRowDeleted" msprop:Generator_RowClassName="ROMRow" msprop:Generator_UserTableName="ROM" msprop:Generator_RowEvArgName="ROMRowChangeEvent">
+        <xs:element name="ROM" msprop:Generator_TableClassName="ROMDataTable" msprop:Generator_TableVarName="tableROM" msprop:Generator_TablePropName="ROM" msprop:Generator_RowDeletingName="ROMRowDeleting" msprop:Generator_RowChangingName="ROMRowChanging" msprop:Generator_RowEvHandlerName="ROMRowChangeEventHandler" msprop:Generator_RowDeletedName="ROMRowDeleted" msprop:Generator_UserTableName="ROM" msprop:Generator_RowChangedName="ROMRowChanged" msprop:Generator_RowEvArgName="ROMRowChangeEvent" msprop:Generator_RowClassName="ROMRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
@@ -33,10 +33,11 @@
               <xs:element name="Extension" msprop:Generator_ColumnVarNameInTable="columnExtension" msprop:Generator_ColumnPropNameInRow="Extension" msprop:Generator_ColumnPropNameInTable="ExtensionColumn" msprop:Generator_UserColumnName="Extension" type="xs:string" default="" />
               <xs:element name="CustomArgs" msprop:Generator_ColumnVarNameInTable="columnCustomArgs" msprop:Generator_ColumnPropNameInRow="CustomArgs" msprop:Generator_ColumnPropNameInTable="CustomArgsColumn" msprop:Generator_UserColumnName="CustomArgs" type="xs:string" default="" minOccurs="0" />
               <xs:element name="OverrideArgs" msprop:Generator_ColumnVarNameInTable="columnOverrideArgs" msprop:Generator_ColumnPropNameInRow="OverrideArgs" msprop:Generator_ColumnPropNameInTable="OverrideArgsColumn" msprop:Generator_UserColumnName="OverrideArgs" type="xs:boolean" default="false" minOccurs="0" />
+              <xs:element name="GridPicture" msprop:Generator_ColumnVarNameInTable="columnGridPicture" msprop:Generator_ColumnPropNameInRow="GridPicture" msprop:Generator_ColumnPropNameInTable="GridPictureColumn" msprop:Generator_UserColumnName="GridPicture" type="xs:string" default="" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="RomFolder" msprop:Generator_TableClassName="RomFolderDataTable" msprop:Generator_TableVarName="tableRomFolder" msprop:Generator_RowChangedName="RomFolderRowChanged" msprop:Generator_TablePropName="RomFolder" msprop:Generator_RowDeletingName="RomFolderRowDeleting" msprop:Generator_RowChangingName="RomFolderRowChanging" msprop:Generator_RowEvHandlerName="RomFolderRowChangeEventHandler" msprop:Generator_RowDeletedName="RomFolderRowDeleted" msprop:Generator_RowClassName="RomFolderRow" msprop:Generator_UserTableName="RomFolder" msprop:Generator_RowEvArgName="RomFolderRowChangeEvent">
+        <xs:element name="RomFolder" msprop:Generator_TableClassName="RomFolderDataTable" msprop:Generator_TableVarName="tableRomFolder" msprop:Generator_TablePropName="RomFolder" msprop:Generator_RowDeletingName="RomFolderRowDeleting" msprop:Generator_RowChangingName="RomFolderRowChanging" msprop:Generator_RowEvHandlerName="RomFolderRowChangeEventHandler" msprop:Generator_RowDeletedName="RomFolderRowDeleted" msprop:Generator_UserTableName="RomFolder" msprop:Generator_RowChangedName="RomFolderRowChanged" msprop:Generator_RowEvArgName="RomFolderRowChangeEvent" msprop:Generator_RowClassName="RomFolderRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
@@ -59,7 +60,7 @@
       <xs:selector xpath=".//mstns:RomFolder" />
       <xs:field xpath="mstns:Id" />
     </xs:unique>
-    <xs:keyref name="Console_RomFolder" refer="Constraint1" msdata:ConstraintOnly="true" msdata:UpdateRule="None" msdata:DeleteRule="None">
+    <xs:keyref name="Console_RomFolder" refer="Constraint1" msdata:ConstraintOnly="true" msdata:UpdateRule="None">
       <xs:selector xpath=".//mstns:RomFolder" />
       <xs:field xpath="mstns:Console_Id" />
     </xs:keyref>

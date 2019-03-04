@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using Curator.Data;
 using System.Threading.Tasks;
 
 namespace Curator.Data.Controllers
@@ -26,12 +27,21 @@ namespace Curator.Data.Controllers
             return RomData.Where(x => RomNameConstructor(x) == romName).First();
         }
 
-        public void SetRomEnabledState(string romName, bool enabled)
+        public List<CuratorDataSet.ROMRow> GetRomsForActiveConsole()
         {
-            GetRom(romName).Enabled = enabled;
+            var romFolders = Form1._romFolderController.GetRomFoldersForActiveConsole();
+
+            var roms = RomData.Where(x => romFolders.Select(y => y.Id).Contains(x.RomFolder_Id));
+
+            return roms.ToList();
         }
 
-        public void GetRoms()
+        public void SetRomEnabledState(CuratorDataSet.ROMRow rom, bool enabled)
+        {
+            rom.Enabled = enabled;
+        }
+
+        public void LoadRoms()
         {
             if (Form1.ActiveConsole == null)
                 return;
@@ -59,9 +69,41 @@ namespace Curator.Data.Controllers
             }
         }
 
+        public void RenameRom(CuratorDataSet.ROMRow rom, string newName)
+        {
+            var romFolderPath = Form1._romFolderController.GetRomFolderById(rom.RomFolder_Id).Path;
+            var existingPath = Path.Combine(romFolderPath, rom.Name + rom.Extension);
+            var newPath = Path.Combine(romFolderPath, newName + rom.Extension);
+
+            File.Move(existingPath, newPath);
+
+            rom.Name = newName;
+            RomData.Rows[RomData.Rows.IndexOf(rom)].AcceptChanges();
+        }
+
+        public void SetRomImage(CuratorDataSet.ROMRow rom, string gridPicturePath)
+        {
+            rom.GridPicture = gridPicturePath;
+        }
+
+        private CuratorDataSet.ROMRow GetRomById(int romId)
+        {
+            return RomData.Where(x => x.Id == romId).First();
+        }
+
         public IEnumerable<CuratorDataSet.ROMRow> GetRomsByRomFolderId(int romFolderId)
         {
             return RomData.Where(x => x.RomFolder_Id == romFolderId);
+        }
+
+        public IEnumerable<CuratorDataSet.ROMRow> GetAllRoms()
+        {
+            return RomData.ToList();
+        }
+
+        public IEnumerable<CuratorDataSet.ROMRow> GetAllRomsWhere(Func<CuratorDataSet.ROMRow, bool> func)
+        {
+            return RomData.Where(func);
         }
     }
 }

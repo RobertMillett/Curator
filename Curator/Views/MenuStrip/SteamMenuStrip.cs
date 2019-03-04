@@ -1,35 +1,22 @@
 ﻿using System;
+using Curator.Data;
+using MetroFramework;
+using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MetroFramework;
-using System.Windows.Forms;
 
 namespace Curator
 {
     public partial class Form1
     {
         #region Event Handlers
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void SetShortcutsvdfFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (steamShortcutsFileDialog.ShowDialog() == DialogResult.OK)
-                _steamController.SetSteamShortcutFile(steamShortcutsFileDialog.FileName);
-
-            this.Text = $"Curator - {_steamController.SteamShortcutsFile}";
-            this.Refresh();
-        }
-
-        private void exportToSteamToolStripMenuItem_Click(object sender, EventArgs e)
+        private void exportShortcutsToSteamToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (CuratorDataSet.HasChanges())
             {
-                switch(MetroMessageBox.Show(this, "You have unsaved changes. Save before exporting?", "Export to Steam", MessageBoxButtons.YesNoCancel))
+                switch (MetroMessageBox.Show(this, "You have unsaved changes. Save before exporting?", "Export to Steam", MessageBoxButtons.YesNoCancel))
                 {
                     case DialogResult.Yes:
                         _saveLoadController.Save();
@@ -45,6 +32,15 @@ namespace Curator
             {
                 _steamController.ExportToSteam();
             }
+        }
+
+        private void SetShortcutsvdfFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (steamShortcutsFileDialog.ShowDialog() == DialogResult.OK)
+                _steamController.SetSteamShortcutFile(steamShortcutsFileDialog.FileName);
+
+            this.Text = $"Curator - {_steamController.SteamShortcutsFile}";
+            this.Refresh();
         }
         #endregion
     }

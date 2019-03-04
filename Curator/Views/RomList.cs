@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using Curator.Data;
 using System;
 
 namespace Curator
@@ -6,9 +7,13 @@ namespace Curator
     public partial class Form1
     {
         #region Event Handlers
-        private void RomEnabled(object sender, ItemCheckEventArgs e)
+        private void romListView_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            _romController.SetRomEnabledState(romListView.Items[e.Index].Text, e.NewValue == CheckState.Checked);
+            var rom = _romController.GetRom(e.Item.Text);
+            _romController.SetRomEnabledState(rom, e.Item.Checked);
+
+            if (romDetailsName.Text == rom.Name)
+                UpdateSelectedRomDetails(rom);
         }
 
         private void romListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -21,6 +26,13 @@ namespace Curator
         }
         #endregion
 
+        public void RomListViewUpdateCheckedState(CuratorDataSet.ROMRow rom)
+        {
+            var listViewName = _romController.RomNameConstructor(rom);
+
+            romListView.Items.Find(listViewName, false)[0].Checked = rom.Enabled;
+        }
+
         public void UpdateRomListViewItems()
         {
             romListView.Items.Clear();
@@ -31,9 +43,11 @@ namespace Curator
             {
                 foreach (var romItem in _romController.GetRomsByRomFolderId(RomFolder.Id))
                 {
+                    var name = _romController.RomNameConstructor(romItem);
                     var romListViewItem = new ListViewItem
                     {
-                        Text = _romController.RomNameConstructor(romItem),
+                        Text = name,
+                        Name = name,
                         Checked = romItem.Enabled
                     };
 

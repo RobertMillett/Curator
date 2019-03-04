@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Curator.Data.SteamDb;
+using System;
 
 namespace Curator.Data
 {
@@ -75,19 +76,9 @@ namespace Curator.Data
                     Tags = new string[] { console.Name }
                 };
 
-                // ############# GENERATE APP ID ##################
-
-                var stringValue = $"{newRomEntry.Exe + newRomEntry.AppName}";
-                var byteArray = Encoding.ASCII.GetBytes(stringValue);
-
-                var thing = Crc32.Crc32Algorithm.Compute(byteArray);
-                var longThing = (ulong)thing;
-                longThing = (longThing | 0x80000000);
-                longThing = longThing << 32;
-                longThing = (longThing | 0x02000000);
-                var finalConversion = longThing.ToString();
-
-                // ############# GENERATE APP ID ##################
+                if (!rom.IsGridPictureNull())
+                    UpdateRomGridImage(newRomEntry, rom.GridPicture);
+                
 
                 if (existingRomEntry != null)
                 {
@@ -99,6 +90,11 @@ namespace Curator.Data
                 }
             }
 
+            WriteOut(currentShortcuts);
+        }
+
+        private void WriteOut(List<VDFEntry> currentShortcuts)
+        {
             //Step 2.5 fix indexes
             for (int i = 0; i < currentShortcuts.Count; i++)
             {
@@ -110,6 +106,48 @@ namespace Curator.Data
 
             //Step 4 - Write out
             File.WriteAllBytes(SteamShortcutsFile, serialisedShortcuts);
+        }
+
+        public void DeleteShortcutsByTag(string consoleName)
+        {
+            var shortcuts = VDFParser.VDFParser.Parse(SteamShortcutsFile).ToList();
+            var shortcutsToRemove = new List<VDFEntry>();
+
+
+            foreach (var shortcut in shortcuts)
+            {
+                if (shortcut.Tags.Contains(consoleName))
+                    shortcutsToRemove.Add(shortcut);
+            }
+
+            foreach(var shortcutToRemove in shortcutsToRemove)
+            {
+                shortcuts.Remove(shortcutToRemove);
+            }
+
+            WriteOut(shortcuts);
+        }
+
+        private void UpdateRomGridImage(VDFEntry rom, string gridPicturePath)
+        {  
+            // ############# GENERATE APP ID ##################
+
+            var stringValue = $"{rom.Exe + rom.AppName}";
+            var byteArray = Encoding.ASCII.GetBytes(stringValue);
+
+            var thing = Crc32.Crc32Algorithm.Compute(byteArray);
+            var longThing = (ulong)thing;
+            longThing = (longThing | 0x80000000);
+            longThing = longThing << 32;
+            longThing = (longThing | 0x02000000);
+            var finalConversion = longThing.ToString();
+
+            // ############# GENERATE APP ID ##################
+
+            var extension = Path.GetExtension(gridPicturePath);
+            var imagesFolder = Path.Combine(Path.GetDirectoryName(SteamShortcutsFile), "grid");
+            var steamGridImageFilePath = Path.Combine(imagesFolder, finalConversion + extension);
+            File.Copy(gridPicturePath, steamGridImageFilePath);
         }
 
         public void SetSteamShortcutFile(string fileName)

@@ -37,7 +37,7 @@ namespace Curator
                     romFolderListBox.Items.Add(RomFolderPath);
             }
 
-            _romController.GetRoms();
+            _romController.LoadRoms();
 
             UpdateRomListViewItems();
         }

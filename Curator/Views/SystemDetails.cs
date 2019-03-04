@@ -4,8 +4,7 @@ using System.Linq;
 using Curator.Data;
 
 namespace Curator
-{
-    [System.ComponentModel.DesignerCategory("")]
+{   
     public partial class Form1
     {
         #region Event Handlers

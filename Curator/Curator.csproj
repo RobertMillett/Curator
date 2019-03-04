@@ -119,7 +119,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\MenuStripOptions.cs" />
+    <Compile Include="Views\MenuStrip\FileMenuStripView.cs" />
+    <Compile Include="Views\MenuStrip\SteamMenuStrip.cs" />
     <Compile Include="Views\RomDetails.cs" />
     <Compile Include="Views\RomFolders.cs" />
     <Compile Include="Views\RomList.cs" />

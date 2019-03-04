@@ -271,7 +271,7 @@ namespace Curator.Data {
                         this.tableRomFolder.Console_IdColumn});
             this.tableRomFolder.Constraints.Add(fkc);
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = global::System.Data.Rule.None;
+            fkc.DeleteRule = global::System.Data.Rule.Cascade;
             fkc.UpdateRule = global::System.Data.Rule.None;
         }
         
@@ -698,6 +698,8 @@ namespace Curator.Data {
             
             private global::System.Data.DataColumn columnOverrideArgs;
             
+            private global::System.Data.DataColumn columnGridPicture;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public ROMDataTable() {
@@ -789,6 +791,14 @@ namespace Curator.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn GridPictureColumn {
+                get {
+                    return this.columnGridPicture;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -824,7 +834,7 @@ namespace Curator.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public ROMRow AddROMRow(string Name, bool Enabled, int RomFolder_Id, string Extension, string CustomArgs, bool OverrideArgs) {
+            public ROMRow AddROMRow(string Name, bool Enabled, int RomFolder_Id, string Extension, string CustomArgs, bool OverrideArgs, string GridPicture) {
                 ROMRow rowROMRow = ((ROMRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -833,7 +843,8 @@ namespace Curator.Data {
                         RomFolder_Id,
                         Extension,
                         CustomArgs,
-                        OverrideArgs};
+                        OverrideArgs,
+                        GridPicture};
                 rowROMRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowROMRow);
                 return rowROMRow;
@@ -870,6 +881,7 @@ namespace Curator.Data {
                 this.columnExtension = base.Columns["Extension"];
                 this.columnCustomArgs = base.Columns["CustomArgs"];
                 this.columnOverrideArgs = base.Columns["OverrideArgs"];
+                this.columnGridPicture = base.Columns["GridPicture"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -889,6 +901,8 @@ namespace Curator.Data {
                 base.Columns.Add(this.columnCustomArgs);
                 this.columnOverrideArgs = new global::System.Data.DataColumn("OverrideArgs", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOverrideArgs);
+                this.columnGridPicture = new global::System.Data.DataColumn("GridPicture", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnGridPicture);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -902,6 +916,7 @@ namespace Curator.Data {
                 this.columnExtension.DefaultValue = ((string)(""));
                 this.columnCustomArgs.DefaultValue = ((string)(""));
                 this.columnOverrideArgs.DefaultValue = ((bool)(false));
+                this.columnGridPicture.DefaultValue = ((string)(""));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1547,6 +1562,22 @@ namespace Curator.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string GridPicture {
+                get {
+                    try {
+                        return ((string)(this[this.tableROM.GridPictureColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'GridPicture\' in table \'ROM\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableROM.GridPictureColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsEnabledNull() {
                 return this.IsNull(this.tableROM.EnabledColumn);
             }
@@ -1579,6 +1610,18 @@ namespace Curator.Data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetOverrideArgsNull() {
                 this[this.tableROM.OverrideArgsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsGridPictureNull() {
+                return this.IsNull(this.tableROM.GridPictureColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetGridPictureNull() {
+                this[this.tableROM.GridPictureColumn] = global::System.Convert.DBNull;
             }
         }
         

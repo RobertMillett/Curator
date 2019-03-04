@@ -17,6 +17,7 @@ using System.ComponentModel;
 
 namespace Curator
 {
+    [System.ComponentModel.DesignerCategory("")]
     public partial class Form1 : MetroForm
     {   
         public static CuratorDataSet.ConsoleRow ActiveConsole;
@@ -28,11 +29,6 @@ namespace Curator
 
         public Form1()
         {
-
-
-
-
-
             InitializeComponent();
 
             RegisterControllers();
@@ -66,20 +62,6 @@ namespace Curator
             Shown += EnforceShortcutsFile;
             FormClosing += OnFormClosing;
             Resize += OnFormResized;
-
-            //Data Event Handlers
-            CuratorDataSet.Console.RowChanged += OnRowChanged;
-            CuratorDataSet.RomFolder.RowChanged += OnRowChanged;
-            CuratorDataSet.ROM.RowChanged += OnRowChanged;
-
-            //UI Event Handlers
-            comboBox1.SelectedIndexChanged += ConsoleHasChanged;
-            romListView.ItemCheck += RomEnabled;
-        }
-
-        private void OnRowChanged(object sender, DataRowChangeEventArgs e)
-        {        
-            this.consoleBindingSource2.ResetBindings(false);
         }
 
         private void EnforceShortcutsFile(object sender, EventArgs e)
@@ -108,20 +90,34 @@ namespace Curator
 
         private void OnFormClosing(object sender, FormClosingEventArgs e)
         {            
-            comboBox1.SelectedIndexChanged -= ConsoleHasChanged;
+            comboBox1.SelectedIndexChanged -= comboBox1_SelectedIndexChanged;
 
             if (e.CloseReason != CloseReason.UserClosing || !CuratorDataSet.HasChanges())
                 return;
 
             if (MetroMessageBox.Show(this, "Save changes?", "", MessageBoxButtons.OKCancel) == DialogResult.OK)
-                _saveLoadController.Save();                
+            {
+                _saveLoadController.Save();
+                return;
+            }
+
+            _saveLoadController.Exit();
         }
         #endregion
 
         private async void getGridPicturesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var gameName = "someName";
-            await SteamGridDbClient.FetchGamePictures(gameName);
+            foreach (var rom in _romController.GetAllRomsWhere(x => x.Enabled == true))
+            {
+                await SteamGridDbClient.FetchGamePictures(rom);
+            }
         }
+
+        public void ShowSteamModifiedMessage()
+        {
+            MetroMessageBox.Show(this, "Your Steam Shortcuts have been successfully modified. Please re-launch Steam to see the changes.", "Shortcuts Modified", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        
     }
 }

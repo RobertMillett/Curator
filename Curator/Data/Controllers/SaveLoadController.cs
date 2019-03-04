@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Curator.Data.Controllers
 {
@@ -28,6 +30,29 @@ namespace Curator.Data.Controllers
             }
 
             CuratorData.ReadXml(DataPath);
+            CuratorData.AcceptChanges();
+        }
+
+        public void Exit()
+        {
+            try
+            {
+                CuratorData.RejectChanges();
+            }
+            catch (Exception e)
+            {
+                return;
+            }
+            
+            CuratorData.WriteXml(DataPath);
+        }
+
+        public void SaveRomsForActiveConsole(List<CuratorDataSet.ROMRow> roms)
+        {
+            foreach(var rom in roms)
+            {
+                rom.AcceptChanges();
+            }
         }
     }
 }
