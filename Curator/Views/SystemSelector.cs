@@ -18,20 +18,32 @@ namespace Curator
 
         private void AddConsole_Button_Click(object sender, EventArgs e)
         {
-            var consoleAdded = _consoleController.Add(comboBox1.Text);
+            AddConsole(comboBox1.Text, sender, e);
+        }
 
-            //This will always set to the most recently added item as it is added to the bottom of the list. 
+        private void DeleteConsole_Button_Click(object sender, EventArgs e)
+        {
+            RemoveConsole(comboBox1.Text, sender, e);
+        }
+        #endregion
+
+        private void AddConsole(string consoleName, object sender, EventArgs e)
+        {
+            var consoleAdded = _consoleController.Add(consoleName);
+
             if (!consoleAdded)
                 return;
 
+            //This will always set to the most recently added item as it is added to the bottom of the list.
             comboBox1.SelectedIndex = comboBox1.Items.Count - 1;
 
             _consoleController.SetActiveConsole(comboBox1.Text);
 
-            UpdateConsoleDetailsView(sender, e);
+            ConsoleHasChanged(sender, e);
+            //UpdateConsoleDetailsView(sender, e);
         }
 
-        private void DeleteConsole_Button_Click(object sender, EventArgs e)
+        private void RemoveConsole(string consoleName, object sender, EventArgs e)
         {
             if (MetroMessageBox.Show(this, "This will delete the console and all of it's associated data!", "Are you sure?", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
@@ -45,11 +57,9 @@ namespace Curator
                 if (deleteFromSteam == DialogResult.Cancel)
                     return;
 
-                _consoleController.Remove(comboBox1.Text);
-
-
+                _consoleController.Remove(consoleName);
+                ConsoleHasChanged(sender, e);
             }
         }
-        #endregion
     }
 }

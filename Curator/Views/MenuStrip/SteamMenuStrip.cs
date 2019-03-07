@@ -2,6 +2,7 @@
 using Curator.Data;
 using MetroFramework;
 using System.Windows.Forms;
+using Curator.Data.SteamDb;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,13 +35,21 @@ namespace Curator
             }
         }
 
-        private void SetShortcutsvdfFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void setShortcutsFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (steamShortcutsFileDialog.ShowDialog() == DialogResult.OK)
                 _steamController.SetSteamShortcutFile(steamShortcutsFileDialog.FileName);
 
             this.Text = $"Curator - {_steamController.SteamShortcutsFile}";
             this.Refresh();
+        }
+
+        private async void getGridPicturesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (var rom in _romController.GetAllRomsWhere(x => x.Enabled == true))
+            {
+                await SteamGridDbClient.FetchGamePictures(rom);
+            }
         }
         #endregion
     }

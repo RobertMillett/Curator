@@ -39,7 +39,7 @@ namespace Curator.Data.Controllers
             {
                 CuratorData.RejectChanges();
             }
-            catch (Exception e)
+            catch
             {
                 return;
             }

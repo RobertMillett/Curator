@@ -119,6 +119,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\CustomDialogs\AddConsoleDialog.cs" />
+    <Compile Include="Views\CustomDialogs\RemoveConsoleDialog.cs" />
+    <Compile Include="Views\MenuStrip\ConsoleMenuStrip.cs" />
     <Compile Include="Views\MenuStrip\FileMenuStripView.cs" />
     <Compile Include="Views\MenuStrip\SteamMenuStrip.cs" />
     <Compile Include="Views\RomDetails.cs" />

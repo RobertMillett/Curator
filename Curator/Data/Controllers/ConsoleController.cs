@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Curator.Data.Controllers
 {
@@ -34,6 +37,11 @@ namespace Curator.Data.Controllers
                 return true;
             }
             return false;
+        }
+
+        public List<CuratorDataSet.ConsoleRow> GetAllConsoles()
+        {
+            return Consoles.ToList();
         }
 
         public void Remove(string name)

@@ -22,7 +22,7 @@ namespace Curator
     {   
         public static CuratorDataSet.ConsoleRow ActiveConsole;
         private SteamController _steamController;
-        private ConsoleController _consoleController;
+        public static ConsoleController _consoleController;
         private RomController _romController;
         public static RomFolderController _romFolderController;
         private SaveLoadController _saveLoadController;
@@ -104,14 +104,6 @@ namespace Curator
             _saveLoadController.Exit();
         }
         #endregion
-
-        private async void getGridPicturesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            foreach (var rom in _romController.GetAllRomsWhere(x => x.Enabled == true))
-            {
-                await SteamGridDbClient.FetchGamePictures(rom);
-            }
-        }
 
         public void ShowSteamModifiedMessage()
         {
