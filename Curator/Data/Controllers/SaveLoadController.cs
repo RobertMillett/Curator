@@ -33,6 +33,11 @@ namespace Curator.Data.Controllers
             CuratorData.AcceptChanges();
         }
 
+        public void SaveActiveConsole()
+        {
+            Form1.ActiveConsole?.AcceptChanges();
+        }
+
         public void Exit()
         {
             try

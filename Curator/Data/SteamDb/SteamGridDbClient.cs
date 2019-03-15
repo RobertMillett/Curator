@@ -16,6 +16,7 @@ namespace Curator.Data.SteamDb
         private static HttpClient _steamGridDbClient = new HttpClient { BaseAddress = new Uri("http://www.steamgriddb.com/api/") };
 
         private static List<string> _gamesList = new List<string>();
+        public static List<string> _gamesNotFound = new List<string>();
 
         private static async Task PopulateGamesList()
         {
@@ -31,10 +32,13 @@ namespace Curator.Data.SteamDb
         {
             await PopulateGamesList();
 
-            var filePath = Path.Combine(ImageLocation, rom.Name);
+            var filePath = Path.Combine(ImageLocation, Path.GetFileNameWithoutExtension(rom.FileName));
 
             if (!_gamesList.Where(x => x == rom.Name).Any())
+            {
+                _gamesNotFound.Add(rom.Name);
                 return;
+            }   
 
             var response = await _steamGridDbClient.GetAsync($"grids?game={rom.Name}&fields=grid_url").Result.Content.ReadAsStringAsync();
             var gridUrls = JsonConvert.DeserializeObject<GridUrlsResponse>(response).Data;
@@ -44,7 +48,8 @@ namespace Curator.Data.SteamDb
                 await SaveGridImageToDisk(filePath, gridUrl.Grid_url);
             }
 
-            rom.GridPicture = Directory.GetFiles(filePath)[0];
+            if (gridUrls.Count > 0)
+                rom.GridPicture = Directory.GetFiles(filePath)[0];
         }
 
         private static async Task SaveGridImageToDisk(string path, string grid_url)

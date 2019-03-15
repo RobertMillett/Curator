@@ -40,7 +40,6 @@ namespace Curator
             _consoleController.SetActiveConsole(comboBox1.Text);
 
             ConsoleHasChanged(sender, e);
-            //UpdateConsoleDetailsView(sender, e);
         }
 
         private void RemoveConsole(string consoleName, object sender, EventArgs e)

@@ -39,19 +39,21 @@ namespace Curator
         {
             _consoleController.SetActiveConsole(comboBox1.Text);
             UpdateConsoleDetailsView(sender, e);
+            UpdateRomListViewItems();
+            UpdateSelectedRomDetails(null);
+
+            emulatorPathToolStrip.Enabled = ActiveConsole != null;
+            romFolderToolStrip.Enabled = ActiveConsole != null;
         }
 
         private void UpdateConsoleDetailsView(object sender, EventArgs e)
         {
-            if (ActiveConsole != null)
-            {
-                systemDetailsName.Text = ActiveConsole.Name;
-                emulatorPathTextBox.Text = ActiveConsole.EmulatorPath;
-                emulatorArgsTextBox.Text = ActiveConsole.EmulatorArgs;
-                romArgsTextBox.Text = ActiveConsole.RomArgs;
+            systemDetailsName.Text = ActiveConsole?.Name;
+            emulatorPathTextBox.Text = ActiveConsole?.EmulatorPath;
+            emulatorArgsTextBox.Text = ActiveConsole?.EmulatorArgs;
+            romArgsTextBox.Text = ActiveConsole?.RomArgs;
 
-                UpdateConsoleDetailsWithRomFolders();
-            }
+            UpdateConsoleDetailsWithRomFolders();
         }
     }
 }

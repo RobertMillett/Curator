@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using Curator.Data;
 using System;
+using System.Data;
 
 namespace Curator
 {
@@ -52,7 +53,11 @@ namespace Curator
                     };
 
                     romListView.Items.Add(romListViewItem);
+                    
+                    if (romItem.RowState == DataRowState.Modified)
+                        romItem.RejectChanges();
                 }
+
             }
         }
     }

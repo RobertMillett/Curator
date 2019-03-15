@@ -36,6 +36,9 @@ namespace Curator.Data.Controllers
 
         public List<CuratorDataSet.RomFolderRow> GetRomFoldersForActiveConsole()
         {
+            if (Form1.ActiveConsole == null)
+                return new List<CuratorDataSet.RomFolderRow>();
+
              return RomFolderData.Where(x => x.Console_Id == Form1.ActiveConsole.Id).ToList();
         }
     }

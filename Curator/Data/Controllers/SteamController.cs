@@ -57,10 +57,13 @@ namespace Curator.Data
                 var RomFolder = CuratorData.RomFolder.Where(x => x.Id == rom.RomFolder_Id).First();
                 var console = CuratorData.Console.Where(y => y.Id == RomFolder.Console_Id).First();
 
-                var exepath = $"\"{console.EmulatorPath}\" {console.EmulatorArgs} \"{RomFolder.Path}\\{rom.Name + rom.Extension}\"";
+                var romArgs = rom.OverrideArgs ? rom.CustomArgs : console.RomArgs += $" {rom.CustomArgs}";
 
-                if (!string.IsNullOrEmpty(console.RomArgs))
-                    exepath = exepath + " " + console.RomArgs;
+                var exepath = $"\"{console.EmulatorPath}\" {console.EmulatorArgs} \"{rom.FileName}";
+
+                if (!string.IsNullOrWhiteSpace(console.RomArgs))
+                    exepath += $" {console.RomArgs}";
+                exepath += "\"";
 
                 var newRomEntry = new VDFEntry
                 {
@@ -76,9 +79,8 @@ namespace Curator.Data
                     Tags = new string[] { console.Name }
                 };
 
-                if (!rom.IsGridPictureNull())
+                if (!string.IsNullOrWhiteSpace(rom.GridPicture))
                     UpdateRomGridImage(newRomEntry, rom.GridPicture);
-                
 
                 if (existingRomEntry != null)
                 {
@@ -147,13 +149,16 @@ namespace Curator.Data
             var extension = Path.GetExtension(gridPicturePath);
             var imagesFolder = Path.Combine(Path.GetDirectoryName(SteamShortcutsFile), "grid");
             var steamGridImageFilePath = Path.Combine(imagesFolder, finalConversion + extension);
-            File.Copy(gridPicturePath, steamGridImageFilePath);
+
+            if (!File.Exists(steamGridImageFilePath))
+                File.Copy(gridPicturePath, steamGridImageFilePath);
         }
 
         public void SetSteamShortcutFile(string fileName)
         {
             Properties.Settings.Default["ShortcutsPath"] = fileName;
             Properties.Settings.Default.Save();
+            SteamShortcutsFile = fileName;
         }
     }
 }

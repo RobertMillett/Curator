@@ -4,10 +4,8 @@ using Curator.Data;
 using System.Collections.Generic;
 using Curator.Data.SteamDb;
 using MetroFramework;
-using System.Windows.Forms;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Curator
 {
@@ -18,12 +16,18 @@ namespace Curator
         #region Event Handlers
         private void romDetailsNextPicture_Button_Click(object sender, EventArgs e)
         {
+            if (romListView.FocusedItem == null)
+                return;
+
             var rom = _romController.GetRom(romListView.FocusedItem.Text);
             NavigatePictures(rom, x => x + 1);
         }
 
         private void romDetailsPrevPicture_Button_Click(object sender, EventArgs e)
         {
+            if (romListView.FocusedItem == null)
+                return;
+
             var rom = _romController.GetRom(romListView.FocusedItem.Text);
             NavigatePictures(rom, x => x - 1);
         }
@@ -41,18 +45,14 @@ namespace Curator
 
         private void romDetailsName_Leave(object sender, EventArgs e)
         {
-            var confirm = MetroMessageBox.Show(this, "This will update the file name on disk. Continue?", "Rename ROM", MessageBoxButtons.OKCancel);
-
-            if (confirm == DialogResult.Cancel)
-                return;
+            if (romListView.FocusedItem == null)
+                return;            
 
             var rom = _romController.GetRom(romListView.FocusedItem.Text);
 
             try
             {
                 _romController.RenameRom(rom, romDetailsName.Text);
-
-                _romController.LoadRoms();
 
                 UpdateRomListViewItems();
                 romListView.FocusedItem = romListView.Items.Find(_romController.RomNameConstructor(rom), false)[0];
@@ -63,10 +63,25 @@ namespace Curator
                 MetroMessageBox.Show(this, $"Failed to overwrite ROM file name! Error: {ex.Message}", "Error!", MessageBoxButtons.OK);
             }
         }
+
+        private void romDetailsCustomArgs_Leave(object sender, EventArgs e)
+        {
+            if (romListView.FocusedItem == null)
+                return;
+
+            var rom = _romController.GetRom(romListView.FocusedItem.Text);
+            rom.CustomArgs = romDetailsCustomArgs.Text;
+        }
         #endregion
 
         public void UpdateSelectedRomDetails(CuratorDataSet.ROMRow rom)
         {
+            if (rom == null)
+            {
+                SetAllDetailsEmpty();
+                return;
+            }                
+
             romDetailsName.Text = rom.Name;
             romDetailsFolder.Text = _romFolderController.GetRomFolderById(rom.RomFolder_Id).Path;
             romDetailsCustomArgs.Text = rom.CustomArgs;
@@ -77,6 +92,17 @@ namespace Curator
             LoadGridPictures(rom);
 
             NavigatePictures(rom, x => x + 0);
+        }
+
+        private void SetAllDetailsEmpty()
+        {
+            romDetailsName.Text = string.Empty;
+            romDetailsFolder.Text = string.Empty;
+            romDetailsCustomArgs.Text = string.Empty;
+            romDetailsOverride.Checked = false;
+            romDetailsEnabledToggle.Checked = false;
+            romDetailsGridPicture.ImageLocation = string.Empty;
+            romDetailsPictureIndex.Text = string.Empty;
         }
 
         private void NavigatePictures(CuratorDataSet.ROMRow rom, Func<int, int> direction)
@@ -91,14 +117,22 @@ namespace Curator
                 _romController.SetRomImage(rom, GridPictureImageLocations[newIndex]);
             }   
 
-            romDetailsPictureIndex.Text = $"{newIndex +1} of {GridPictureImageLocations.Count}";
+            romDetailsPictureIndex.Text = $"{newIndex} of {GridPictureImageLocations.Count -1}";
+
+            var romDetailsPictureIndexToolTip = new ToolTip();
+            romDetailsPictureIndexToolTip.Active = false;
+
+            //1 means nothing was found, as a blank image is always added to the collection
+            if (GridPictureImageLocations.Count == 1)
+            {
+                romDetailsPictureIndex.Text += " *";
+                romDetailsPictureIndexToolTip.Active = true;
+                romDetailsPictureIndexToolTip.SetToolTip(romDetailsPictureIndex, "This ROM was either not found, or has no images associated with it.\nPlease check that your ROM name exactly matches a game on http://www.steamgriddb.com");
+            }
         }
 
         private int GetNewIndex(int currentIndex, Func<int, int> direction)
         {
-            if (currentIndex == -1)
-                return currentIndex;
-
             if (direction(currentIndex) > GridPictureImageLocations.Count - 1)
                 return 0;
 
@@ -110,13 +144,27 @@ namespace Curator
 
         private void LoadGridPictures(CuratorDataSet.ROMRow rom)
         {
-            GridPictureImageLocations = new List<string>();
+            GridPictureImageLocations = new List<string> { string.Empty };
 
-            var imageDirectory = Path.Combine(SteamGridDbClient.ImageLocation, rom.Name);
+            var imageDirectory = Path.Combine(SteamGridDbClient.ImageLocation, Path.GetFileNameWithoutExtension(rom.FileName));
             if (!Directory.Exists(imageDirectory))
                 return;
 
             GridPictureImageLocations.AddRange(Directory.GetFiles(imageDirectory));
+        }
+
+        private async void metroButton1_Click(object sender, EventArgs e)
+        {
+            if (romListView.FocusedItem == null)
+                return;
+
+            var rom = _romController.GetRom(romListView.FocusedItem.Text);
+
+            await SteamGridDbClient.FetchGamePictures(rom);
+
+            LoadGridPictures(rom);
+
+            NavigatePictures(rom, x => x + 0);
         }
     }
 }

@@ -55,10 +55,11 @@ namespace Curator.Data.Controllers
                 foreach (var rom in romList)
                 {
                     var romName = Path.GetFileNameWithoutExtension(rom);
-                    if (!RomData.Where(x => x.Name == romName).Any())
+                    if (!RomData.Where(x => x.FileName == rom).Any())
                     {
                         var romRow = RomData.NewROMRow();
                         romRow.Name = romName;
+                        romRow.FileName = rom;
                         romRow.Extension = Path.GetExtension(rom);
                         romRow.RomFolder_Id = RomFolder.Id;
                         romRow.Enabled = true;
@@ -71,12 +72,6 @@ namespace Curator.Data.Controllers
 
         public void RenameRom(CuratorDataSet.ROMRow rom, string newName)
         {
-            var romFolderPath = Form1._romFolderController.GetRomFolderById(rom.RomFolder_Id).Path;
-            var existingPath = Path.Combine(romFolderPath, rom.Name + rom.Extension);
-            var newPath = Path.Combine(romFolderPath, newName + rom.Extension);
-
-            File.Move(existingPath, newPath);
-
             rom.Name = newName;
             RomData.Rows[RomData.Rows.IndexOf(rom)].AcceptChanges();
         }

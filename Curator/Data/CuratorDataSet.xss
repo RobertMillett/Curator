@@ -7,26 +7,10 @@
 <DiagramLayout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ex:showrelationlabel="False" ViewPortX="-10" ViewPortY="21" xmlns:ex="urn:schemas-microsoft-com:xml-msdatasource-layout-extended" xmlns="urn:schemas-microsoft-com:xml-msdatasource-layout">
   <Shapes>
     <Shape ID="DesignTable:Console" ZOrder="5" X="154" Y="88" Height="124" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="24" SplitterPosition="120" />
-    <Shape ID="DesignTable:ROM" ZOrder="4" X="605" Y="304" Height="181" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="177" />
+    <Shape ID="DesignTable:ROM" ZOrder="4" X="605" Y="304" Height="200" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="196" />
     <Shape ID="DesignTable:RomFolder" ZOrder="3" X="378" Y="216" Height="86" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="82" />
   </Shapes>
   <Connectors>
-    <Connector ID="DesignRelation:Console_RomFolder" ZOrder="2" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>287</X>
-          <Y>212</Y>
-        </Point>
-        <Point>
-          <X>287</X>
-          <Y>247</Y>
-        </Point>
-        <Point>
-          <X>378</X>
-          <Y>247</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
     <Connector ID="DesignRelation:FK_RomFolder_ROM" ZOrder="1" LineWidth="11">
       <RoutePoints>
         <Point>
@@ -40,6 +24,22 @@
         <Point>
           <X>605</X>
           <Y>321</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:Console_RomFolder" ZOrder="2" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>287</X>
+          <Y>212</Y>
+        </Point>
+        <Point>
+          <X>287</X>
+          <Y>247</Y>
+        </Point>
+        <Point>
+          <X>378</X>
+          <Y>247</Y>
         </Point>
       </RoutePoints>
     </Connector>

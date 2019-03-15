@@ -14,6 +14,8 @@ namespace Curator
             {
                 _romFolderController.Add(romFolderDialog.SelectedPath);
                 UpdateConsoleDetailsWithRomFolders();
+                _romController.LoadRoms();
+                UpdateRomListViewItems();
             }
         }
 
@@ -36,10 +38,6 @@ namespace Curator
                 if (!romFolderListBox.Items.Contains(RomFolderPath))
                     romFolderListBox.Items.Add(RomFolderPath);
             }
-
-            _romController.LoadRoms();
-
-            UpdateRomListViewItems();
         }
     }
 }

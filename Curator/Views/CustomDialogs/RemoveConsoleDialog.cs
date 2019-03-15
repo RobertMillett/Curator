@@ -23,11 +23,15 @@ namespace Curator.Views.CustomDialogs
             Label consoleNameLabel = new Label() { Left = 20, Top = 20, Text = "Console" };
             var consoleList = new ComboBox() { Left = 20, Top = 40, Width = 440};
             consoleList.DropDownStyle = ComboBoxStyle.DropDownList;
-            foreach (var console in Form1._consoleController.GetAllConsoles())
+
+            var consoles = Form1._consoleController.GetAllConsoles();
+            foreach (var console in consoles)
             {
                 consoleList.Items.Add(console.Name);
             }
-            consoleList.SelectedIndex = 0;
+
+            if (consoles.Any())
+                consoleList.SelectedIndex = 0;
 
             Button deleteButton = new Button() { Text = "Delete", Left = 350, Width = 50, Top = 70, DialogResult = DialogResult.OK };
             Button cancelButton = new Button() { Text = "Cancel", Left = 410, Width = 50, Top = 70, DialogResult = DialogResult.Cancel };

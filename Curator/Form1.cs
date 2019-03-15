@@ -1,19 +1,9 @@
 ﻿using System;
-using System.Data;
-using System.Linq;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using MetroFramework.Forms;
 using MetroFramework;
-using VDFParser.Models;
-using System.IO;
-using System.Text;
 using Curator.Data;
 using Curator.Data.Controllers;
-using Curator.Data.SteamDb;
-using System.Reflection;
-using Crc32;
-using System.ComponentModel;
 
 namespace Curator
 {
@@ -42,7 +32,7 @@ namespace Curator
             _consoleController = new ConsoleController(CuratorDataSet.Console);
             _romController = new RomController(CuratorDataSet.ROM);
             _romFolderController = new RomFolderController(CuratorDataSet.RomFolder);
-            _saveLoadController = new SaveLoadController(CuratorDataSet);
+            _saveLoadController = new SaveLoadController(CuratorDataSet);            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -92,24 +82,59 @@ namespace Curator
         {            
             comboBox1.SelectedIndexChanged -= comboBox1_SelectedIndexChanged;
 
-            if (e.CloseReason != CloseReason.UserClosing || !CuratorDataSet.HasChanges())
+            if (e.CloseReason != CloseReason.UserClosing)
                 return;
 
-            if (MetroMessageBox.Show(this, "Save changes?", "", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (CuratorDataSet.HasChanges())
             {
-                _saveLoadController.Save();
-                return;
+                if (MetroMessageBox.Show(this, "Save changes?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        _saveLoadController.Save();
+                    }
+                    catch (Exception ex)
+                    {
+                        ShowSaveFailureMessage(ex.Message);
+                    }
+                }
             }
 
             _saveLoadController.Exit();
+
+            if (MetroMessageBox.Show(this, "Export to Steam?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            {
+                try
+                {
+                    _steamController.ExportToSteam();
+                    ShowSteamModifiedMessage();
+                }
+                catch (Exception ex)
+                {
+                    ShowSteamExportFailedMessage(ex.Message);
+                }
+            }
+        }
+
+        private void ShowSteamExportFailedMessage(string message)
+        {
+            MetroMessageBox.Show(this, $"Overwriting Steam Shortcuts.vdf has failed! Exception:\n{message}", "Curator", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         #endregion
 
         public void ShowSteamModifiedMessage()
         {
-            MetroMessageBox.Show(this, "Your Steam Shortcuts have been successfully modified. Please re-launch Steam to see the changes.", "Shortcuts Modified", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MetroMessageBox.Show(this, "Your Steam Shortcuts have been successfully updated. Please re-launch Steam to see the changes.", "Shortcuts Modified", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        
+        public void ShowSaveSuccessMessage()
+        {
+            MetroMessageBox.Show(this, "Save Successful", "Curator", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        
+        public void ShowSaveFailureMessage(string message)
+        {
+            MetroMessageBox.Show(this, $"Save failed! Exception: \n{message}", "Curator", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }

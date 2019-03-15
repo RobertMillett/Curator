@@ -31,7 +31,7 @@ namespace Curator.Data.Controllers
 
         public bool Add(string consoleName)
         {
-            if (!Consoles.Where(x => x.Name == consoleName).Any())
+            if (!Consoles.Where(x => x.Name == consoleName).Any() && !string.IsNullOrWhiteSpace(consoleName))
             {
                 Consoles.Rows.Add(null, consoleName);
                 return true;

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MetroFramework;
 using System.Windows.Forms;
+using MetroFramework;
 
 namespace Curator
 {
@@ -18,13 +14,53 @@ namespace Curator
 
         private void saveAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _saveLoadController.Save();
+            try
+            {
+                if (MetroMessageBox.Show(this, $"Save all ROM and Console details?", "Curator", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    _saveLoadController.Save();
+                    ShowSaveSuccessMessage();
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowSaveFailureMessage(ex.Message);
+            }
         }
 
         private void rOMDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var roms = _romController.GetRomsForActiveConsole();
-            _saveLoadController.SaveRomsForActiveConsole(roms);
+            try
+            {
+                if (MetroMessageBox.Show(this, $"Save all current {ActiveConsole.Name} ROM details?", "Curator", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    var roms = _romController.GetRomsForActiveConsole();
+                    _saveLoadController.SaveRomsForActiveConsole(roms);
+                    ShowSaveSuccessMessage();
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowSaveFailureMessage(ex.Message);
+            }
+            
+        }
+
+        private void systemDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MetroMessageBox.Show(this, $"Save all current {ActiveConsole.Name} details?", "Curator", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    _saveLoadController.SaveActiveConsole();
+                    ShowSaveSuccessMessage();
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowSaveFailureMessage(ex.Message);
+            }
+            
         }
         #endregion
     }

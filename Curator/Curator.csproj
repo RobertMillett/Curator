@@ -127,8 +127,8 @@
     <Compile Include="Views\RomDetails.cs" />
     <Compile Include="Views\RomFolders.cs" />
     <Compile Include="Views\RomList.cs" />
-    <Compile Include="Views\SystemDetails.cs" />
-    <Compile Include="Views\SystemSelector.cs" />
+    <Compile Include="Views\ConsoleDetails.cs" />
+    <Compile Include="Views\ConsoleSelector.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

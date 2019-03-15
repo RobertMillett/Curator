@@ -12,6 +12,8 @@ namespace Curator
 {
     public partial class Form1
     {
+        private static string SteamGridDbMessage = "ROM images are fetched from http://www.steamgriddb.com/. Please ensure your ROM's title exactly matches. If your game is found but no images are available please log into http://www.steamgriddb.com/ and upload one.";
+
         #region Event Handlers
         private void exportShortcutsToSteamToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -29,7 +31,7 @@ namespace Curator
                 }
             }
 
-            if (MetroMessageBox.Show(this, "Override current Shortcuts file?", "Export to Steam", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (MetroMessageBox.Show(this, "Overwrite current Shortcuts file?", "Export to Steam", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 _steamController.ExportToSteam();
             }
@@ -46,9 +48,12 @@ namespace Curator
 
         private async void getGridPicturesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (var rom in _romController.GetAllRomsWhere(x => x.Enabled == true))
-            {
-                await SteamGridDbClient.FetchGamePictures(rom);
+            if (MetroMessageBox.Show(this, SteamGridDbMessage, "Curator", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {                
+                foreach (var rom in _romController.GetAllRomsWhere(x => x.Enabled == true))
+                {
+                    await SteamGridDbClient.FetchGamePictures(rom);
+                }
             }
         }
         #endregion

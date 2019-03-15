@@ -700,6 +700,8 @@ namespace Curator.Data {
             
             private global::System.Data.DataColumn columnGridPicture;
             
+            private global::System.Data.DataColumn columnFileName;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public ROMDataTable() {
@@ -799,6 +801,14 @@ namespace Curator.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn FileNameColumn {
+                get {
+                    return this.columnFileName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -834,7 +844,7 @@ namespace Curator.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public ROMRow AddROMRow(string Name, bool Enabled, int RomFolder_Id, string Extension, string CustomArgs, bool OverrideArgs, string GridPicture) {
+            public ROMRow AddROMRow(string Name, bool Enabled, int RomFolder_Id, string Extension, string CustomArgs, bool OverrideArgs, string GridPicture, string FileName) {
                 ROMRow rowROMRow = ((ROMRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -844,7 +854,8 @@ namespace Curator.Data {
                         Extension,
                         CustomArgs,
                         OverrideArgs,
-                        GridPicture};
+                        GridPicture,
+                        FileName};
                 rowROMRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowROMRow);
                 return rowROMRow;
@@ -882,6 +893,7 @@ namespace Curator.Data {
                 this.columnCustomArgs = base.Columns["CustomArgs"];
                 this.columnOverrideArgs = base.Columns["OverrideArgs"];
                 this.columnGridPicture = base.Columns["GridPicture"];
+                this.columnFileName = base.Columns["FileName"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -903,6 +915,8 @@ namespace Curator.Data {
                 base.Columns.Add(this.columnOverrideArgs);
                 this.columnGridPicture = new global::System.Data.DataColumn("GridPicture", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnGridPicture);
+                this.columnFileName = new global::System.Data.DataColumn("FileName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFileName);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -917,6 +931,7 @@ namespace Curator.Data {
                 this.columnCustomArgs.DefaultValue = ((string)(""));
                 this.columnOverrideArgs.DefaultValue = ((bool)(false));
                 this.columnGridPicture.DefaultValue = ((string)(""));
+                this.columnFileName.DefaultValue = ((string)(""));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1578,6 +1593,22 @@ namespace Curator.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string FileName {
+                get {
+                    try {
+                        return ((string)(this[this.tableROM.FileNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FileName\' in table \'ROM\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableROM.FileNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsEnabledNull() {
                 return this.IsNull(this.tableROM.EnabledColumn);
             }
@@ -1622,6 +1653,18 @@ namespace Curator.Data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetGridPictureNull() {
                 this[this.tableROM.GridPictureColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsFileNameNull() {
+                return this.IsNull(this.tableROM.FileNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetFileNameNull() {
+                this[this.tableROM.FileNameColumn] = global::System.Convert.DBNull;
             }
         }
         
