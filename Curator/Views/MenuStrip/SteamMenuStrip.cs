@@ -49,12 +49,18 @@ namespace Curator
         private async void getGridPicturesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MetroMessageBox.Show(this, SteamGridDbMessage, "Curator", MessageBoxButtons.OKCancel) == DialogResult.OK)
-            {                
-                foreach (var rom in _romController.GetAllRomsWhere(x => x.Enabled == true))
+            {
+                var roms = _romController.GetAllRomsWhere(x => x.Enabled == true).ToList();
+                for (var i = 0; i < roms.Count(); i++)
                 {
-                    await SteamGridDbClient.FetchGamePictures(rom);
+                    var rom = roms[i];
+                    var message = $"Fetching Grid Images for ROM {i+1}/{roms.Count()}: '{rom.Name}'";
+                    ShowLoading(message, false);
+                    await Task.Run(() => SteamGridDbClient.FetchGamePictures(rom));
                 }
             }
+
+            HideLoading();
         }
         #endregion
     }

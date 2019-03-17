@@ -113,7 +113,9 @@
     <Compile Include="Data\SteamDb\GridUrlsResponse.cs" />
     <Compile Include="Data\SteamDb\GamesResponse.cs" />
     <Compile Include="Data\SteamDb\SteamGridDbClient.cs" />
-    <Compile Include="Form1.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
@@ -121,14 +123,33 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\CustomDialogs\AddConsoleDialog.cs" />
     <Compile Include="Views\CustomDialogs\RemoveConsoleDialog.cs" />
-    <Compile Include="Views\MenuStrip\ConsoleMenuStrip.cs" />
-    <Compile Include="Views\MenuStrip\FileMenuStripView.cs" />
-    <Compile Include="Views\MenuStrip\SteamMenuStrip.cs" />
-    <Compile Include="Views\RomDetails.cs" />
-    <Compile Include="Views\RomFolders.cs" />
-    <Compile Include="Views\RomList.cs" />
-    <Compile Include="Views\ConsoleDetails.cs" />
-    <Compile Include="Views\ConsoleSelector.cs" />
+    <Compile Include="Views\Loading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MenuStrip\ConsoleMenuStrip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MenuStrip\FileMenuStripView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MenuStrip\SteamMenuStrip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\RomDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\RomFolders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\RomList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ConsoleDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ConsoleSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

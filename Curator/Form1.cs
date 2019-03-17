@@ -76,6 +76,18 @@ namespace Curator
         private void OnFormResized(object sender, EventArgs e)
         {
             romListView.Columns[0].Width = romListView.Width - 24;
+
+            loadingPicturesSpinner.Location = new System.Drawing.Point
+            {
+                Y = this.Size.Height - 25,
+                X = 30
+            };
+
+            taskLabel.Location = new System.Drawing.Point
+            {
+                Y = this.Size.Height - 25,
+                X = 50
+            };
         }
 
         private void OnFormClosing(object sender, FormClosingEventArgs e)
@@ -135,6 +147,6 @@ namespace Curator
         public void ShowSaveFailureMessage(string message)
         {
             MetroMessageBox.Show(this, $"Save failed! Exception: \n{message}", "Curator", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        }        
     }
 }
