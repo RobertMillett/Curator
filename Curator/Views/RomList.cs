@@ -2,6 +2,7 @@
 using Curator.Data;
 using System;
 using System.Data;
+using System.Collections.Generic;
 
 namespace Curator
 {
@@ -34,11 +35,11 @@ namespace Curator
             romListView.Items.Find(listViewName, false)[0].Checked = rom.Enabled;
         }
 
-        public void UpdateRomListViewItems()
+        public void UpdateRomListViewItems(List<CuratorDataSet.RomFolderRow> RomFolders = null)
         {
             romListView.Items.Clear();
 
-            var RomFolders = _romFolderController.GetRomFoldersForActiveConsole();
+            RomFolders = RomFolders ?? _romFolderController.GetRomFoldersForActiveConsole();
 
             foreach (var RomFolder in RomFolders)
             {

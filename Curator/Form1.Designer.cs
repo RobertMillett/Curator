@@ -43,6 +43,7 @@
             this.CuratorDataSet = new Curator.Data.CuratorDataSet();
             this.AddConsole_Button = new MetroFramework.Controls.MetroButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.fetchRomsButton = new MetroFramework.Controls.MetroButton();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.romFolderToolStrip = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -232,6 +233,7 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.fetchRomsButton);
             this.panel2.Controls.Add(this.toolStrip2);
             this.panel2.Controls.Add(this.toolStrip1);
             this.panel2.Controls.Add(this.metroLabel7);
@@ -250,6 +252,19 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(455, 415);
             this.panel2.TabIndex = 1;
+            // 
+            // fetchRomsButton
+            // 
+            this.fetchRomsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.fetchRomsButton.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.fetchRomsButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("fetchRomsButton.BackgroundImage")));
+            this.fetchRomsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.fetchRomsButton.Location = new System.Drawing.Point(372, 272);
+            this.fetchRomsButton.Name = "fetchRomsButton";
+            this.fetchRomsButton.Size = new System.Drawing.Size(34, 24);
+            this.fetchRomsButton.TabIndex = 49;
+            this.fetchRomsButton.UseSelectable = true;
+            this.fetchRomsButton.Click += new System.EventHandler(this.fetchRomsButton_Click);
             // 
             // toolStrip2
             // 
@@ -325,6 +340,7 @@
             this.romFolderListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.romFolderListBox.Size = new System.Drawing.Size(437, 108);
             this.romFolderListBox.TabIndex = 31;
+            this.romFolderListBox.SelectedIndexChanged += new System.EventHandler(this.romFolderListBox_SelectedIndexChanged);
             this.romFolderListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.romFolderListBox_KeyDown);
             // 
             // systemDetailsName
@@ -1030,6 +1046,7 @@
         private MetroFramework.Controls.MetroLabel taskLabel;
         private MetroFramework.Controls.MetroProgressSpinner loadingRomDetailsPicture;
         private MetroFramework.Controls.MetroLink romDetailsPictureIndex;
+        private MetroFramework.Controls.MetroButton fetchRomsButton;
     }
 }
 

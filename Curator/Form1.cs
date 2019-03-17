@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using MetroFramework.Forms;
 using MetroFramework;
+using System.Collections.Generic;
 using Curator.Data;
 using Curator.Data.Controllers;
 
@@ -147,6 +149,26 @@ namespace Curator
         public void ShowSaveFailureMessage(string message)
         {
             MetroMessageBox.Show(this, $"Save failed! Exception: \n{message}", "Curator", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }        
+        }
+
+        private void romFolderListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (romFolderListBox.SelectedIndex == -1)
+            {
+                UpdateRomListViewItems();
+                return;
+            }
+
+            var romFolders = new List<CuratorDataSet.RomFolderRow>();
+
+            foreach (var romFolderIndex in romFolderListBox.SelectedIndices)
+            {
+                var path = romFolderListBox.Items[(int)romFolderIndex].ToString();
+                var romFolder = _romFolderController.GetRomFolderByPath(path);
+                romFolders.Add(romFolder);
+            }
+
+            UpdateRomListViewItems(romFolders);
+        }
     }
 }

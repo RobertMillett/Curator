@@ -41,5 +41,10 @@ namespace Curator.Data.Controllers
 
              return RomFolderData.Where(x => x.Console_Id == Form1.ActiveConsole.Id).ToList();
         }
+
+        public CuratorDataSet.RomFolderRow GetRomFolderByPath(string path)
+        {
+            return RomFolderData.Where(x => x.Path == path).First();
+        }
     }
 }

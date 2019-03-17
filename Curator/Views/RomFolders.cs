@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using Curator.Data;
+using MetroFramework;
 
 namespace Curator
 {
@@ -25,6 +26,14 @@ namespace Curator
                 _romFolderController.Remove(romFolderListBox.SelectedItem.ToString());
 
             UpdateConsoleDetailsWithRomFolders();
+        }
+
+        private void fetchRomsButton_Click(object sender, EventArgs e)
+        {
+            if (MetroMessageBox.Show(this, "Fetch ROMs from ROM Folders?", "Curator", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                _romController.LoadRoms();
+            }
         }
         #endregion
 
