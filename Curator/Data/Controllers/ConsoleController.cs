@@ -31,7 +31,7 @@ namespace Curator.Data.Controllers
 
         public bool Add(string consoleName)
         {
-            if (!Consoles.Where(x => x.Name == consoleName).Any() && !string.IsNullOrWhiteSpace(consoleName))
+            if (!Consoles.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => x.Name == consoleName).Any() && !string.IsNullOrWhiteSpace(consoleName))
             {
                 Consoles.Rows.Add(null, consoleName);
                 return true;
@@ -46,7 +46,7 @@ namespace Curator.Data.Controllers
 
         public void Remove(string name)
         {
-            Consoles.Rows.Remove(Consoles.Where(x => x.Name == name).First());
+            Consoles.Rows.Remove(Consoles.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => x.Name == name).First());
         }
 
         public void SetEmulatorArgs(string emuArgs)

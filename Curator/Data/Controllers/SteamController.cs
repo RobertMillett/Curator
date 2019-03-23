@@ -30,7 +30,7 @@ namespace Curator.Data
         public void ExportToSteam()
         {
             // Step 1 - Read current Shortcuts file
-            var currentShortcuts = new List<VDFParser.Models.VDFEntry>();
+            var currentShortcuts = new List<VDFEntry>();
             try
             {
                 currentShortcuts = VDFParser.VDFParser.Parse(SteamShortcutsFile).ToList();
@@ -150,8 +150,10 @@ namespace Curator.Data
             var imagesFolder = Path.Combine(Path.GetDirectoryName(SteamShortcutsFile), "grid");
             var steamGridImageFilePath = Path.Combine(imagesFolder, finalConversion + extension);
 
-            if (!File.Exists(steamGridImageFilePath))
-                File.Copy(gridPicturePath, steamGridImageFilePath);
+            if (File.Exists(steamGridImageFilePath))
+                File.Delete(steamGridImageFilePath);
+
+            File.Copy(gridPicturePath, steamGridImageFilePath);
         }
 
         public void SetSteamShortcutFile(string fileName)

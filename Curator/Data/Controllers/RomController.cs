@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
-using Curator.Data;
-using System.Threading.Tasks;
 
 namespace Curator.Data.Controllers
 {
@@ -24,14 +21,14 @@ namespace Curator.Data.Controllers
 
         public CuratorDataSet.ROMRow GetRom(string romName)
         {
-            return RomData.Where(x => RomNameConstructor(x) == romName).First();
+            return RomData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => RomNameConstructor(x) == romName).First();
         }
 
         public List<CuratorDataSet.ROMRow> GetRomsForActiveConsole()
         {
             var romFolders = Form1._romFolderController.GetRomFoldersForActiveConsole();
 
-            var roms = RomData.Where(x => romFolders.Select(y => y.Id).Contains(x.RomFolder_Id));
+            var roms = RomData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => romFolders.Select(y => y.Id).Contains(x.RomFolder_Id));
 
             return roms.ToList();
         }
@@ -55,7 +52,7 @@ namespace Curator.Data.Controllers
                 foreach (var rom in romList)
                 {
                     var romName = Path.GetFileNameWithoutExtension(rom);
-                    if (!RomData.Where(x => x.FileName == rom).Any())
+                    if (!RomData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => x.FileName == rom).Any())
                     {
                         var romRow = RomData.NewROMRow();
                         romRow.Name = romName;
@@ -83,12 +80,12 @@ namespace Curator.Data.Controllers
 
         private CuratorDataSet.ROMRow GetRomById(int romId)
         {
-            return RomData.Where(x => x.Id == romId).First();
+            return RomData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => x.Id == romId).First();
         }
 
         public IEnumerable<CuratorDataSet.ROMRow> GetRomsByRomFolderId(int romFolderId)
         {
-            return RomData.Where(x => x.RomFolder_Id == romFolderId);
+            return RomData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => x.RowState != System.Data.DataRowState.Deleted && x.RomFolder_Id == romFolderId);
         }
 
         public IEnumerable<CuratorDataSet.ROMRow> GetAllRoms()
@@ -98,7 +95,7 @@ namespace Curator.Data.Controllers
 
         public IEnumerable<CuratorDataSet.ROMRow> GetAllRomsWhere(Func<CuratorDataSet.ROMRow, bool> func)
         {
-            return RomData.Where(func);
+            return RomData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(func);
         }
     }
 }

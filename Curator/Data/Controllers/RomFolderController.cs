@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +18,7 @@ namespace Curator.Data.Controllers
 
         public CuratorDataSet.RomFolderRow GetRomFolderById(int romFolder_Id)
         {
-            return RomFolderData.Where(x => x.Id == romFolder_Id).First();
+            return RomFolderData.Where(x => x.RowState != DataRowState.Deleted).Where(x => x.Id == romFolder_Id).First();
         }
 
         internal void Add(string path)
@@ -31,15 +31,15 @@ namespace Curator.Data.Controllers
 
         public void Remove(string path)
         {
-            RomFolderData.Rows.Remove(RomFolderData.Where(x => x.Path == path).First());
+            RomFolderData.Rows.Remove(RomFolderData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => x.Path == path).First());
         }
 
         public List<CuratorDataSet.RomFolderRow> GetRomFoldersForActiveConsole()
-        {
+        {            
             if (Form1.ActiveConsole == null)
                 return new List<CuratorDataSet.RomFolderRow>();
 
-             return RomFolderData.Where(x => x.Console_Id == Form1.ActiveConsole.Id).ToList();
+            return RomFolderData.Where(x => x.RowState != DataRowState.Deleted).Where(x => x.Console_Id == Form1.ActiveConsole.Id).ToList();
         }
 
         public CuratorDataSet.RomFolderRow GetRomFolderByPath(string path)
