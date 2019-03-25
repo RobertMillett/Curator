@@ -12,6 +12,10 @@ namespace Curator
         private void romListView_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             var rom = _romController.GetRom(e.Item.Text);
+
+            if (rom.Enabled == e.Item.Checked)
+                return;
+
             _romController.SetRomEnabledState(rom, e.Item.Checked);
 
             if (romDetailsName.Text == rom.Name)
@@ -41,6 +45,7 @@ namespace Curator
 
             RomFolders = RomFolders ?? _romFolderController.GetRomFoldersForActiveConsole();
 
+            romListView.ItemChecked -= romListView_ItemChecked;
             foreach (var RomFolder in RomFolders)
             {
                 foreach (var romItem in _romController.GetRomsByRomFolderId(RomFolder.Id))
@@ -53,13 +58,10 @@ namespace Curator
                         Checked = romItem.Enabled
                     };
 
-                    romListView.Items.Add(romListViewItem);
-                    
-                    if (romItem.RowState == DataRowState.Modified)
-                        romItem.RejectChanges();
+                    romListView.Items.Add(romListViewItem);                    
                 }
-
             }
+            romListView.ItemChecked += romListView_ItemChecked;
         }
     }
 }

@@ -38,7 +38,9 @@ namespace Curator
                 return;
 
             var rom = _romController.GetRom(romListView.FocusedItem.Text);
-            rom.Enabled = romDetailsEnabledToggle.Checked;
+
+            if (rom.Enabled != romDetailsEnabledToggle.Checked)
+                rom.Enabled = romDetailsEnabledToggle.Checked;
 
             RomListViewUpdateCheckedState(rom);
         }
@@ -116,7 +118,9 @@ namespace Curator
             if (newIndex >= 0)
             {
                 romDetailsGridPicture.ImageLocation = GridPictureImageLocations[newIndex];
-                _romController.SetRomImage(rom, GridPictureImageLocations[newIndex]);
+
+                if (rom.GridPicture != GridPictureImageLocations[newIndex])
+                    _romController.SetRomImage(rom, GridPictureImageLocations[newIndex]);
             }   
 
             romDetailsPictureIndex.Text = $"{newIndex} of {GridPictureImageLocations.Count -1}";
