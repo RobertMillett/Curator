@@ -65,7 +65,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.romDetailsPictureIndex = new MetroFramework.Controls.MetroLink();
             this.loadingRomDetailsPicture = new MetroFramework.Controls.MetroProgressSpinner();
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
+            this.romDetailsFetchGridImageButton = new MetroFramework.Controls.MetroButton();
             this.romDetailsNextPicture_Button = new MetroFramework.Controls.MetroButton();
             this.romDetailsPrevPicture_Button = new MetroFramework.Controls.MetroButton();
             this.romDetailsOverride = new MetroFramework.Controls.MetroCheckBox();
@@ -569,7 +569,7 @@
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.romDetailsPictureIndex);
             this.panel3.Controls.Add(this.loadingRomDetailsPicture);
-            this.panel3.Controls.Add(this.metroButton1);
+            this.panel3.Controls.Add(this.romDetailsFetchGridImageButton);
             this.panel3.Controls.Add(this.romDetailsNextPicture_Button);
             this.panel3.Controls.Add(this.romDetailsPrevPicture_Button);
             this.panel3.Controls.Add(this.romDetailsOverride);
@@ -595,7 +595,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.romDetailsPictureIndex.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.romDetailsPictureIndex.BackColor = System.Drawing.Color.Transparent;
-            this.romDetailsPictureIndex.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.romDetailsPictureIndex.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.romDetailsPictureIndex.FontSize = MetroFramework.MetroLinkSize.Medium;
             this.romDetailsPictureIndex.ForeColor = System.Drawing.Color.Transparent;
             this.romDetailsPictureIndex.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -620,18 +620,18 @@
             this.loadingRomDetailsPicture.UseSelectable = true;
             this.loadingRomDetailsPicture.Visible = false;
             // 
-            // metroButton1
+            // romDetailsFetchGridImageButton
             // 
-            this.metroButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.metroButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.metroButton1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("metroButton1.BackgroundImage")));
-            this.metroButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.metroButton1.Location = new System.Drawing.Point(263, 173);
-            this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(35, 24);
-            this.metroButton1.TabIndex = 20;
-            this.metroButton1.UseSelectable = true;
-            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
+            this.romDetailsFetchGridImageButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.romDetailsFetchGridImageButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.romDetailsFetchGridImageButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("romDetailsFetchGridImageButton.BackgroundImage")));
+            this.romDetailsFetchGridImageButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.romDetailsFetchGridImageButton.Location = new System.Drawing.Point(263, 173);
+            this.romDetailsFetchGridImageButton.Name = "romDetailsFetchGridImageButton";
+            this.romDetailsFetchGridImageButton.Size = new System.Drawing.Size(35, 24);
+            this.romDetailsFetchGridImageButton.TabIndex = 20;
+            this.romDetailsFetchGridImageButton.UseSelectable = true;
+            this.romDetailsFetchGridImageButton.Click += new System.EventHandler(this.romDetailsFetchGridImageButton_Click);
             // 
             // romDetailsNextPicture_Button
             // 
@@ -781,7 +781,7 @@
             this.consoleToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(26, 53);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(159, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(279, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -799,7 +799,7 @@
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(89, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(177, 6);
             // 
             // saveToolStripMenuItem
             // 
@@ -811,46 +811,46 @@
             this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
             this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.ShowShortcutKeys = false;
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             // 
             // saveAllToolStripMenuItem
             // 
             this.saveAllToolStripMenuItem.Name = "saveAllToolStripMenuItem";
-            this.saveAllToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.saveAllToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveAllToolStripMenuItem.Text = "All Details";
             this.saveAllToolStripMenuItem.Click += new System.EventHandler(this.saveAllToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(147, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // rOMDetailsToolStripMenuItem
             // 
             this.rOMDetailsToolStripMenuItem.Name = "rOMDetailsToolStripMenuItem";
-            this.rOMDetailsToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.rOMDetailsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rOMDetailsToolStripMenuItem.Text = "ROM Details";
             this.rOMDetailsToolStripMenuItem.Click += new System.EventHandler(this.rOMDetailsToolStripMenuItem_Click);
             // 
             // systemDetailsToolStripMenuItem
             // 
             this.systemDetailsToolStripMenuItem.Name = "systemDetailsToolStripMenuItem";
-            this.systemDetailsToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.systemDetailsToolStripMenuItem.Text = "System Details";
+            this.systemDetailsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.systemDetailsToolStripMenuItem.Text = "Console Details";
             this.systemDetailsToolStripMenuItem.Click += new System.EventHandler(this.systemDetailsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(89, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -1041,7 +1041,7 @@
         private System.Windows.Forms.ToolStripButton emulatorPathToolStrip;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton romFolderToolStrip;
-        private MetroFramework.Controls.MetroButton metroButton1;
+        private MetroFramework.Controls.MetroButton romDetailsFetchGridImageButton;
         private MetroFramework.Controls.MetroProgressSpinner loadingPicturesSpinner;
         private MetroFramework.Controls.MetroLabel taskLabel;
         private MetroFramework.Controls.MetroProgressSpinner loadingRomDetailsPicture;

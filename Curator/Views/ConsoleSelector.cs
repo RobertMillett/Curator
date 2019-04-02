@@ -46,15 +46,18 @@ namespace Curator
         {
             if (MetroMessageBox.Show(this, "This will delete the console and all of it's associated data!", "Are you sure?", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                var deleteFromSteam = MetroMessageBox.Show(this, $"Also remove all '{comboBox1.Text}' ROM's from Steam as well?", "Are you sure?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                if (deleteFromSteam == DialogResult.Yes)
+                if (_steamController.ShortcutsContainConsole(consoleName))
                 {
-                    _steamController.DeleteShortcutsByTag(comboBox1.Text);
-                    ShowSteamModifiedMessage();
-                }
+                    var deleteFromSteam = MetroMessageBox.Show(this, $"You have existing Shortcuts with the label '{consoleName}'. Remove these Shortcuts from Steam?", "Are you sure?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    if (deleteFromSteam == DialogResult.Yes)
+                    {
+                        _steamController.DeleteShortcutsByTag(comboBox1.Text);
+                        ShowSteamModifiedMessage();
+                    }
 
-                if (deleteFromSteam == DialogResult.Cancel)
-                    return;
+                    if (deleteFromSteam == DialogResult.Cancel)
+                        return;
+                }
 
                 _consoleController.Remove(consoleName);
                 ConsoleHasChanged(sender, e);

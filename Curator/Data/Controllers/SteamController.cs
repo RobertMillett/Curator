@@ -30,15 +30,7 @@ namespace Curator.Data
         public void ExportToSteam()
         {
             // Step 1 - Read current Shortcuts file
-            var currentShortcuts = new List<VDFEntry>();
-            try
-            {
-                currentShortcuts = VDFParser.VDFParser.Parse(SteamShortcutsFile).ToList();
-            }
-            catch (VDFParser.VDFTooShortException)
-            {
-
-            }
+            var currentShortcuts = ParseShortCuts();
 
             //Step 2 - Add the ROMS to the list
             foreach (var rom in CuratorData.ROM.ToList())
@@ -93,6 +85,27 @@ namespace Curator.Data
             }
 
             WriteOut(currentShortcuts);
+        }
+
+        private List<VDFEntry> ParseShortCuts()
+        {
+            var currentShortcuts = new List<VDFEntry>();
+            try
+            {
+                currentShortcuts = VDFParser.VDFParser.Parse(SteamShortcutsFile).ToList();
+            }
+            catch (VDFParser.VDFTooShortException)
+            {
+
+            }
+
+            return currentShortcuts;
+        }
+
+        public bool ShortcutsContainConsole(string consoleName)
+        {
+            var shortcuts = ParseShortCuts();
+            return shortcuts.Any(x => x.Tags.Contains(consoleName));
         }
 
         private void WriteOut(List<VDFEntry> currentShortcuts)

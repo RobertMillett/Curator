@@ -33,7 +33,7 @@ namespace Curator
 
             if (MetroMessageBox.Show(this, "Overwrite current Shortcuts file?", "Export to Steam", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                _steamController.ExportToSteam();
+                AttemptSteamExport();
             }
         }
 
@@ -63,5 +63,33 @@ namespace Curator
             HideLoading();
         }
         #endregion
+
+        private void AttemptSteamExport()
+        {
+            if (CuratorDataSet.Console.Where(x => string.IsNullOrEmpty(x.EmulatorPath)).Count() == CuratorDataSet.Console.Count)
+            {
+                MetroMessageBox.Show(this, "None of your Consoles have their Emulator Path set! Cannot export to Steam!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            foreach (var console in CuratorDataSet.Console.ToList())
+            {
+                if (string.IsNullOrEmpty(console.EmulatorPath))
+                {
+                    if (MetroMessageBox.Show(this, $"The '{console.Name}' Console does not have its Emulator Path set. ROMs will not be imported into Steam for this console.", "Warning", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+                        return;
+                }                    
+            }
+
+            try
+            {
+                _steamController.ExportToSteam();
+                ShowSteamModifiedMessage();
+            }
+            catch (Exception ex)
+            {
+                ShowSteamExportFailedMessage(ex.Message);
+            }
+        }
     }
 }

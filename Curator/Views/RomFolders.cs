@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
 using Curator.Data;
 using MetroFramework;
+using System.Collections.Generic;
 
 namespace Curator
 {
@@ -26,6 +26,26 @@ namespace Curator
                 _romFolderController.Remove(romFolderListBox.SelectedItem.ToString());
 
             UpdateConsoleDetailsWithRomFolders();
+        }
+
+        private void romFolderListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (romFolderListBox.SelectedIndex == -1)
+            {
+                UpdateRomListViewItems();
+                return;
+            }
+
+            var romFolders = new List<CuratorDataSet.RomFolderRow>();
+
+            foreach (var romFolderIndex in romFolderListBox.SelectedIndices)
+            {
+                var path = romFolderListBox.Items[(int)romFolderIndex].ToString();
+                var romFolder = _romFolderController.GetRomFolderByPath(path);
+                romFolders.Add(romFolder);
+            }
+
+            UpdateRomListViewItems(romFolders);
         }
 
         private void fetchRomsButton_Click(object sender, EventArgs e)

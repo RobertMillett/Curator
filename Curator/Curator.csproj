@@ -119,6 +119,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Messages.cs" />
     <Compile Include="Views\CustomDialogs\AddConsoleDialog.cs" />
     <Compile Include="Views\CustomDialogs\RemoveConsoleDialog.cs" />
     <Compile Include="Views\Loading.cs" />

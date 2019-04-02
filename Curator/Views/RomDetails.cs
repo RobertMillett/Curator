@@ -105,11 +105,18 @@ namespace Curator
             romDetailsEnabledToggle.Checked = false;
             romDetailsGridPicture.ImageLocation = string.Empty;
             romDetailsPictureIndex.Text = string.Empty;
+            romDetailsPictureIndex.Cursor = Cursors.Arrow;
+            romDetailsPictureIndex.UseStyleColors = false;
+            romDetailsPictureIndex.Style = MetroColorStyle.Default;
+
+            var tooltip = new ToolTip();
+            tooltip.SetToolTip(romDetailsPictureIndex, "");
+            tooltip.Active = false;
         }
 
         private void NavigatePictures(CuratorDataSet.ROMRow rom, Func<int, int> direction)
         {
-            romDetailsPictureIndex.Enabled = false;
+            //romDetailsPictureIndex.Enabled = false;
 
             var currentIndex = GridPictureImageLocations.IndexOf(romDetailsGridPicture.ImageLocation);
 
@@ -127,14 +134,19 @@ namespace Curator
 
             var romDetailsPictureIndexToolTip = new ToolTip();
             romDetailsPictureIndexToolTip.Active = false;
+            romDetailsPictureIndex.Style = MetroColorStyle.Default;
+            romDetailsPictureIndex.UseStyleColors = false;
 
             //1 means nothing was found, as a blank image is always added to the collection
             if (GridPictureImageLocations.Count == 1)
             {
                 romDetailsPictureIndex.Enabled = true;
                 romDetailsPictureIndex.Click += romDetailsPictureIndex_Click;
-                romDetailsPictureIndex.Text += " *";
+                romDetailsPictureIndex.Text += "*";                
+                romDetailsPictureIndex.Style = MetroColorStyle.Blue;
+                romDetailsPictureIndex.UseStyleColors = true;
                 romDetailsPictureIndexToolTip.Active = true;
+                romDetailsPictureIndex.Cursor = Cursors.Hand;
                 romDetailsPictureIndexToolTip.SetToolTip(romDetailsPictureIndex, "This ROM was either not found, or has no images associated with it.\nPlease check that your ROM name exactly matches a game on http://www.steamgriddb.com");
             }
         }
@@ -164,7 +176,7 @@ namespace Curator
             });            
         }
 
-        private async void metroButton1_Click(object sender, EventArgs e)
+        private async void romDetailsFetchGridImageButton_Click(object sender, EventArgs e)
         {
             if (romListView.FocusedItem == null)
                 return;
@@ -185,7 +197,8 @@ namespace Curator
 
         private void romDetailsPictureIndex_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.steamgriddb.com/");
+            if (romDetailsPictureIndex.Text.Contains("of 0"))
+                System.Diagnostics.Process.Start("https://www.steamgriddb.com/");
         }
     }
 }

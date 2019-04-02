@@ -13,7 +13,10 @@ namespace Curator
             loadingPicturesSpinner.Visible = true;
 
             if (romDetails)
+            {
+                romDetailsPictureIndex.Visible = false;
                 loadingRomDetailsPicture.Visible = true;
+            }                
 
             taskLabel.Text = message;
             taskLabel.Visible = true;
@@ -25,6 +28,8 @@ namespace Curator
             loadingRomDetailsPicture.Visible = false;
             taskLabel.Text = "";
             taskLabel.Visible = false;
+
+            romDetailsPictureIndex.Visible = true;
         }
     }
 }

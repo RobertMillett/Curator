@@ -46,6 +46,10 @@ namespace Curator
             ConsoleHasChanged(sender, e);
 
             romListView.Columns[0].Width = romListView.Width - 24;
+
+            var tooltip = new ToolTip();
+            tooltip.Active = true;
+            tooltip.SetToolTip(romDetailsFetchGridImageButton, "Fetch Grid Image from http://www.steamgriddb.com");
         }
 
         private void RegisterEventHandlers()
@@ -118,57 +122,9 @@ namespace Curator
 
             if (MetroMessageBox.Show(this, "Export to Steam?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
             {
-                try
-                {
-                    _steamController.ExportToSteam();
-                    ShowSteamModifiedMessage();
-                }
-                catch (Exception ex)
-                {
-                    ShowSteamExportFailedMessage(ex.Message);
-                }
+                AttemptSteamExport();
             }
-        }
-
-        private void ShowSteamExportFailedMessage(string message)
-        {
-            MetroMessageBox.Show(this, $"Overwriting Steam Shortcuts.vdf has failed! Exception:\n{message}", "Curator", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         #endregion
-
-        public void ShowSteamModifiedMessage()
-        {
-            MetroMessageBox.Show(this, "Your Steam Shortcuts have been successfully updated. Please re-launch Steam to see the changes.", "Shortcuts Modified", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-        
-        public void ShowSaveSuccessMessage()
-        {
-            MetroMessageBox.Show(this, "Save Successful", "Curator", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        public void ShowSaveFailureMessage(string message)
-        {
-            MetroMessageBox.Show(this, $"Save failed! Exception: \n{message}", "Curator", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        private void romFolderListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (romFolderListBox.SelectedIndex == -1)
-            {
-                UpdateRomListViewItems();
-                return;
-            }
-
-            var romFolders = new List<CuratorDataSet.RomFolderRow>();
-
-            foreach (var romFolderIndex in romFolderListBox.SelectedIndices)
-            {
-                var path = romFolderListBox.Items[(int)romFolderIndex].ToString();
-                var romFolder = _romFolderController.GetRomFolderByPath(path);
-                romFolders.Add(romFolder);
-            }
-
-            UpdateRomListViewItems(romFolders);
-        }
     }
 }
