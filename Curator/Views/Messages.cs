@@ -5,6 +5,8 @@ namespace Curator
 {
     public partial class Form1
     {
+        private const string AreYouSure = "Are you sure?";
+
         private void ShowSteamExportFailedMessage(string message)
         {
             MetroMessageBox.Show(this, $"Overwriting Steam Shortcuts.vdf has failed! Exception:\n{message}", "Curator", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -23,6 +25,11 @@ namespace Curator
         public void ShowSaveFailureMessage(string message)
         {
             MetroMessageBox.Show(this, $"Save failed! Exception: \n{message}", "Curator", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public DialogResult ShowDeleteRomFolderConfirmationMessage(string romFolderPath)
+        {
+            return MetroMessageBox.Show(this, $"This will remove the following ROM Folder and all it's associated ROMs from the {ActiveConsole.Name} console!\n{romFolderPath}", AreYouSure, MessageBoxButtons.OKCancel);
         }
     }
 }

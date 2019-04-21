@@ -47,9 +47,11 @@ namespace Curator
 
             romListView.Columns[0].Width = romListView.Width - 24;
 
+            SetToolTips();
+
             var tooltip = new ToolTip();
             tooltip.Active = true;
-            tooltip.SetToolTip(romDetailsFetchGridImageButton, "Fetch Grid Image from http://www.steamgriddb.com");
+            
         }
 
         private void RegisterEventHandlers()

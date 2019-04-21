@@ -31,7 +31,7 @@ namespace Curator.Data.Controllers
 
         public void Remove(string path)
         {
-            RomFolderData.Rows.Remove(RomFolderData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => x.Path == path).First());
+            RomFolderData.Rows.Remove(RomFolderData.Where(x => x.RowState != DataRowState.Deleted).Where(x => x.Path == path).First());
         }
 
         public List<CuratorDataSet.RomFolderRow> GetRomFoldersForActiveConsole()

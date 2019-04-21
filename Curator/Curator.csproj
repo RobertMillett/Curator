@@ -148,6 +148,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Views\TooltipManager.cs" />
     <Compile Include="Views\Messages.cs" />
     <Compile Include="Views\CustomDialogs\AddConsoleDialog.cs" />
     <Compile Include="Views\CustomDialogs\RemoveConsoleDialog.cs" />
