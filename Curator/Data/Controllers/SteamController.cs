@@ -16,6 +16,7 @@ namespace Curator.Data
     {
         public CuratorDataSet CuratorData;
         public string SteamShortcutsFile;
+        private const string BackupsFolder = "Curator Backups";
 
         public SteamController(CuratorDataSet curatorData)
         {
@@ -120,7 +121,16 @@ namespace Curator.Data
             var serialisedShortcuts = VDFParser.VDFSerializer.Serialize(currentShortcuts.ToArray());
 
             //Step 4 - Write out
+            SaveBackup();
             File.WriteAllBytes(SteamShortcutsFile, serialisedShortcuts);
+        }
+
+        private void SaveBackup()
+        {
+            var backupsDirectory = Path.Combine(Path.GetDirectoryName(SteamShortcutsFile), BackupsFolder);
+            Directory.CreateDirectory(backupsDirectory);
+            var backupFileName = DateTime.UtcNow.ToString("yyyy-MM-dd_HHmmss") + "__shortcuts.vdf";
+            File.Move(SteamShortcutsFile, Path.Combine(backupsDirectory, backupFileName));
         }
 
         public void DeleteShortcutsByTag(string consoleName)
