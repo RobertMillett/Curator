@@ -63,6 +63,9 @@
             this.romListView = new MetroFramework.Controls.MetroListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel3 = new System.Windows.Forms.Panel();
+            this.romDetailsTestButton = new MetroFramework.Controls.MetroButton();
+            this.romDetailsPathPreview = new System.Windows.Forms.TextBox();
+            this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
             this.romDetailsPictureIndex = new MetroFramework.Controls.MetroLink();
             this.loadingRomDetailsPicture = new MetroFramework.Controls.MetroProgressSpinner();
             this.romDetailsFetchGridImageButton = new MetroFramework.Controls.MetroButton();
@@ -137,8 +140,8 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 489F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1200, 489);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 554F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1200, 554);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -153,7 +156,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 62F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(461, 483);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(461, 548);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // panel1
@@ -250,7 +253,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 65);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(455, 415);
+            this.panel2.Size = new System.Drawing.Size(455, 480);
             this.panel2.TabIndex = 1;
             // 
             // fetchRomsButton
@@ -338,7 +341,7 @@
             this.romFolderListBox.Location = new System.Drawing.Point(8, 300);
             this.romFolderListBox.Name = "romFolderListBox";
             this.romFolderListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.romFolderListBox.Size = new System.Drawing.Size(437, 108);
+            this.romFolderListBox.Size = new System.Drawing.Size(437, 147);
             this.romFolderListBox.TabIndex = 31;
             this.romFolderListBox.SelectedIndexChanged += new System.EventHandler(this.romFolderListBox_SelectedIndexChanged);
             this.romFolderListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.romFolderListBox_KeyDown);
@@ -533,7 +536,7 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(727, 483);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(727, 548);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // romListView
@@ -543,6 +546,7 @@
             this.columnHeader2});
             this.romListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.romListView.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.romListView.ForeColor = System.Drawing.SystemColors.WindowText;
             this.romListView.FullRowSelect = true;
             this.romListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.romListView.HideSelection = false;
@@ -551,7 +555,7 @@
             this.romListView.MultiSelect = false;
             this.romListView.Name = "romListView";
             this.romListView.OwnerDraw = true;
-            this.romListView.Size = new System.Drawing.Size(395, 477);
+            this.romListView.Size = new System.Drawing.Size(395, 542);
             this.romListView.TabIndex = 0;
             this.romListView.UseCompatibleStateImageBehavior = false;
             this.romListView.UseSelectable = true;
@@ -567,6 +571,9 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.romDetailsTestButton);
+            this.panel3.Controls.Add(this.romDetailsPathPreview);
+            this.panel3.Controls.Add(this.metroLabel12);
             this.panel3.Controls.Add(this.romDetailsPictureIndex);
             this.panel3.Controls.Add(this.loadingRomDetailsPicture);
             this.panel3.Controls.Add(this.romDetailsFetchGridImageButton);
@@ -586,8 +593,43 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(404, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(320, 477);
+            this.panel3.Size = new System.Drawing.Size(320, 542);
             this.panel3.TabIndex = 1;
+            // 
+            // romDetailsTestButton
+            // 
+            this.romDetailsTestButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.romDetailsTestButton.Highlight = true;
+            this.romDetailsTestButton.Location = new System.Drawing.Point(271, 463);
+            this.romDetailsTestButton.Name = "romDetailsTestButton";
+            this.romDetailsTestButton.Size = new System.Drawing.Size(44, 46);
+            this.romDetailsTestButton.TabIndex = 51;
+            this.romDetailsTestButton.Text = "Test!";
+            this.romDetailsTestButton.UseSelectable = true;
+            this.romDetailsTestButton.Click += new System.EventHandler(this.romDetailsTestButton_Click);
+            // 
+            // romDetailsPathPreview
+            // 
+            this.romDetailsPathPreview.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.romDetailsPathPreview.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.romDetailsPathPreview.Location = new System.Drawing.Point(14, 463);
+            this.romDetailsPathPreview.Multiline = true;
+            this.romDetailsPathPreview.Name = "romDetailsPathPreview";
+            this.romDetailsPathPreview.ReadOnly = true;
+            this.romDetailsPathPreview.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.romDetailsPathPreview.Size = new System.Drawing.Size(251, 46);
+            this.romDetailsPathPreview.TabIndex = 50;
+            this.romDetailsPathPreview.WordWrap = false;
+            // 
+            // metroLabel12
+            // 
+            this.metroLabel12.AutoSize = true;
+            this.metroLabel12.Location = new System.Drawing.Point(14, 441);
+            this.metroLabel12.Name = "metroLabel12";
+            this.metroLabel12.Size = new System.Drawing.Size(54, 19);
+            this.metroLabel12.TabIndex = 49;
+            this.metroLabel12.Text = "Preview";
             // 
             // romDetailsPictureIndex
             // 
@@ -657,20 +699,20 @@
             // 
             this.romDetailsOverride.AutoSize = true;
             this.romDetailsOverride.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
-            this.romDetailsOverride.Location = new System.Drawing.Point(14, 378);
+            this.romDetailsOverride.Location = new System.Drawing.Point(14, 371);
             this.romDetailsOverride.Name = "romDetailsOverride";
             this.romDetailsOverride.Size = new System.Drawing.Size(199, 19);
             this.romDetailsOverride.TabIndex = 43;
             this.romDetailsOverride.Text = "Override Console ROM Args";
             this.romDetailsOverride.UseSelectable = true;
+            this.romDetailsOverride.CheckedChanged += new System.EventHandler(this.romDetailsOverride_CheckedChanged);
             // 
             // metroLabel10
             // 
             this.metroLabel10.AutoSize = true;
-            this.metroLabel10.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.metroLabel10.Location = new System.Drawing.Point(14, 419);
+            this.metroLabel10.Location = new System.Drawing.Point(14, 411);
             this.metroLabel10.Name = "metroLabel10";
-            this.metroLabel10.Size = new System.Drawing.Size(73, 25);
+            this.metroLabel10.Size = new System.Drawing.Size(56, 19);
             this.metroLabel10.TabIndex = 42;
             this.metroLabel10.Text = "Enabled";
             // 
@@ -679,7 +721,7 @@
             this.romDetailsEnabledToggle.Appearance = System.Windows.Forms.Appearance.Button;
             this.romDetailsEnabledToggle.AutoSize = true;
             this.romDetailsEnabledToggle.FontSize = MetroFramework.MetroLinkSize.Medium;
-            this.romDetailsEnabledToggle.Location = new System.Drawing.Point(94, 421);
+            this.romDetailsEnabledToggle.Location = new System.Drawing.Point(76, 410);
             this.romDetailsEnabledToggle.Name = "romDetailsEnabledToggle";
             this.romDetailsEnabledToggle.Size = new System.Drawing.Size(80, 23);
             this.romDetailsEnabledToggle.TabIndex = 41;
@@ -691,7 +733,7 @@
             // 
             this.romDetailsCustomArgs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.romDetailsCustomArgs.Location = new System.Drawing.Point(14, 351);
+            this.romDetailsCustomArgs.Location = new System.Drawing.Point(14, 345);
             this.romDetailsCustomArgs.Name = "romDetailsCustomArgs";
             this.romDetailsCustomArgs.Size = new System.Drawing.Size(284, 20);
             this.romDetailsCustomArgs.TabIndex = 40;
@@ -700,7 +742,7 @@
             // metroLabel11
             // 
             this.metroLabel11.AutoSize = true;
-            this.metroLabel11.Location = new System.Drawing.Point(14, 328);
+            this.metroLabel11.Location = new System.Drawing.Point(14, 322);
             this.metroLabel11.Name = "metroLabel11";
             this.metroLabel11.Size = new System.Drawing.Size(120, 19);
             this.metroLabel11.TabIndex = 39;
@@ -740,7 +782,7 @@
             // metroLabel8
             // 
             this.metroLabel8.AutoSize = true;
-            this.metroLabel8.Location = new System.Drawing.Point(14, 210);
+            this.metroLabel8.Location = new System.Drawing.Point(14, 209);
             this.metroLabel8.Name = "metroLabel8";
             this.metroLabel8.Size = new System.Drawing.Size(45, 19);
             this.metroLabel8.TabIndex = 33;
@@ -916,7 +958,7 @@
             // loadingPicturesSpinner
             // 
             this.loadingPicturesSpinner.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.loadingPicturesSpinner.Location = new System.Drawing.Point(35, 565);
+            this.loadingPicturesSpinner.Location = new System.Drawing.Point(35, 598);
             this.loadingPicturesSpinner.Maximum = 100;
             this.loadingPicturesSpinner.Name = "loadingPicturesSpinner";
             this.loadingPicturesSpinner.Size = new System.Drawing.Size(17, 20);
@@ -928,7 +970,7 @@
             // 
             this.taskLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.taskLabel.AutoSize = true;
-            this.taskLabel.Location = new System.Drawing.Point(52, 564);
+            this.taskLabel.Location = new System.Drawing.Point(52, 597);
             this.taskLabel.Name = "taskLabel";
             this.taskLabel.Size = new System.Drawing.Size(0, 0);
             this.taskLabel.TabIndex = 2;
@@ -938,7 +980,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1240, 589);
+            this.ClientSize = new System.Drawing.Size(1240, 654);
             this.Controls.Add(this.loadingPicturesSpinner);
             this.Controls.Add(this.taskLabel);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -1047,6 +1089,9 @@
         private MetroFramework.Controls.MetroProgressSpinner loadingRomDetailsPicture;
         private MetroFramework.Controls.MetroLink romDetailsPictureIndex;
         private MetroFramework.Controls.MetroButton fetchRomsButton;
+        private System.Windows.Forms.TextBox romDetailsPathPreview;
+        private MetroFramework.Controls.MetroLabel metroLabel12;
+        private MetroFramework.Controls.MetroButton romDetailsTestButton;
     }
 }
 

@@ -31,5 +31,10 @@ namespace Curator
         {
             return MetroMessageBox.Show(this, $"This will remove the following ROM Folder and all it's associated ROMs from the {ActiveConsole.Name} console!\n{romFolderPath}", AreYouSure, MessageBoxButtons.OKCancel);
         }
+
+        public void ShowPathTestFailureMessage(string message)
+        {
+            MetroMessageBox.Show(this, $"Failure! Attempting to open your ROM threw the following error:\n{message}", "Curator", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }

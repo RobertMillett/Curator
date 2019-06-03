@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using Curator.Data;
 using System.Collections.Generic;
@@ -72,6 +73,7 @@ namespace Curator
                 return;
 
             var rom = _romController.GetRom(romListView.FocusedItem.Text);
+
             rom.CustomArgs = romDetailsCustomArgs.Text;
         }
         #endregion
@@ -90,6 +92,7 @@ namespace Curator
             romDetailsOverride.Checked = rom.OverrideArgs;
             romDetailsEnabledToggle.Checked = rom.Enabled;
             romDetailsGridPicture.ImageLocation = rom.GridPicture;
+            romDetailsPathPreview.Text = _steamController.GetExePath(rom, ActiveConsole);
 
             await LoadGridPictures(rom);
 
@@ -108,6 +111,7 @@ namespace Curator
             romDetailsPictureIndex.Cursor = Cursors.Arrow;
             romDetailsPictureIndex.UseStyleColors = false;
             romDetailsPictureIndex.Style = MetroColorStyle.Default;
+            romDetailsPathPreview.Text = string.Empty;
 
             var tooltip = new ToolTip();
             tooltip.SetToolTip(romDetailsPictureIndex, "");
@@ -198,7 +202,37 @@ namespace Curator
         private void romDetailsPictureIndex_Click(object sender, EventArgs e)
         {
             if (romDetailsPictureIndex.Text.Contains("of 0"))
-                System.Diagnostics.Process.Start("https://www.steamgriddb.com/");
+                Process.Start("https://www.steamgriddb.com/");
+        }
+
+        private void romDetailsTestButton_Click(object sender, EventArgs e)
+        {
+            if (romListView.FocusedItem == null)
+                return;
+
+            var rom = _romController.GetRom(romListView.FocusedItem.Text);
+
+            var exePath = _steamController.GetExePath(rom, ActiveConsole);
+            var emulatorPath = exePath.Substring(1, ActiveConsole.EmulatorPath.Length);
+            var args = exePath.Substring(ActiveConsole.EmulatorPath.Length + 2);
+
+            try
+            {
+                using (var myProcess = new Process())
+                {
+                    myProcess.StartInfo.UseShellExecute = true;
+                    myProcess.StartInfo.FileName = emulatorPath;
+                    myProcess.StartInfo.CreateNoWindow = true;
+                    myProcess.StartInfo.Arguments = args;
+
+                    myProcess.Start();
+                    myProcess.WaitForExit();
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowPathTestFailureMessage(ex.Message);
+            }
         }
     }
 }
