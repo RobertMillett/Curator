@@ -50,13 +50,7 @@ namespace Curator.Data
                 var RomFolder = CuratorData.RomFolder.Where(x => x.Id == rom.RomFolder_Id).First();
                 var console = CuratorData.Console.Where(y => y.Id == RomFolder.Console_Id).First();
 
-                var romArgs = rom.OverrideArgs ? rom.CustomArgs : console.RomArgs += $" {rom.CustomArgs}";
-
-                var exepath = $"\"{console.EmulatorPath}\" {console.EmulatorArgs} \"{rom.FileName}";
-
-                if (!string.IsNullOrWhiteSpace(console.RomArgs))
-                    exepath += $" {console.RomArgs}";
-                exepath += "\"";
+                var exepath = GetExePath(rom, console);
 
                 var newRomEntry = new VDFEntry
                 {
@@ -86,6 +80,18 @@ namespace Curator.Data
             }
 
             WriteOut(currentShortcuts);
+        }
+
+        public string GetExePath(CuratorDataSet.ROMRow rom, CuratorDataSet.ConsoleRow console)
+        {
+            var romArgs = rom.OverrideArgs ? rom.CustomArgs : $"{console.RomArgs} {rom.CustomArgs}";
+
+            var exepath = $"\"{console.EmulatorPath}\" {console.EmulatorArgs} \"{rom.FileName}\"";
+
+            if (!string.IsNullOrWhiteSpace(romArgs))
+                exepath += $" {romArgs}";
+
+            return exepath;
         }
 
         private List<VDFEntry> ParseShortCuts()

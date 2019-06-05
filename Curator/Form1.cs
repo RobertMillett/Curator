@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using MetroFramework.Forms;
@@ -47,9 +49,11 @@ namespace Curator
 
             romListView.Columns[0].Width = romListView.Width - 24;
 
+            SetToolTips();
+
             var tooltip = new ToolTip();
             tooltip.Active = true;
-            tooltip.SetToolTip(romDetailsFetchGridImageButton, "Fetch Grid Image from http://www.steamgriddb.com");
+            
         }
 
         private void RegisterEventHandlers()
@@ -126,5 +130,16 @@ namespace Curator
             }
         }
         #endregion
+
+        private void romDetailsOverride_CheckedChanged(object sender, EventArgs e)
+        {
+            if (romListView.FocusedItem == null)
+                return;
+
+            var rom = _romController.GetRom(romListView.FocusedItem.Text);
+
+            if (rom.OverrideArgs != romDetailsOverride.Checked)
+                rom.OverrideArgs = romDetailsOverride.Checked;
+        }        
     }
 }

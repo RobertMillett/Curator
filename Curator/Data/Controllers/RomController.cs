@@ -33,6 +33,16 @@ namespace Curator.Data.Controllers
             return roms.ToList();
         }
 
+        public void DeleteAllRomsForRomFolder(int romFolderId)
+        {
+            var roms = GetRomsByRomFolderId(romFolderId);
+            foreach (var rom in roms)
+            {
+                if (rom.RowState != System.Data.DataRowState.Deleted)
+                    rom.Delete();
+            }
+        }
+
         public void SetRomEnabledState(CuratorDataSet.ROMRow rom, bool enabled)
         {
             rom.Enabled = enabled;

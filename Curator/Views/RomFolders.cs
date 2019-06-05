@@ -4,10 +4,15 @@ using Curator.Data;
 using MetroFramework;
 using System.Collections.Generic;
 
+
 namespace Curator
 {
     public partial class Form1
     {
+        #region On Form Load
+        
+        #endregion
+
         #region Event Handlers
         private void AddRomFolder_Button_Click(object sender, EventArgs e)
         {
@@ -21,11 +26,21 @@ namespace Curator
         }
 
         private void romFolderListBox_KeyDown(object sender, KeyEventArgs e)
-        {
+        {            
             if (e.KeyCode == Keys.Delete)
-                _romFolderController.Remove(romFolderListBox.SelectedItem.ToString());
+            {
+                var romFolder = romFolderListBox.SelectedItem?.ToString();
 
-            UpdateConsoleDetailsWithRomFolders();
+                if (ShowDeleteRomFolderConfirmationMessage(romFolder) == DialogResult.OK)
+                {
+                    var romFolderId = _romFolderController.GetRomFolderByPath(romFolder).Id;
+                    _romController.DeleteAllRomsForRomFolder(romFolderId);
+                    _romFolderController.Remove(romFolder);
+                }
+
+                UpdateConsoleDetailsWithRomFolders();
+                UpdateRomListViewItems();
+            }               
         }
 
         private void romFolderListBox_SelectedIndexChanged(object sender, EventArgs e)
