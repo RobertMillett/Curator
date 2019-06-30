@@ -6,6 +6,8 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using RestSharp;
+using RestSharp.Extensions;
 
 namespace Curator.Data.SteamDb
 {
@@ -13,39 +15,62 @@ namespace Curator.Data.SteamDb
     {
         public static string ImageLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Curator", "Images");
 
-        private static HttpClient _steamGridDbClient = new HttpClient { BaseAddress = new Uri("http://www.steamgriddb.com/api/") };
+        private static RestSharp.RestClient _steamGridDbClient = new RestClient
+        {
+            BaseUrl = new Uri("https://www.steamgriddb.com/api/v2")
+        };
 
-        private static List<string> _gamesList = new List<string>();
+        private static Dictionary<string, int> _gamesDictionary = new Dictionary<string, int>();
         public static List<string> _gamesNotFound = new List<string>();
 
-        private static async Task PopulateGamesList()
+        private static async Task PopulateGamesList(string romName)
         {
-            if (_gamesList.Count > 0)
+            if (_gamesDictionary.ContainsKey(romName))
                 return;
 
-            var response = await _steamGridDbClient.GetAsync("games").Result.Content.ReadAsStringAsync();
+            var request = new RestRequest {
+                Method = Method.GET,
+                Resource = $"/search/autocomplete/{romName}"
+            };
+            request.AddHeader("Authorization", "Bearer 850ea77df1c635de67acc76bbb197bd7");
 
-            _gamesList = JsonConvert.DeserializeObject<GamesResponse>(response).Games;
+            var response = await _steamGridDbClient.ExecuteTaskAsync(request);
+
+            foreach (var game in JsonConvert.DeserializeObject<SearchResponse>(response.Content).Data)
+            {
+                if (game.Name == romName)
+                {
+                    _gamesDictionary.Add(romName, game.Id);
+                    return;
+                }
+            }
         }
 
         public static async Task FetchGamePictures(CuratorDataSet.ROMRow rom)
         {
-            await PopulateGamesList();
+            await PopulateGamesList(rom.Name);
 
             var filePath = Path.Combine(ImageLocation, Path.GetFileNameWithoutExtension(rom.FileName));
 
-            if (!_gamesList.Where(x => x == rom.Name).Any())
+            if (!_gamesDictionary.Where(x => x.Key == rom.Name).Any())
             {
                 _gamesNotFound.Add(rom.Name);
                 return;
-            }   
+            }
 
-            var response = await _steamGridDbClient.GetAsync($"grids?game={rom.Name}&fields=grid_url").Result.Content.ReadAsStringAsync();
-            var gridUrls = JsonConvert.DeserializeObject<GridUrlsResponse>(response).Data;
+            var request = new RestRequest
+            {
+                Method = Method.GET,
+                Resource = $"/grids/game/{ _gamesDictionary[rom.Name]}"                
+            };
+            request.AddHeader("Authorization", "Bearer 850ea77df1c635de67acc76bbb197bd7");
+
+            var response = await _steamGridDbClient.ExecuteTaskAsync(request);
+            var gridUrls = JsonConvert.DeserializeObject<GridUrlsResponse>(response.Content).Data;
 
             foreach (var gridUrl in gridUrls)
             {
-                await SaveGridImageToDisk(filePath, gridUrl.Grid_url);
+                await SaveGridImageToDisk(filePath, gridUrl.Url);
             }
 
             if (gridUrls.Count > 0)
@@ -56,12 +81,9 @@ namespace Curator.Data.SteamDb
         {
             var file = new FileInfo(Path.Combine(path, Path.GetFileName(grid_url)));
             file.Directory.Create();
-
-            using (var stream = await _steamGridDbClient.GetStreamAsync(grid_url))
-            using (var fileStream = new FileStream(file.FullName, FileMode.Create))
-            {
-                await stream.CopyToAsync(fileStream);
-            }
+            
+            var client = new RestClient();
+            await Task.Run(() => client.DownloadData(new RestRequest { Resource = grid_url }).SaveAs(file.FullName));
         }
     }
 
