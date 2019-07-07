@@ -146,16 +146,5 @@ namespace Curator
             }
         }
         #endregion
-
-        private void romDetailsOverride_CheckedChanged(object sender, EventArgs e)
-        {
-            if (romListView.FocusedItem == null)
-                return;
-
-            var rom = _romController.GetRom(romListView.FocusedItem.Text);
-
-            if (rom.OverrideArgs != romDetailsOverride.Checked)
-                rom.OverrideArgs = romDetailsOverride.Checked;
-        }        
     }
 }

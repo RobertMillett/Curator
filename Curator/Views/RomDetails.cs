@@ -43,7 +43,7 @@ namespace Curator
             if (rom.Enabled != romDetailsEnabledToggle.Checked)
                 rom.Enabled = romDetailsEnabledToggle.Checked;
 
-            RomListViewUpdateCheckedState(rom);
+            RomListViewUpdateCheckedState(rom);            
         }
 
         private void romDetailsName_Leave(object sender, EventArgs e)
@@ -65,9 +65,9 @@ namespace Curator
             {
                 MetroMessageBox.Show(this, $"Failed to overwrite ROM file name! Error: {ex.Message}", "Error!", MessageBoxButtons.OK);
             }
-        }
+        }        
 
-        private void romDetailsCustomArgs_Leave(object sender, EventArgs e)
+        private void romDetailsCustomArgs_TextChanged(object sender, EventArgs e)
         {
             if (romListView.FocusedItem == null)
                 return;
@@ -75,6 +75,21 @@ namespace Curator
             var rom = _romController.GetRom(romListView.FocusedItem.Text);
 
             rom.CustomArgs = romDetailsCustomArgs.Text;
+
+            romDetailsPathPreview.Text = _steamController.GetExePath(rom, ActiveConsole);
+        }
+
+        private void romDetailsOverride_CheckedChanged(object sender, EventArgs e)
+        {
+            if (romListView.FocusedItem == null)
+                return;
+
+            var rom = _romController.GetRom(romListView.FocusedItem.Text);
+
+            if (rom.OverrideArgs != romDetailsOverride.Checked)
+                rom.OverrideArgs = romDetailsOverride.Checked;
+
+            romDetailsPathPreview.Text = _steamController.GetExePath(rom, ActiveConsole);
         }
         #endregion
 
