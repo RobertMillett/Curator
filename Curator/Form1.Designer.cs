@@ -294,6 +294,7 @@
             this.romFolderToolStrip.Name = "romFolderToolStrip";
             this.romFolderToolStrip.Size = new System.Drawing.Size(34, 24);
             this.romFolderToolStrip.Text = "&Open";
+            this.romFolderToolStrip.ToolTipText = "Add ROM Folder";
             this.romFolderToolStrip.Click += new System.EventHandler(this.AddRomFolder_Button_Click);
             // 
             // toolStrip1
@@ -321,6 +322,7 @@
             this.emulatorPathToolStrip.Name = "emulatorPathToolStrip";
             this.emulatorPathToolStrip.Size = new System.Drawing.Size(34, 24);
             this.emulatorPathToolStrip.Text = "&Open";
+            this.emulatorPathToolStrip.ToolTipText = "Add Emulator";
             this.emulatorPathToolStrip.Click += new System.EventHandler(this.AddEmulatorPath_Button_Click);
             // 
             // metroLabel7
