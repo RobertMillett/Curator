@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 using MetroFramework;
 
 namespace Curator
@@ -9,7 +10,7 @@ namespace Curator
 
         private void ShowSteamExportFailedMessage(string message)
         {
-            MetroMessageBox.Show(this, $"Overwriting Steam Shortcuts.vdf has failed! Exception:\n{message}", "Curator", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MetroMessageBox.Show(this, $"Overwriting Steam Shortcuts.vdf has failed! Exception:\n{message}", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         public void ShowSteamModifiedMessage()
@@ -24,7 +25,7 @@ namespace Curator
 
         public void ShowSaveFailureMessage(string message)
         {
-            MetroMessageBox.Show(this, $"Save failed! Exception: \n{message}", "Curator", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MetroMessageBox.Show(this, $"Save failed. Exception: \n{message}", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         public DialogResult ShowDeleteRomFolderConfirmationMessage(string romFolderPath)
@@ -34,7 +35,21 @@ namespace Curator
 
         public void ShowPathTestFailureMessage(string message)
         {
-            MetroMessageBox.Show(this, $"Failure! Attempting to open your ROM threw the following error:\n{message}", "Curator", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MetroMessageBox.Show(this, $"Attempting to open your ROM threw the following error:\n{message}", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public DialogResult ShowInvalidROMFolderMessage(List<Data.CuratorDataSet.RomFolderRow> romFolders)
+        {
+            var folderList = string.Empty;
+
+            foreach (var folder in romFolders)
+            {
+                folderList += $"{folder.Path}\n";
+            }
+
+           return MetroMessageBox.Show(
+               this, 
+               $"The following ROM Folders can no longer be found:\n{folderList}Do you wish to delete these ROM Folders (and all associated ROMs) now?", "Warning!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
         }
     }
 }
