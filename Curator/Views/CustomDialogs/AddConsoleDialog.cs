@@ -17,7 +17,9 @@ namespace Curator.Views.CustomDialogs
                 Height = 150,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
                 Text = "Add Console",
-                StartPosition = FormStartPosition.CenterScreen
+                StartPosition = FormStartPosition.CenterScreen,
+                MinimizeBox = false,
+                MaximizeBox = false
             };
 
             Label consoleNameLabel = new Label() { Left = 20, Top = 20, Text = "Name" };

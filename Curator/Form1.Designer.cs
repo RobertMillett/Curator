@@ -63,6 +63,8 @@
             this.romListView = new MetroFramework.Controls.MetroListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel3 = new System.Windows.Forms.Panel();
+            this.toolStrip3 = new System.Windows.Forms.ToolStrip();
+            this.romDetails_helpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.romDetailsTestButton = new MetroFramework.Controls.MetroButton();
             this.romDetailsPathPreview = new System.Windows.Forms.TextBox();
             this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
@@ -116,6 +118,7 @@
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.toolStrip3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.romDetailsGridPicture)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -573,6 +576,7 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.toolStrip3);
             this.panel3.Controls.Add(this.romDetailsTestButton);
             this.panel3.Controls.Add(this.romDetailsPathPreview);
             this.panel3.Controls.Add(this.metroLabel12);
@@ -598,11 +602,37 @@
             this.panel3.Size = new System.Drawing.Size(320, 542);
             this.panel3.TabIndex = 1;
             // 
+            // toolStrip3
+            // 
+            this.toolStrip3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.toolStrip3.BackColor = System.Drawing.Color.Transparent;
+            this.toolStrip3.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.romDetails_helpToolStripButton});
+            this.toolStrip3.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Table;
+            this.toolStrip3.Location = new System.Drawing.Point(134, 174);
+            this.toolStrip3.Name = "toolStrip3";
+            this.toolStrip3.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.toolStrip3.Size = new System.Drawing.Size(32, 42);
+            this.toolStrip3.TabIndex = 52;
+            this.toolStrip3.Text = "toolStrip3";
+            // 
+            // romDetails_helpToolStripButton
+            // 
+            this.romDetails_helpToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.romDetails_helpToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("romDetails_helpToolStripButton.Image")));
+            this.romDetails_helpToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.romDetails_helpToolStripButton.Name = "romDetails_helpToolStripButton";
+            this.romDetails_helpToolStripButton.Size = new System.Drawing.Size(23, 20);
+            this.romDetails_helpToolStripButton.Text = "He&lp";
+            this.romDetails_helpToolStripButton.Click += new System.EventHandler(this.romDetails_helpToolStripButton_Click);
+            // 
             // romDetailsTestButton
             // 
             this.romDetailsTestButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.romDetailsTestButton.Highlight = true;
-            this.romDetailsTestButton.Location = new System.Drawing.Point(271, 463);
+            this.romDetailsTestButton.Location = new System.Drawing.Point(269, 463);
             this.romDetailsTestButton.Name = "romDetailsTestButton";
             this.romDetailsTestButton.Size = new System.Drawing.Size(44, 46);
             this.romDetailsTestButton.TabIndex = 51;
@@ -653,7 +683,6 @@
             this.romDetailsPictureIndex.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.romDetailsPictureIndex.UseCustomBackColor = true;
             this.romDetailsPictureIndex.UseSelectable = true;
-            this.romDetailsPictureIndex.Click += new System.EventHandler(this.romDetailsPictureIndex_Click);
             // 
             // loadingRomDetailsPicture
             // 
@@ -1016,6 +1045,8 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.toolStrip3.ResumeLayout(false);
+            this.toolStrip3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.romDetailsGridPicture)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -1099,6 +1130,8 @@
         private System.Windows.Forms.TextBox romDetailsPathPreview;
         private MetroFramework.Controls.MetroLabel metroLabel12;
         private MetroFramework.Controls.MetroButton romDetailsTestButton;
+        private System.Windows.Forms.ToolStrip toolStrip3;
+        private System.Windows.Forms.ToolStripButton romDetails_helpToolStripButton;
     }
 }
 
