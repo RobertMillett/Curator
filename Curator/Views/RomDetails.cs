@@ -7,6 +7,7 @@ using Curator.Data.SteamDb;
 using MetroFramework;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Curator.Views.CustomDialogs;
 
 namespace Curator
 {
@@ -43,7 +44,7 @@ namespace Curator
             if (rom.Enabled != romDetailsEnabledToggle.Checked)
                 rom.Enabled = romDetailsEnabledToggle.Checked;
 
-            RomListViewUpdateCheckedState(rom);
+            RomListViewUpdateCheckedState(rom);            
         }
 
         private void romDetailsName_Leave(object sender, EventArgs e)
@@ -65,9 +66,9 @@ namespace Curator
             {
                 MetroMessageBox.Show(this, $"Failed to overwrite ROM file name! Error: {ex.Message}", "Error!", MessageBoxButtons.OK);
             }
-        }
+        }        
 
-        private void romDetailsCustomArgs_Leave(object sender, EventArgs e)
+        private void romDetailsCustomArgs_TextChanged(object sender, EventArgs e)
         {
             if (romListView.FocusedItem == null)
                 return;
@@ -75,6 +76,26 @@ namespace Curator
             var rom = _romController.GetRom(romListView.FocusedItem.Text);
 
             rom.CustomArgs = romDetailsCustomArgs.Text;
+
+            romDetailsPathPreview.Text = _steamController.GetExePath(rom, ActiveConsole);
+        }
+
+        private void romDetailsOverride_CheckedChanged(object sender, EventArgs e)
+        {
+            if (romListView.FocusedItem == null)
+                return;
+
+            var rom = _romController.GetRom(romListView.FocusedItem.Text);
+
+            if (rom.OverrideArgs != romDetailsOverride.Checked)
+                rom.OverrideArgs = romDetailsOverride.Checked;
+
+            romDetailsPathPreview.Text = _steamController.GetExePath(rom, ActiveConsole);
+        }
+
+        private void romDetails_helpToolStripButton_Click(object sender, EventArgs e)
+        {
+            GridsNotFoundDialog.ShowDialog();
         }
         #endregion
 
@@ -112,16 +133,11 @@ namespace Curator
             romDetailsPictureIndex.UseStyleColors = false;
             romDetailsPictureIndex.Style = MetroColorStyle.Default;
             romDetailsPathPreview.Text = string.Empty;
-
-            var tooltip = new ToolTip();
-            tooltip.SetToolTip(romDetailsPictureIndex, "");
-            tooltip.Active = false;
+            romDetails_helpToolStripButton.Visible = false;
         }
 
         private void NavigatePictures(CuratorDataSet.ROMRow rom, Func<int, int> direction)
         {
-            //romDetailsPictureIndex.Enabled = false;
-
             var currentIndex = GridPictureImageLocations.IndexOf(romDetailsGridPicture.ImageLocation);
 
             int newIndex = GetNewIndex(currentIndex, direction);
@@ -140,18 +156,12 @@ namespace Curator
             romDetailsPictureIndexToolTip.Active = false;
             romDetailsPictureIndex.Style = MetroColorStyle.Default;
             romDetailsPictureIndex.UseStyleColors = false;
+            romDetails_helpToolStripButton.Visible = false;
 
             //1 means nothing was found, as a blank image is always added to the collection
             if (GridPictureImageLocations.Count == 1)
             {
-                romDetailsPictureIndex.Enabled = true;
-                romDetailsPictureIndex.Click += romDetailsPictureIndex_Click;
-                romDetailsPictureIndex.Text += "*";                
-                romDetailsPictureIndex.Style = MetroColorStyle.Blue;
-                romDetailsPictureIndex.UseStyleColors = true;
-                romDetailsPictureIndexToolTip.Active = true;
-                romDetailsPictureIndex.Cursor = Cursors.Hand;
-                romDetailsPictureIndexToolTip.SetToolTip(romDetailsPictureIndex, "This ROM was either not found, or has no images associated with it.\nPlease check that your ROM name exactly matches a game on http://www.steamgriddb.com");
+                romDetails_helpToolStripButton.Visible = true;
             }
         }
 
@@ -197,13 +207,7 @@ namespace Curator
             HideLoading();
 
             NavigatePictures(rom, x => x + 0);
-        }
-
-        private void romDetailsPictureIndex_Click(object sender, EventArgs e)
-        {
-            if (romDetailsPictureIndex.Text.Contains("of 0"))
-                Process.Start("https://www.steamgriddb.com/");
-        }
+        }       
 
         private void romDetailsTestButton_Click(object sender, EventArgs e)
         {

@@ -53,9 +53,9 @@
             this.systemDetailsName = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
             this.romArgsTextBox = new MetroFramework.Controls.MetroTextBox();
-            this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
+            this.romFlags_LabelBox = new MetroFramework.Controls.MetroLabel();
             this.emulatorArgsTextBox = new MetroFramework.Controls.MetroTextBox();
-            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
+            this.emulatorFlags_LabelBox = new MetroFramework.Controls.MetroLabel();
             this.emulatorPathTextBox = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
@@ -63,6 +63,8 @@
             this.romListView = new MetroFramework.Controls.MetroListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel3 = new System.Windows.Forms.Panel();
+            this.toolStrip3 = new System.Windows.Forms.ToolStrip();
+            this.romDetails_helpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.romDetailsTestButton = new MetroFramework.Controls.MetroButton();
             this.romDetailsPathPreview = new System.Windows.Forms.TextBox();
             this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
@@ -75,7 +77,7 @@
             this.metroLabel10 = new MetroFramework.Controls.MetroLabel();
             this.romDetailsEnabledToggle = new MetroFramework.Controls.MetroToggle();
             this.romDetailsCustomArgs = new System.Windows.Forms.TextBox();
-            this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
+            this.romDetailsAdditionalRomFlags_labelBox = new MetroFramework.Controls.MetroLabel();
             this.romDetailsFolder = new System.Windows.Forms.TextBox();
             this.metroLabel9 = new MetroFramework.Controls.MetroLabel();
             this.romDetailsGridPicture = new System.Windows.Forms.PictureBox();
@@ -116,6 +118,7 @@
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.toolStrip3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.romDetailsGridPicture)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -244,9 +247,9 @@
             this.panel2.Controls.Add(this.systemDetailsName);
             this.panel2.Controls.Add(this.metroLabel6);
             this.panel2.Controls.Add(this.romArgsTextBox);
-            this.panel2.Controls.Add(this.metroLabel5);
+            this.panel2.Controls.Add(this.romFlags_LabelBox);
             this.panel2.Controls.Add(this.emulatorArgsTextBox);
-            this.panel2.Controls.Add(this.metroLabel4);
+            this.panel2.Controls.Add(this.emulatorFlags_LabelBox);
             this.panel2.Controls.Add(this.emulatorPathTextBox);
             this.panel2.Controls.Add(this.metroLabel3);
             this.panel2.Controls.Add(this.metroLabel2);
@@ -294,6 +297,7 @@
             this.romFolderToolStrip.Name = "romFolderToolStrip";
             this.romFolderToolStrip.Size = new System.Drawing.Size(34, 24);
             this.romFolderToolStrip.Text = "&Open";
+            this.romFolderToolStrip.ToolTipText = "Add ROM Folder";
             this.romFolderToolStrip.Click += new System.EventHandler(this.AddRomFolder_Button_Click);
             // 
             // toolStrip1
@@ -321,6 +325,7 @@
             this.emulatorPathToolStrip.Name = "emulatorPathToolStrip";
             this.emulatorPathToolStrip.Size = new System.Drawing.Size(34, 24);
             this.emulatorPathToolStrip.Text = "&Open";
+            this.emulatorPathToolStrip.ToolTipText = "Add Emulator";
             this.emulatorPathToolStrip.Click += new System.EventHandler(this.AddEmulatorPath_Button_Click);
             // 
             // metroLabel7
@@ -328,9 +333,9 @@
             this.metroLabel7.AutoSize = true;
             this.metroLabel7.Location = new System.Drawing.Point(4, 35);
             this.metroLabel7.Name = "metroLabel7";
-            this.metroLabel7.Size = new System.Drawing.Size(45, 19);
+            this.metroLabel7.Size = new System.Drawing.Size(86, 19);
             this.metroLabel7.TabIndex = 32;
-            this.metroLabel7.Text = "Name";
+            this.metroLabel7.Text = "Steam Name";
             // 
             // romFolderListBox
             // 
@@ -419,14 +424,14 @@
             this.romArgsTextBox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.romArgsTextBox.Leave += new System.EventHandler(this.romArgsTextBox_Leave);
             // 
-            // metroLabel5
+            // romFlags_LabelBox
             // 
-            this.metroLabel5.AutoSize = true;
-            this.metroLabel5.Location = new System.Drawing.Point(3, 204);
-            this.metroLabel5.Name = "metroLabel5";
-            this.metroLabel5.Size = new System.Drawing.Size(71, 19);
-            this.metroLabel5.TabIndex = 25;
-            this.metroLabel5.Text = "ROM Args";
+            this.romFlags_LabelBox.AutoSize = true;
+            this.romFlags_LabelBox.Location = new System.Drawing.Point(3, 204);
+            this.romFlags_LabelBox.Name = "romFlags_LabelBox";
+            this.romFlags_LabelBox.Size = new System.Drawing.Size(74, 19);
+            this.romFlags_LabelBox.TabIndex = 25;
+            this.romFlags_LabelBox.Text = "ROM Flags";
             // 
             // emulatorArgsTextBox
             // 
@@ -461,14 +466,14 @@
             this.emulatorArgsTextBox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.emulatorArgsTextBox.Leave += new System.EventHandler(this.emulatorArgsTextBox_Leave);
             // 
-            // metroLabel4
+            // emulatorFlags_LabelBox
             // 
-            this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Location = new System.Drawing.Point(3, 147);
-            this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(93, 19);
-            this.metroLabel4.TabIndex = 23;
-            this.metroLabel4.Text = "Emulator Args";
+            this.emulatorFlags_LabelBox.AutoSize = true;
+            this.emulatorFlags_LabelBox.Location = new System.Drawing.Point(3, 147);
+            this.emulatorFlags_LabelBox.Name = "emulatorFlags_LabelBox";
+            this.emulatorFlags_LabelBox.Size = new System.Drawing.Size(96, 19);
+            this.emulatorFlags_LabelBox.TabIndex = 23;
+            this.emulatorFlags_LabelBox.Text = "Emulator Flags";
             // 
             // emulatorPathTextBox
             // 
@@ -571,6 +576,7 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.toolStrip3);
             this.panel3.Controls.Add(this.romDetailsTestButton);
             this.panel3.Controls.Add(this.romDetailsPathPreview);
             this.panel3.Controls.Add(this.metroLabel12);
@@ -583,7 +589,7 @@
             this.panel3.Controls.Add(this.metroLabel10);
             this.panel3.Controls.Add(this.romDetailsEnabledToggle);
             this.panel3.Controls.Add(this.romDetailsCustomArgs);
-            this.panel3.Controls.Add(this.metroLabel11);
+            this.panel3.Controls.Add(this.romDetailsAdditionalRomFlags_labelBox);
             this.panel3.Controls.Add(this.romDetailsFolder);
             this.panel3.Controls.Add(this.metroLabel9);
             this.panel3.Controls.Add(this.romDetailsGridPicture);
@@ -596,11 +602,37 @@
             this.panel3.Size = new System.Drawing.Size(320, 542);
             this.panel3.TabIndex = 1;
             // 
+            // toolStrip3
+            // 
+            this.toolStrip3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.toolStrip3.BackColor = System.Drawing.Color.Transparent;
+            this.toolStrip3.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.romDetails_helpToolStripButton});
+            this.toolStrip3.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Table;
+            this.toolStrip3.Location = new System.Drawing.Point(134, 174);
+            this.toolStrip3.Name = "toolStrip3";
+            this.toolStrip3.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.toolStrip3.Size = new System.Drawing.Size(32, 42);
+            this.toolStrip3.TabIndex = 52;
+            this.toolStrip3.Text = "toolStrip3";
+            // 
+            // romDetails_helpToolStripButton
+            // 
+            this.romDetails_helpToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.romDetails_helpToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("romDetails_helpToolStripButton.Image")));
+            this.romDetails_helpToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.romDetails_helpToolStripButton.Name = "romDetails_helpToolStripButton";
+            this.romDetails_helpToolStripButton.Size = new System.Drawing.Size(23, 20);
+            this.romDetails_helpToolStripButton.Text = "He&lp";
+            this.romDetails_helpToolStripButton.Click += new System.EventHandler(this.romDetails_helpToolStripButton_Click);
+            // 
             // romDetailsTestButton
             // 
             this.romDetailsTestButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.romDetailsTestButton.Highlight = true;
-            this.romDetailsTestButton.Location = new System.Drawing.Point(271, 463);
+            this.romDetailsTestButton.Location = new System.Drawing.Point(269, 463);
             this.romDetailsTestButton.Name = "romDetailsTestButton";
             this.romDetailsTestButton.Size = new System.Drawing.Size(44, 46);
             this.romDetailsTestButton.TabIndex = 51;
@@ -625,11 +657,12 @@
             // metroLabel12
             // 
             this.metroLabel12.AutoSize = true;
+            this.metroLabel12.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel12.Location = new System.Drawing.Point(14, 441);
             this.metroLabel12.Name = "metroLabel12";
-            this.metroLabel12.Size = new System.Drawing.Size(54, 19);
+            this.metroLabel12.Size = new System.Drawing.Size(196, 19);
             this.metroLabel12.TabIndex = 49;
-            this.metroLabel12.Text = "Preview";
+            this.metroLabel12.Text = "Combined Shortcut Preview";
             // 
             // romDetailsPictureIndex
             // 
@@ -650,7 +683,6 @@
             this.romDetailsPictureIndex.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.romDetailsPictureIndex.UseCustomBackColor = true;
             this.romDetailsPictureIndex.UseSelectable = true;
-            this.romDetailsPictureIndex.Click += new System.EventHandler(this.romDetailsPictureIndex_Click);
             // 
             // loadingRomDetailsPicture
             // 
@@ -701,18 +733,19 @@
             this.romDetailsOverride.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
             this.romDetailsOverride.Location = new System.Drawing.Point(14, 371);
             this.romDetailsOverride.Name = "romDetailsOverride";
-            this.romDetailsOverride.Size = new System.Drawing.Size(199, 19);
+            this.romDetailsOverride.Size = new System.Drawing.Size(202, 19);
             this.romDetailsOverride.TabIndex = 43;
-            this.romDetailsOverride.Text = "Override Console ROM Args";
+            this.romDetailsOverride.Text = "Override Console ROM Flags";
             this.romDetailsOverride.UseSelectable = true;
             this.romDetailsOverride.CheckedChanged += new System.EventHandler(this.romDetailsOverride_CheckedChanged);
             // 
             // metroLabel10
             // 
             this.metroLabel10.AutoSize = true;
+            this.metroLabel10.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel10.Location = new System.Drawing.Point(14, 411);
             this.metroLabel10.Name = "metroLabel10";
-            this.metroLabel10.Size = new System.Drawing.Size(56, 19);
+            this.metroLabel10.Size = new System.Drawing.Size(62, 19);
             this.metroLabel10.TabIndex = 42;
             this.metroLabel10.Text = "Enabled";
             // 
@@ -721,7 +754,7 @@
             this.romDetailsEnabledToggle.Appearance = System.Windows.Forms.Appearance.Button;
             this.romDetailsEnabledToggle.AutoSize = true;
             this.romDetailsEnabledToggle.FontSize = MetroFramework.MetroLinkSize.Medium;
-            this.romDetailsEnabledToggle.Location = new System.Drawing.Point(76, 410);
+            this.romDetailsEnabledToggle.Location = new System.Drawing.Point(84, 410);
             this.romDetailsEnabledToggle.Name = "romDetailsEnabledToggle";
             this.romDetailsEnabledToggle.Size = new System.Drawing.Size(80, 23);
             this.romDetailsEnabledToggle.TabIndex = 41;
@@ -737,16 +770,17 @@
             this.romDetailsCustomArgs.Name = "romDetailsCustomArgs";
             this.romDetailsCustomArgs.Size = new System.Drawing.Size(284, 20);
             this.romDetailsCustomArgs.TabIndex = 40;
-            this.romDetailsCustomArgs.Leave += new System.EventHandler(this.romDetailsCustomArgs_Leave);
+            this.romDetailsCustomArgs.TextChanged += new System.EventHandler(this.romDetailsCustomArgs_TextChanged);
             // 
-            // metroLabel11
+            // romDetailsAdditionalRomFlags_labelBox
             // 
-            this.metroLabel11.AutoSize = true;
-            this.metroLabel11.Location = new System.Drawing.Point(14, 322);
-            this.metroLabel11.Name = "metroLabel11";
-            this.metroLabel11.Size = new System.Drawing.Size(120, 19);
-            this.metroLabel11.TabIndex = 39;
-            this.metroLabel11.Text = "Custom ROM Args";
+            this.romDetailsAdditionalRomFlags_labelBox.AutoSize = true;
+            this.romDetailsAdditionalRomFlags_labelBox.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.romDetailsAdditionalRomFlags_labelBox.Location = new System.Drawing.Point(14, 322);
+            this.romDetailsAdditionalRomFlags_labelBox.Name = "romDetailsAdditionalRomFlags_labelBox";
+            this.romDetailsAdditionalRomFlags_labelBox.Size = new System.Drawing.Size(154, 19);
+            this.romDetailsAdditionalRomFlags_labelBox.TabIndex = 39;
+            this.romDetailsAdditionalRomFlags_labelBox.Text = "Additional ROM Flags";
             // 
             // romDetailsFolder
             // 
@@ -761,9 +795,10 @@
             // metroLabel9
             // 
             this.metroLabel9.AutoSize = true;
+            this.metroLabel9.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel9.Location = new System.Drawing.Point(14, 264);
             this.metroLabel9.Name = "metroLabel9";
-            this.metroLabel9.Size = new System.Drawing.Size(47, 19);
+            this.metroLabel9.Size = new System.Drawing.Size(52, 19);
             this.metroLabel9.TabIndex = 35;
             this.metroLabel9.Text = "Folder";
             // 
@@ -782,11 +817,12 @@
             // metroLabel8
             // 
             this.metroLabel8.AutoSize = true;
+            this.metroLabel8.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel8.Location = new System.Drawing.Point(14, 209);
             this.metroLabel8.Name = "metroLabel8";
-            this.metroLabel8.Size = new System.Drawing.Size(45, 19);
+            this.metroLabel8.Size = new System.Drawing.Size(95, 19);
             this.metroLabel8.TabIndex = 33;
-            this.metroLabel8.Text = "Name";
+            this.metroLabel8.Text = "Steam Name";
             // 
             // romDetailsName
             // 
@@ -1009,6 +1045,8 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.toolStrip3.ResumeLayout(false);
+            this.toolStrip3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.romDetailsGridPicture)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -1030,9 +1068,9 @@
         private MetroFramework.Controls.MetroTextBox emulatorPathTextBox;
         private MetroFramework.Controls.MetroLabel metroLabel3;
         private MetroFramework.Controls.MetroTextBox romArgsTextBox;
-        private MetroFramework.Controls.MetroLabel metroLabel5;
+        private MetroFramework.Controls.MetroLabel romFlags_LabelBox;
         private MetroFramework.Controls.MetroTextBox emulatorArgsTextBox;
-        private MetroFramework.Controls.MetroLabel metroLabel4;
+        private MetroFramework.Controls.MetroLabel emulatorFlags_LabelBox;
         private MetroFramework.Controls.MetroLabel metroLabel6;
         private System.Windows.Forms.ComboBox comboBox1;
         private MetroFramework.Controls.MetroButton DeleteConsole_Button;
@@ -1069,7 +1107,7 @@
         private MetroFramework.Controls.MetroLabel metroLabel10;
         private MetroFramework.Controls.MetroToggle romDetailsEnabledToggle;
         private System.Windows.Forms.TextBox romDetailsCustomArgs;
-        private MetroFramework.Controls.MetroLabel metroLabel11;
+        private MetroFramework.Controls.MetroLabel romDetailsAdditionalRomFlags_labelBox;
         private System.Windows.Forms.TextBox romDetailsFolder;
         private MetroFramework.Controls.MetroLabel metroLabel9;
         private System.Windows.Forms.ToolStripMenuItem steamToolStripMenuItem;
@@ -1092,6 +1130,8 @@
         private System.Windows.Forms.TextBox romDetailsPathPreview;
         private MetroFramework.Controls.MetroLabel metroLabel12;
         private MetroFramework.Controls.MetroButton romDetailsTestButton;
+        private System.Windows.Forms.ToolStrip toolStrip3;
+        private System.Windows.Forms.ToolStripButton romDetails_helpToolStripButton;
     }
 }
 

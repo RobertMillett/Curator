@@ -1,9 +1,11 @@
 ﻿using System.Data;
 using System.Collections.Generic;
 using System.Linq;
+using Curator.Views;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Curator.Data.Controllers
 {
@@ -45,6 +47,21 @@ namespace Curator.Data.Controllers
         public CuratorDataSet.RomFolderRow GetRomFolderByPath(string path)
         {
             return RomFolderData.Where(x => x.Path == path).First();
+        }
+
+        internal List<CuratorDataSet.RomFolderRow> ValidateFolders()
+        {
+            var missingFolders = new List<CuratorDataSet.RomFolderRow>();
+
+            foreach(var folder in RomFolderData)
+            {
+                if (!Directory.Exists(folder.Path))
+                {
+                    missingFolders.Add(folder);
+                }
+            }
+
+            return missingFolders;
         }
     }
 }
