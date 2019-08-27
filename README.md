@@ -3,6 +3,8 @@ A Windows Application to help with importing your emulation collection into Stea
 
 *Note: Curator is not intended to handle very large collections, but does have bulk ROM import and bulk image download functionality.*
 
+![Alt text](Resources/Images/full.png?raw=true "Curator")
+
 ## How to use
 
 1. Open curator.exe, it will prompt you to find your shortcuts.vdf file (usually located in C:\programs(x86)\steam\userdata\\{userId}\config)
