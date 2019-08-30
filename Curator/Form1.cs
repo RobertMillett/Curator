@@ -109,6 +109,12 @@ namespace Curator
 
                     var userFolders = Directory.GetDirectories(Path.Combine(steamInstallPath, "userdata"));
 
+                    foreach (var folder in userFolders)
+                    {
+                        var directory = Path.Combine(folder, "config");
+                        CreateRequiredFilesFoldersIfNotExist(directory);
+                    }
+
                     if (userFolders.Any(x => x.Contains(steamId)))
                     {
                         var shortcutFilePath = Path.Combine(steamInstallPath, "userdata", steamId, "config", "shortcuts.vdf");
@@ -136,6 +142,18 @@ namespace Curator
 
             this.Text = $"Curator - {_steamController.SteamShortcutsFile}";
             this.Refresh();
+        }
+
+        private void CreateRequiredFilesFoldersIfNotExist(string steamUserFolder)
+        {
+            var shortcutsFile = Path.Combine(steamUserFolder, "shortcuts.vdf");
+            var gridsFolder = Path.Combine(steamUserFolder, "grid");
+
+            if (!File.Exists(Path.Combine(steamUserFolder, "shortcuts.vdf")))
+                File.Create(shortcutsFile);
+
+            if (!Directory.Exists(gridsFolder))
+                Directory.CreateDirectory(gridsFolder);
         }
 
         #region Event Handlers
