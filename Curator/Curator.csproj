@@ -165,8 +165,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Views\CustomDialogs\RemoveROMFolderDialog.cs" />
+    <Compile Include="Views\CustomDialogs\AddROMFolderDialog.cs" />
     <Compile Include="Views\CustomDialogs\AddConsoleDialog.cs" />
     <Compile Include="Views\CustomDialogs\GridsNotFoundDialog.cs" />
+    <Compile Include="Views\MenuStrip\ROMFolderMenuStrip.cs" />
     <Compile Include="Views\TooltipManager.cs" />
     <Compile Include="Views\Messages.cs" />
     <Compile Include="Views\CustomDialogs\RemoveConsoleDialog.cs" />

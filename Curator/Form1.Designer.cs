@@ -102,6 +102,9 @@
             this.consoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rOMFoldersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.romFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.metroContextMenu1 = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.loadingPicturesSpinner = new MetroFramework.Controls.MetroProgressSpinner();
@@ -857,10 +860,11 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.steamToolStripMenuItem,
-            this.consoleToolStripMenuItem});
+            this.consoleToolStripMenuItem,
+            this.rOMFoldersToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(26, 53);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(159, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(246, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -986,6 +990,29 @@
             this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            // 
+            // rOMFoldersToolStripMenuItem
+            // 
+            this.rOMFoldersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addToolStripMenuItem1,
+            this.removeToolStripMenuItem1});
+            this.rOMFoldersToolStripMenuItem.Name = "rOMFoldersToolStripMenuItem";
+            this.rOMFoldersToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
+            this.rOMFoldersToolStripMenuItem.Text = "ROM Folders";
+            // 
+            // addToolStripMenuItem1
+            // 
+            this.addToolStripMenuItem1.Name = "addToolStripMenuItem1";
+            this.addToolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
+            this.addToolStripMenuItem1.Text = "Add";
+            this.addToolStripMenuItem1.Click += new System.EventHandler(this.addToolStripMenuItem1_Click);
+            // 
+            // removeToolStripMenuItem1
+            // 
+            this.removeToolStripMenuItem1.Name = "removeToolStripMenuItem1";
+            this.removeToolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
+            this.removeToolStripMenuItem1.Text = "Remove";
+            this.removeToolStripMenuItem1.Click += new System.EventHandler(this.removeToolStripMenuItem1_Click);
             // 
             // metroContextMenu1
             // 
@@ -1133,6 +1160,9 @@
         private MetroFramework.Controls.MetroButton romDetailsTestButton;
         private System.Windows.Forms.ToolStrip toolStrip3;
         private System.Windows.Forms.ToolStripButton romDetails_helpToolStripButton;
+        private System.Windows.Forms.ToolStripMenuItem rOMFoldersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem1;
     }
 }
 
