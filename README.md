@@ -5,9 +5,14 @@ A Windows Application to help with importing your emulation collection into Stea
 
 ![Alt text](Resources/Images/full.png?raw=true "Curator")
 
+## Setup
+1. Visit [the releases tab](https://github.com/RobertMillett/Curator/releases)
+2. Expand the Assets folder for the latest release
+3. Download Curator.exe
+
 ## How to use
 
-1. Open curator.exe, it will prompt you to find your shortcuts.vdf file (usually located in C:\programs(x86)\steam\userdata\\{userId}\config)
+1. Open Curator.exe, it will prompt you to find your shortcuts.vdf file (usually located in C:\programs(x86)\steam\userdata\\{userId}\config)
 2. Add a Console using one of the below methods:
 	* Console Header Menu -> Add
 	* Type your console name in the Console Dropdown box  -> click the '+' icon
