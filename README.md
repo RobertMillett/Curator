@@ -12,13 +12,15 @@ A Windows Application to help with importing your emulation collection into Stea
 
 ## How to use
 
-1. Open Curator.exe, it will prompt you to find your shortcuts.vdf file (usually located in C:\programs(x86)\steam\userdata\\{userId}\config)
-2. Add a Console using one of the below methods:
+1. Open Curator.exe, it will attempt to automatically use the shortcuts.vdf file of the most recently logged in Steam user. If there is a problem locating the file you will be prompted to find your shortcuts.vdf file manually (usually located in C:\programs(x86)\steam\userdata\\{userId}\config).
+2. Once inside the application, add a Console using one of the below methods:
 	* Console Header Menu -> Add
 	* Type your console name in the Console Dropdown box  -> click the '+' icon
 3. Add the path to your console's emulator by clicking the Open Folder button next to the Emulator Path text box
-4. Add the path to a folder containing your console's ROMs by clicking the Open Folder button next to the ROM Folders text box
-	* You can add as many ROM Folders as you like. Curator does not traverse down sub-folders looking for ROMs.
+4. Add the path to a folder containing your console's ROMs using one of the below methods:
+	* Clicking the Open Folder button next to the ROM Folders list box
+	* ROM Folders Header Menu -> Add
+		* You can add as many ROM Folders as you like. Curator does not traverse down sub-folders looking for ROMs.
 5. Go through the list of files in the ROMs list and choose which ones you want to import to Steam (by default all files found in Step 4 will be imported to Steam, this is likely not what you want as many ROMs come with multiple files, only one of which is bootable):
 	* Click on an entry in the ROMs list
 	* In the ROM Details panel, switch the Enabled switch to OFF if you don't want this file imported into Steam.
