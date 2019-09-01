@@ -1,6 +1,12 @@
 ﻿using System;
+using System.IO;
+using Gameloop.Vdf;
+using SteamIDs_Engine;
+using Gameloop.Vdf.Linq;
+using Gameloop.Vdf.JsonConverter;
 using System.Threading;
 using System.Diagnostics;
+using Microsoft.Win32;
 using System.Linq;
 using System.Windows.Forms;
 using MetroFramework.Forms;
@@ -83,19 +89,71 @@ namespace Curator
         private void EnforceShortcutsFile(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(_steamController.SteamShortcutsFile))
-            {
-                var welcomeBox = MetroMessageBox.Show(this, "Please open your Steam Shortcuts .vdf file", "Welcome to Curator", MessageBoxButtons.OKCancel);
+            {                
+                var steamInstallPath = Registry.LocalMachine.OpenSubKey(@"Software\Valve\Steam").GetValue("InstallPath").ToString();
 
-                if (welcomeBox == DialogResult.Cancel)
-                    Application.Exit();
+                if (File.Exists(Path.Combine(steamInstallPath, "Steam.exe")))
+                {
+                    var loginUsersPath = Path.Combine(steamInstallPath, "config", "loginusers.vdf");
 
-                if (steamShortcutsFileDialog.ShowDialog() != DialogResult.OK)
-                    EnforceShortcutsFile(this, e);
+                    var loggedInUsers = VdfConvert.Deserialize(File.ReadAllText(loginUsersPath))
+                        .Value
+                        .ToJson()
+                        .ToObject<Dictionary<string, SteamUser>>();                    
 
-                _steamController.SetSteamShortcutFile(steamShortcutsFileDialog.FileName);
+                    var mostRecentUserId = loggedInUsers.Keys.First(x => loggedInUsers[x].MostRecent == 1);                    
+
+                    var steam32Id = SteamIDConvert.Steam64ToSteam32(long.Parse(mostRecentUserId));
+
+                    var steamId = steam32Id.Substring(steam32Id.Length - 8);
+
+                    var userFolders = Directory.GetDirectories(Path.Combine(steamInstallPath, "userdata"));
+
+                    foreach (var folder in userFolders)
+                    {
+                        var directory = Path.Combine(folder, "config");
+                        CreateRequiredFilesFoldersIfNotExist(directory);
+                    }
+
+                    if (userFolders.Any(x => x.Contains(steamId)))
+                    {
+                        var shortcutFilePath = Path.Combine(steamInstallPath, "userdata", steamId, "config", "shortcuts.vdf");
+                        if (File.Exists(shortcutFilePath))
+                        {
+                            _steamController.SetSteamShortcutFile(shortcutFilePath);
+
+                            var welcomeMessage = MetroMessageBox.Show(this, $"Found shortcuts.vdf file for Steam Account: '{loggedInUsers[mostRecentUserId].AccountName}'.\nIf this is not correct you can change it using the Steam Header Menu -> Set Shortcuts File button.", "Welcome to Curator", MessageBoxButtons.OK, MessageBoxIcon.Information);                            
+                        }
+                    }            
+                }
+                else
+                {
+                    var welcomeBox = MetroMessageBox.Show(this, "Please open your Steam 'shortcuts.vdf' file.\nThis is usually found in C:\\Program Files (x86)\\Steam\\userdata\\{your_user_id}\\config", "Welcome to Curator", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+                    if (welcomeBox == DialogResult.Cancel)
+                        Application.Exit();
+
+                    if (steamShortcutsFileDialog.ShowDialog() != DialogResult.OK)
+                        EnforceShortcutsFile(this, e);
+
+                    _steamController.SetSteamShortcutFile(steamShortcutsFileDialog.FileName);
+                }
             }
 
             this.Text = $"Curator - {_steamController.SteamShortcutsFile}";
+            this.Refresh();
+        }
+
+        private void CreateRequiredFilesFoldersIfNotExist(string steamUserFolder)
+        {
+            var shortcutsFile = Path.Combine(steamUserFolder, "shortcuts.vdf");
+            var gridsFolder = Path.Combine(steamUserFolder, "grid");
+
+            if (!File.Exists(Path.Combine(steamUserFolder, "shortcuts.vdf")))
+                File.Create(shortcutsFile);
+
+            if (!Directory.Exists(gridsFolder))
+                Directory.CreateDirectory(gridsFolder);
         }
 
         #region Event Handlers
@@ -145,6 +203,9 @@ namespace Curator
                 AttemptSteamExport();
             }
         }
-        #endregion        
+
+        #endregion
+
+        
     }
 }

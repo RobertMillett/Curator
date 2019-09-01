@@ -28,7 +28,7 @@ namespace Curator.Views.CustomDialogs
                 Top = 20,
                 Height = 120,
                 Width = 460,
-                Text = "No Grid Images were found for this ROM.\n\nPlease ensure your ROM's Steam Name exactly matches a game on https://www.steamgriddb.com\n\nIf your game does not yet exist on Steam Grid DB, you can create a new entry for it at https://www.steamgriddb.com/request and upload your own Grid Image, then click the refresh here."
+                Text = "No Grid Images were found for this ROM.\n\nPlease ensure your ROM's Steam Name exactly matches a game on https://www.steamgriddb.com\n\nIf your game does not yet exist on Steam Grid DB, you can create a new entry for it at https://www.steamgriddb.com/request and upload your own Grid Image, then click the Refresh Button here."
             };
 
             Button goToSteamGridDbButton = new Button() { Text = "Open SteamGridDb", Left = 175, Width = 150, Top = 140 };

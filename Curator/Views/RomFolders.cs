@@ -9,6 +9,13 @@ namespace Curator
 {
     public partial class Form1
     {
+        private void UpdateRomFolderView()
+        {
+            UpdateConsoleDetailsWithRomFolders();
+            _romController.LoadRoms();
+            UpdateRomListViewItems();
+        }
+
         #region On Form Load
         
         #endregion
@@ -18,7 +25,7 @@ namespace Curator
         {
             if (romFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                _romFolderController.Add(romFolderDialog.SelectedPath);
+                _romFolderController.AddToActiveConsole(romFolderDialog.SelectedPath);
                 UpdateConsoleDetailsWithRomFolders();
                 _romController.LoadRoms();
                 UpdateRomListViewItems();

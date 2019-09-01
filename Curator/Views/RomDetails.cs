@@ -224,10 +224,18 @@ namespace Curator
             {
                 using (var myProcess = new Process())
                 {
-                    myProcess.StartInfo.UseShellExecute = true;
-                    myProcess.StartInfo.FileName = emulatorPath;
-                    myProcess.StartInfo.CreateNoWindow = true;
-                    myProcess.StartInfo.Arguments = args;
+                    var directory = Path.GetDirectoryName(emulatorPath);                    
+
+                    var startinfo = new ProcessStartInfo
+                    {
+                        UseShellExecute = true,
+                        FileName = emulatorPath,
+                        CreateNoWindow = true,
+                        Arguments = args,
+                        WorkingDirectory = directory
+                    };
+
+                    myProcess.StartInfo = startinfo;
 
                     myProcess.Start();
                     myProcess.WaitForExit();

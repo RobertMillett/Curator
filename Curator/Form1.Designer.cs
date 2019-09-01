@@ -102,6 +102,9 @@
             this.consoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rOMFoldersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.romFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.metroContextMenu1 = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.loadingPicturesSpinner = new MetroFramework.Controls.MetroProgressSpinner();
@@ -604,7 +607,8 @@
             // 
             // toolStrip3
             // 
-            this.toolStrip3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.toolStrip3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.toolStrip3.BackColor = System.Drawing.Color.Transparent;
             this.toolStrip3.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
@@ -614,7 +618,7 @@
             this.toolStrip3.Location = new System.Drawing.Point(134, 174);
             this.toolStrip3.Name = "toolStrip3";
             this.toolStrip3.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip3.Size = new System.Drawing.Size(32, 42);
+            this.toolStrip3.Size = new System.Drawing.Size(24, 23);
             this.toolStrip3.TabIndex = 52;
             this.toolStrip3.Text = "toolStrip3";
             // 
@@ -856,10 +860,11 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.steamToolStripMenuItem,
-            this.consoleToolStripMenuItem});
+            this.consoleToolStripMenuItem,
+            this.rOMFoldersToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(26, 53);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(159, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(246, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -877,7 +882,7 @@
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(89, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(90, 6);
             // 
             // saveToolStripMenuItem
             // 
@@ -890,7 +895,7 @@
             this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShowShortcutKeys = false;
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             // 
             // saveAllToolStripMenuItem
@@ -923,12 +928,12 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(89, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(90, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -945,22 +950,22 @@
             // getGridPicturesToolStripMenuItem
             // 
             this.getGridPicturesToolStripMenuItem.Name = "getGridPicturesToolStripMenuItem";
-            this.getGridPicturesToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
-            this.getGridPicturesToolStripMenuItem.Text = "Get Grid Pictures";
+            this.getGridPicturesToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.getGridPicturesToolStripMenuItem.Text = "Download Steam Grid Images";
             this.getGridPicturesToolStripMenuItem.Click += new System.EventHandler(this.getGridPicturesToolStripMenuItem_Click);
             // 
             // exportShortcutsToSteamToolStripMenuItem
             // 
             this.exportShortcutsToSteamToolStripMenuItem.Name = "exportShortcutsToSteamToolStripMenuItem";
-            this.exportShortcutsToSteamToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
-            this.exportShortcutsToSteamToolStripMenuItem.Text = "Export Shortcuts to Steam";
+            this.exportShortcutsToSteamToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.exportShortcutsToSteamToolStripMenuItem.Text = "Export ROM Shortcuts to Steam";
             this.exportShortcutsToSteamToolStripMenuItem.Click += new System.EventHandler(this.exportShortcutsToSteamToolStripMenuItem_Click);
             // 
             // setShortcutsFileToolStripMenuItem
             // 
             this.setShortcutsFileToolStripMenuItem.Name = "setShortcutsFileToolStripMenuItem";
-            this.setShortcutsFileToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
-            this.setShortcutsFileToolStripMenuItem.Text = "Set Shortcuts file";
+            this.setShortcutsFileToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.setShortcutsFileToolStripMenuItem.Text = "Set Shortcuts File";
             this.setShortcutsFileToolStripMenuItem.Click += new System.EventHandler(this.setShortcutsFileToolStripMenuItem_Click);
             // 
             // consoleToolStripMenuItem
@@ -985,6 +990,29 @@
             this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            // 
+            // rOMFoldersToolStripMenuItem
+            // 
+            this.rOMFoldersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addToolStripMenuItem1,
+            this.removeToolStripMenuItem1});
+            this.rOMFoldersToolStripMenuItem.Name = "rOMFoldersToolStripMenuItem";
+            this.rOMFoldersToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
+            this.rOMFoldersToolStripMenuItem.Text = "ROM Folders";
+            // 
+            // addToolStripMenuItem1
+            // 
+            this.addToolStripMenuItem1.Name = "addToolStripMenuItem1";
+            this.addToolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
+            this.addToolStripMenuItem1.Text = "Add";
+            this.addToolStripMenuItem1.Click += new System.EventHandler(this.addToolStripMenuItem1_Click);
+            // 
+            // removeToolStripMenuItem1
+            // 
+            this.removeToolStripMenuItem1.Name = "removeToolStripMenuItem1";
+            this.removeToolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
+            this.removeToolStripMenuItem1.Text = "Remove";
+            this.removeToolStripMenuItem1.Click += new System.EventHandler(this.removeToolStripMenuItem1_Click);
             // 
             // metroContextMenu1
             // 
@@ -1132,6 +1160,9 @@
         private MetroFramework.Controls.MetroButton romDetailsTestButton;
         private System.Windows.Forms.ToolStrip toolStrip3;
         private System.Windows.Forms.ToolStripButton romDetails_helpToolStripButton;
+        private System.Windows.Forms.ToolStripMenuItem rOMFoldersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem1;
     }
 }
 
