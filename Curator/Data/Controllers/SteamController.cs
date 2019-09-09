@@ -223,7 +223,7 @@ namespace Curator.Data
             // ############# GENERATE APP ID ##################
 
             var stringValue = $"{rom.Exe + rom.AppName}";
-            var byteArray = Encoding.ASCII.GetBytes(stringValue);
+            var byteArray = Encoding.UTF8.GetBytes(stringValue);
 
             var thing = Crc32.Crc32Algorithm.Compute(byteArray);
             var longThing = (ulong)thing;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.UI;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -38,7 +39,7 @@ namespace Curator.Data.SteamDb
 
             foreach (var game in JsonConvert.DeserializeObject<SearchResponse>(response.Content).Data)
             {
-                if (game.Name == romName)
+                if (GetUrlEncodedROMName(game.Name) == romName)
                 {
                     _gamesDictionary.Add(romName, game.Id);
                     return;
@@ -48,11 +49,13 @@ namespace Curator.Data.SteamDb
 
         public static async Task FetchGamePictures(CuratorDataSet.ROMRow rom)
         {
-            await PopulateGamesList(rom.Name);
+            var urlEncodedROMName = GetUrlEncodedROMName(rom.Name);
+
+            await PopulateGamesList(urlEncodedROMName);
 
             var filePath = Path.Combine(ImageLocation, Path.GetFileNameWithoutExtension(rom.FileName));
 
-            if (!_gamesDictionary.Where(x => x.Key == rom.Name).Any())
+            if (!_gamesDictionary.Where(x => x.Key == urlEncodedROMName).Any())
             {
                 _gamesNotFound.Add(rom.Name);
                 return;
@@ -61,7 +64,7 @@ namespace Curator.Data.SteamDb
             var request = new RestRequest
             {
                 Method = Method.GET,
-                Resource = $"/grids/game/{ _gamesDictionary[rom.Name]}"                
+                Resource = $"/grids/game/{ _gamesDictionary[urlEncodedROMName]}"                
             };
             request.AddHeader("Authorization", "Bearer 850ea77df1c635de67acc76bbb197bd7");
 
@@ -75,6 +78,18 @@ namespace Curator.Data.SteamDb
 
             if (gridUrls.Count > 0)
                 rom.GridPicture = Directory.GetFiles(filePath)[0];
+        }
+
+        private static string GetUrlEncodedROMName(string name)
+        {
+            string urlEncodedROMName;
+            using (StringWriter sw = new StringWriter())
+            {
+                var x = new HtmlTextWriter(sw);
+                x.WriteEncodedUrlParameter(name);
+                urlEncodedROMName = sw.ToString();
+            }
+            return urlEncodedROMName;
         }
 
         private static async Task SaveGridImageToDisk(string path, string grid_url)
