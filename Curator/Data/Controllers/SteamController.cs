@@ -3,6 +3,10 @@ using System.Linq;
 using System.Text;
 using VDFParser.Models;
 using System.IO;
+using Microsoft.Win32;
+using Gameloop.Vdf;
+using Gameloop.Vdf.JsonConverter;
+using SteamIDs_Engine;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -94,6 +98,61 @@ namespace Curator.Data
             return exepath;
         }
 
+        internal string TryFindAndSetShortcutsAutomatically()
+        {
+            var accountName = string.Empty;
+
+            var steamInstallPath = Registry.LocalMachine.OpenSubKey(@"Software\Valve\Steam").GetValue("InstallPath").ToString();
+
+            if (File.Exists(Path.Combine(steamInstallPath, "Steam.exe")))
+            {
+                var loginUsersPath = Path.Combine(steamInstallPath, "config", "loginusers.vdf");
+
+                var loggedInUsers = VdfConvert.Deserialize(File.ReadAllText(loginUsersPath))
+                    .Value
+                    .ToJson()
+                    .ToObject<Dictionary<string, SteamUser>>();
+
+                var mostRecentUserId = loggedInUsers.Keys.First(x => loggedInUsers[x].MostRecent == 1);
+
+                var steam32Id = SteamIDConvert.Steam64ToSteam32(long.Parse(mostRecentUserId));
+
+                var steamId = steam32Id.Substring(steam32Id.Length - 8);
+
+                var userFolders = Directory.GetDirectories(Path.Combine(steamInstallPath, "userdata"));
+
+                foreach (var folder in userFolders)
+                {
+                    var directory = Path.Combine(folder, "config");
+                    CreateRequiredFilesFoldersIfNotExist(directory);
+                }
+
+                if (userFolders.Any(x => x.Contains(steamId)))
+                {
+                    var shortcutFilePath = Path.Combine(steamInstallPath, "userdata", steamId, "config", "shortcuts.vdf");
+                    if (File.Exists(shortcutFilePath))
+                    {
+                        SetSteamShortcutFile(shortcutFilePath);
+                        accountName = loggedInUsers[mostRecentUserId].AccountName;                        
+                    }
+                }
+            }
+
+            return accountName;
+        }
+
+        private void CreateRequiredFilesFoldersIfNotExist(string steamUserFolder)
+        {
+            var shortcutsFile = Path.Combine(steamUserFolder, "shortcuts.vdf");
+            var gridsFolder = Path.Combine(steamUserFolder, "grid");
+
+            if (!File.Exists(Path.Combine(steamUserFolder, "shortcuts.vdf")))
+                File.Create(shortcutsFile);
+
+            if (!Directory.Exists(gridsFolder))
+                Directory.CreateDirectory(gridsFolder);
+        }
+
         private List<VDFEntry> ParseShortCuts()
         {
             var currentShortcuts = new List<VDFEntry>();
@@ -164,7 +223,7 @@ namespace Curator.Data
             // ############# GENERATE APP ID ##################
 
             var stringValue = $"{rom.Exe + rom.AppName}";
-            var byteArray = Encoding.ASCII.GetBytes(stringValue);
+            var byteArray = Encoding.UTF8.GetBytes(stringValue);
 
             var thing = Crc32.Crc32Algorithm.Compute(byteArray);
             var longThing = (ulong)thing;
