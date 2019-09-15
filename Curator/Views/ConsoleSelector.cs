@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework;
+using Curator.Data;
 
 namespace Curator
 {
@@ -13,17 +14,22 @@ namespace Curator
         #region Event Handlers
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //ConsoleHasChanged(sender, e);
+        }
+
+        private void console_ComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
             ConsoleHasChanged(sender, e);
         }
 
         private void AddConsole_Button_Click(object sender, EventArgs e)
         {
-            AddConsole(comboBox1.Text, sender, e);
+            AddConsole(console_ComboBox.Text, sender, e);
         }
 
         private void DeleteConsole_Button_Click(object sender, EventArgs e)
         {
-            RemoveConsole(comboBox1.Text, sender, e);
+            RemoveConsole(console_ComboBox.Text, sender, e);
         }
         #endregion
 
@@ -35,9 +41,9 @@ namespace Curator
                 return;
 
             //This will always set to the most recently added item as it is added to the bottom of the list.
-            comboBox1.SelectedIndex = comboBox1.Items.Count - 1;
+            console_ComboBox.SelectedIndex = console_ComboBox.Items.Count - 1;
 
-            _consoleController.SetActiveConsole(comboBox1.Text);
+            _consoleController.SetActiveConsole(console_ComboBox.SelectedItem as CuratorDataSet.ConsoleRow);
 
             ConsoleHasChanged(sender, e);
         }
@@ -51,7 +57,7 @@ namespace Curator
                     var deleteFromSteam = MetroMessageBox.Show(this, $"You have existing Shortcuts with the label '{consoleName}'. Remove these Shortcuts from Steam?", "Are you sure?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                     if (deleteFromSteam == DialogResult.Yes)
                     {
-                        _steamController.DeleteShortcutsByTag(comboBox1.Text);
+                        _steamController.DeleteShortcutsByTag(console_ComboBox.Text);
                         ShowSteamModifiedMessage();
                     }
 

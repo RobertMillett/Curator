@@ -27,17 +27,25 @@ namespace Curator
         private void emulatorArgsTextBox_Leave(object sender, EventArgs e)
         {
             _consoleController.SetEmulatorArgs(emulatorArgsTextBox.Text);
+
+            var rom = _romController.GetRom(romListView?.FocusedItem?.Text);
+            UpdateSelectedRomDetails(rom);
         }
 
         private void romArgsTextBox_Leave(object sender, EventArgs e)
         {
             _consoleController.SetRomArgs(romArgsTextBox.Text);
+
+            var rom = _romController.GetRom(romListView?.FocusedItem?.Text);
+            UpdateSelectedRomDetails(rom);
         }
         #endregion
 
         private void ConsoleHasChanged(object sender, EventArgs e)
         {
-            _consoleController.SetActiveConsole(comboBox1.Text);
+            var newConsole = (console_ComboBox.SelectedItem as System.Data.DataRowView).Row as CuratorDataSet.ConsoleRow;
+
+            _consoleController.SetActiveConsole(newConsole);
             UpdateConsoleDetailsView(sender, e);
             UpdateRomListViewItems();
             UpdateSelectedRomDetails(null);

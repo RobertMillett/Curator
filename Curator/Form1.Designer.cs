@@ -37,7 +37,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.DeleteConsole_Button = new MetroFramework.Controls.MetroButton();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.console_ComboBox = new System.Windows.Forms.ComboBox();
             this.consoleBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.curatorDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.CuratorDataSet = new Curator.Data.CuratorDataSet();
@@ -170,7 +170,7 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.DeleteConsole_Button);
             this.panel1.Controls.Add(this.metroLabel1);
-            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.console_ComboBox);
             this.panel1.Controls.Add(this.AddConsole_Button);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
@@ -201,17 +201,18 @@
             this.metroLabel1.TabIndex = 18;
             this.metroLabel1.Text = "Select Console";
             // 
-            // comboBox1
+            // console_ComboBox
             // 
-            this.comboBox1.BackColor = System.Drawing.Color.Silver;
-            this.comboBox1.DataSource = this.consoleBindingSource2;
-            this.comboBox1.DisplayMember = "Name";
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(3, 29);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(168, 21);
-            this.comboBox1.TabIndex = 17;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.console_ComboBox.BackColor = System.Drawing.Color.Silver;
+            this.console_ComboBox.DataSource = this.consoleBindingSource2;
+            this.console_ComboBox.DisplayMember = "Name";
+            this.console_ComboBox.FormattingEnabled = true;
+            this.console_ComboBox.Location = new System.Drawing.Point(3, 29);
+            this.console_ComboBox.Name = "console_ComboBox";
+            this.console_ComboBox.Size = new System.Drawing.Size(168, 21);
+            this.console_ComboBox.TabIndex = 17;
+            this.console_ComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.console_ComboBox.SelectionChangeCommitted += new System.EventHandler(this.console_ComboBox_SelectionChangeCommitted);
             // 
             // consoleBindingSource2
             // 
@@ -1100,7 +1101,7 @@
         private MetroFramework.Controls.MetroTextBox emulatorArgsTextBox;
         private MetroFramework.Controls.MetroLabel emulatorFlags_LabelBox;
         private MetroFramework.Controls.MetroLabel metroLabel6;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox console_ComboBox;
         private MetroFramework.Controls.MetroButton DeleteConsole_Button;
         private MetroFramework.Controls.MetroTextBox systemDetailsName;
         private System.Windows.Forms.OpenFileDialog emulatorPathFileDialog;

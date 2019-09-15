@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using Curator.Data;
 using System;
+using System.Linq;
 using System.Data;
 using System.Collections.Generic;
 
@@ -39,14 +40,23 @@ namespace Curator
             romListView.Items.Find(listViewName, false)[0].Checked = rom.Enabled;
         }
 
-        public void UpdateRomListViewItems(List<CuratorDataSet.RomFolderRow> RomFolders = null)
+        public void UpdateRomListViewItems()
         {
+            var selectedRomFolders = new List<CuratorDataSet.RomFolderRow>();
+
+            foreach (var romFolderIndex in romFolderListBox.SelectedIndices)
+            {
+                var path = romFolderListBox.Items[(int)romFolderIndex].ToString();
+                var romFolder = _romFolderController.GetRomFolderByPath(path);
+                selectedRomFolders.Add(romFolder);
+            }
+
             romListView.Items.Clear();
 
-            RomFolders = RomFolders ?? _romFolderController.GetRomFoldersForActiveConsole();
+            selectedRomFolders = selectedRomFolders.Any() ? selectedRomFolders : _romFolderController.GetRomFoldersForActiveConsole();
 
             romListView.ItemChecked -= romListView_ItemChecked;
-            foreach (var RomFolder in RomFolders)
+            foreach (var RomFolder in selectedRomFolders)
             {
                 foreach (var romItem in _romController.GetRomsByRomFolderId(RomFolder.Id))
                 {

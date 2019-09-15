@@ -21,7 +21,7 @@ namespace Curator.Data.Controllers
 
         public CuratorDataSet.ROMRow GetRom(string romName)
         {
-            return RomData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => RomNameConstructor(x) == romName).First();
+            return RomData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => RomNameConstructor(x) == romName).FirstOrDefault();
         }
 
         public List<CuratorDataSet.ROMRow> GetRomsForActiveConsole()
