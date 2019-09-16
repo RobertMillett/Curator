@@ -66,6 +66,7 @@ namespace Curator
             if (MetroMessageBox.Show(this, "Fetch ROMs from ROM Folders?", "Curator", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 _romController.LoadRoms();
+                UpdateRomListViewItems();
             }
         }
         #endregion

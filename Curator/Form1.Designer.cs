@@ -210,8 +210,7 @@
             this.console_ComboBox.Location = new System.Drawing.Point(3, 29);
             this.console_ComboBox.Name = "console_ComboBox";
             this.console_ComboBox.Size = new System.Drawing.Size(168, 21);
-            this.console_ComboBox.TabIndex = 17;
-            this.console_ComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.console_ComboBox.TabIndex = 17;            
             this.console_ComboBox.SelectionChangeCommitted += new System.EventHandler(this.console_ComboBox_SelectionChangeCommitted);
             // 
             // consoleBindingSource2

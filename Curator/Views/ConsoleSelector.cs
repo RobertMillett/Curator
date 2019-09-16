@@ -11,11 +11,7 @@ namespace Curator
 {
     public partial class Form1
     {
-        #region Event Handlers
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //ConsoleHasChanged(sender, e);
-        }
+        #region Event Handlers        
 
         private void console_ComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
