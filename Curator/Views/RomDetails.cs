@@ -182,7 +182,7 @@ namespace Curator
             {
                 GridPictureImageLocations = new List<string> { string.Empty };
 
-                var imageDirectory = Path.Combine(SteamGridDbClient.ImageLocation, Path.GetFileNameWithoutExtension(rom.FileName));
+                var imageDirectory = Path.Combine(SteamGridDbClient.ImageLocation, Path.GetFileNameWithoutExtension(rom.FileName)).TrimEnd(' ');
                 if (!Directory.Exists(imageDirectory))
                     return;
 

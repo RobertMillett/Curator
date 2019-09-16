@@ -14,9 +14,9 @@ namespace Curator.Data.Controllers
             Consoles = consoles;
         }
 
-        public void SetActiveConsole(string name)
+        public void SetActiveConsole(CuratorDataSet.ConsoleRow console)
         {
-            Form1.ActiveConsole = name == string.Empty ? null : Consoles.Where(x => x.Name == name).First();
+            Form1.ActiveConsole = console;
         }
 
         public void UpdateName(string consoleName)

@@ -56,18 +56,9 @@ namespace Curator
             {
                 UpdateRomListViewItems();
                 return;
-            }
+            }            
 
-            var romFolders = new List<CuratorDataSet.RomFolderRow>();
-
-            foreach (var romFolderIndex in romFolderListBox.SelectedIndices)
-            {
-                var path = romFolderListBox.Items[(int)romFolderIndex].ToString();
-                var romFolder = _romFolderController.GetRomFolderByPath(path);
-                romFolders.Add(romFolder);
-            }
-
-            UpdateRomListViewItems(romFolders);
+            UpdateRomListViewItems();
         }
 
         private void fetchRomsButton_Click(object sender, EventArgs e)
@@ -75,6 +66,7 @@ namespace Curator
             if (MetroMessageBox.Show(this, "Fetch ROMs from ROM Folders?", "Curator", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 _romController.LoadRoms();
+                UpdateRomListViewItems();
             }
         }
         #endregion

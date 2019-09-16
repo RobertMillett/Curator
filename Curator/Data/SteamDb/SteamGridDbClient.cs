@@ -53,7 +53,7 @@ namespace Curator.Data.SteamDb
 
             await PopulateGamesList(urlEncodedROMName);
 
-            var filePath = Path.Combine(ImageLocation, Path.GetFileNameWithoutExtension(rom.FileName));
+            var filePath = Path.Combine(ImageLocation, Path.GetFileNameWithoutExtension(rom.FileName)).TrimEnd(' ');
 
             if (!_gamesDictionary.Where(x => x.Key == urlEncodedROMName).Any())
             {

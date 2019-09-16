@@ -153,9 +153,7 @@ namespace Curator
         }
 
         private void OnFormClosing(object sender, FormClosingEventArgs e)
-        {            
-            comboBox1.SelectedIndexChanged -= comboBox1_SelectedIndexChanged;
-
+        {
             if (e.CloseReason != CloseReason.UserClosing)
                 return;
 
@@ -182,6 +180,6 @@ namespace Curator
             }
         }
 
-        #endregion               
+        #endregion
     }
 }
