@@ -6,7 +6,7 @@ using System.IO;
 using Microsoft.Win32;
 using Gameloop.Vdf;
 using Gameloop.Vdf.JsonConverter;
-using SteamIDs_Engine;
+//using SteamIDs_Engine;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -115,9 +115,7 @@ namespace Curator.Data
 
                 var mostRecentUserId = loggedInUsers.Keys.First(x => loggedInUsers[x].MostRecent == 1);
 
-                var steam32Id = SteamIDConvert.Steam64ToSteam32(long.Parse(mostRecentUserId));
-
-                var steamId = steam32Id.Substring(steam32Id.Length - 8);
+                var steamId = (long.Parse(mostRecentUserId) - 76561197960265728L).ToString();
 
                 var userFolders = Directory.GetDirectories(Path.Combine(steamInstallPath, "userdata"));
 

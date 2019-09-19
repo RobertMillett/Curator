@@ -1,17 +1,9 @@
 ﻿using System;
 using System.IO;
-using Gameloop.Vdf;
-using SteamIDs_Engine;
-using Gameloop.Vdf.Linq;
-using Gameloop.Vdf.JsonConverter;
-using System.Threading;
-using System.Diagnostics;
-using Microsoft.Win32;
 using System.Linq;
 using System.Windows.Forms;
 using MetroFramework.Forms;
 using MetroFramework;
-using System.Collections.Generic;
 using Curator.Data;
 using Curator.Data.Controllers;
 
