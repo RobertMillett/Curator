@@ -6,12 +6,6 @@ using System.IO;
 using Microsoft.Win32;
 using Gameloop.Vdf;
 using Gameloop.Vdf.JsonConverter;
-//using SteamIDs_Engine;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Curator.Data.SteamDb;
 using System;
 
 namespace Curator.Data

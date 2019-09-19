@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Linq;
 using Curator.Data;
 
 namespace Curator
-{   
+{
     public partial class Form1
     {
         #region Event Handlers
