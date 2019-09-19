@@ -9,10 +9,12 @@ namespace Curator
 {
     public partial class Form1
     {
+        public List<CuratorDataSet.ROMRow> romListRoms;
+
         #region Event Handlers
         private void romListView_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            var rom = _romController.GetRom(e.Item.Text);
+            var rom = romListRoms[e.Item.Index];
 
             if (rom.Enabled == e.Item.Checked)
                 return;
@@ -28,20 +30,22 @@ namespace Curator
             if (romListView.FocusedItem == null)
                 return;
 
-            var rom = _romController.GetRom(romListView.FocusedItem.Text);
+            var rom = romListRoms[romListView.FocusedItem.Index];
             UpdateSelectedRomDetails(rom);
         }
         #endregion
 
         public void RomListViewUpdateCheckedState(CuratorDataSet.ROMRow rom)
         {
-            var listViewName = _romController.RomNameConstructor(rom);
+            var romIndex = romListRoms.IndexOf(rom);
 
-            romListView.Items.Find(listViewName, false)[0].Checked = rom.Enabled;
+            romListView.Items[romIndex].Checked = rom.Enabled;
         }
 
         public void UpdateRomListViewItems()
         {
+            romListRoms = new List<CuratorDataSet.ROMRow>();
+
             var selectedRomFolders = new List<CuratorDataSet.RomFolderRow>();
 
             foreach (var romFolderIndex in romFolderListBox.SelectedIndices)
@@ -68,7 +72,8 @@ namespace Curator
                         Checked = romItem.Enabled
                     };
 
-                    romListView.Items.Add(romListViewItem);                    
+                    romListView.Items.Add(romListViewItem);
+                    romListRoms.Add(romItem);
                 }
             }
             romListView.ItemChecked += romListView_ItemChecked;

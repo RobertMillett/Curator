@@ -21,7 +21,7 @@ namespace Curator
             if (romListView.FocusedItem == null)
                 return;
 
-            var rom = _romController.GetRom(romListView.FocusedItem.Text);
+            var rom = romListRoms[romListView.FocusedItem.Index];
             NavigatePictures(rom, x => x + 1);
         }
 
@@ -30,7 +30,7 @@ namespace Curator
             if (romListView.FocusedItem == null)
                 return;
 
-            var rom = _romController.GetRom(romListView.FocusedItem.Text);
+            var rom = romListRoms[romListView.FocusedItem.Index];
             NavigatePictures(rom, x => x - 1);
         }
 
@@ -39,7 +39,7 @@ namespace Curator
             if (romListView.FocusedItem == null)
                 return;
 
-            var rom = _romController.GetRom(romListView.FocusedItem.Text);
+            var rom = romListRoms[romListView.FocusedItem.Index];
 
             if (rom.Enabled != romDetailsEnabledToggle.Checked)
                 rom.Enabled = romDetailsEnabledToggle.Checked;
@@ -50,9 +50,9 @@ namespace Curator
         private void romDetailsName_Leave(object sender, EventArgs e)
         {
             if (romListView.FocusedItem == null)
-                return;            
+                return;
 
-            var rom = _romController.GetRom(romListView.FocusedItem.Text);
+            var rom = romListRoms[romListView.FocusedItem.Index];
 
             try
             {
@@ -73,7 +73,7 @@ namespace Curator
             if (romListView.FocusedItem == null)
                 return;
 
-            var rom = _romController.GetRom(romListView.FocusedItem.Text);
+            var rom = romListRoms[romListView.FocusedItem.Index];
 
             rom.CustomArgs = romDetailsCustomArgs.Text;
 
@@ -85,7 +85,7 @@ namespace Curator
             if (romListView.FocusedItem == null)
                 return;
 
-            var rom = _romController.GetRom(romListView.FocusedItem.Text);
+            var rom = romListRoms[romListView.FocusedItem.Index];
 
             if (rom.OverrideArgs != romDetailsOverride.Checked)
                 rom.OverrideArgs = romDetailsOverride.Checked;
@@ -195,7 +195,7 @@ namespace Curator
             if (romListView.FocusedItem == null)
                 return;
 
-            var rom = _romController.GetRom(romListView.FocusedItem.Text);
+            var rom = romListRoms[romListView.FocusedItem.Index];
 
             romDetailsPictureIndex.Text = "";
             ShowLoading($"Fetching Grid Images for ROM 1/1: '{rom.Name}'", true);
@@ -214,7 +214,7 @@ namespace Curator
             if (romListView.FocusedItem == null)
                 return;
 
-            var rom = _romController.GetRom(romListView.FocusedItem.Text);
+            var rom = romListRoms[romListView.FocusedItem.Index];
 
             var exePath = _steamController.GetExePath(rom, ActiveConsole);
             var emulatorPath = exePath.Substring(1, ActiveConsole.EmulatorPath.Length);

@@ -28,7 +28,10 @@ namespace Curator
         {
             _consoleController.SetEmulatorArgs(emulatorArgsTextBox.Text);
 
-            var rom = _romController.GetRom(romListView?.FocusedItem?.Text);
+            if (romListView.FocusedItem == null)
+                return;
+
+            var rom = romListRoms[romListView.FocusedItem.Index];
             UpdateSelectedRomDetails(rom);
         }
 
@@ -36,7 +39,10 @@ namespace Curator
         {
             _consoleController.SetRomArgs(romArgsTextBox.Text);
 
-            var rom = _romController.GetRom(romListView?.FocusedItem?.Text);
+            if (romListView.FocusedItem == null)
+                return;
+
+            var rom = romListRoms[romListView.FocusedItem.Index];
             UpdateSelectedRomDetails(rom);
         }
         #endregion
