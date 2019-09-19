@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using Curator.Data;
 using MetroFramework;
-using System.Collections.Generic;
 
 
 namespace Curator

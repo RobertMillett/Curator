@@ -1,10 +1,6 @@
 ﻿using System.Data;
 using System.Collections.Generic;
 using System.Linq;
-using Curator.Views;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
 
 namespace Curator.Data.Controllers

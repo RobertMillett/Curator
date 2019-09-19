@@ -3,10 +3,8 @@ using System.Web.UI;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-using System.Net.Http;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
-using System.Text.RegularExpressions;
 using RestSharp;
 using RestSharp.Extensions;
 

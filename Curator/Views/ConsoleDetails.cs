@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Linq;
 using Curator.Data;
 
 namespace Curator
-{   
+{
     public partial class Form1
     {
         #region Event Handlers
@@ -28,7 +27,10 @@ namespace Curator
         {
             _consoleController.SetEmulatorArgs(emulatorArgsTextBox.Text);
 
-            var rom = _romController.GetRom(romListView?.FocusedItem?.Text);
+            if (romListView.FocusedItem == null)
+                return;
+
+            var rom = romListRoms[romListView.FocusedItem.Index];
             UpdateSelectedRomDetails(rom);
         }
 
@@ -36,7 +38,10 @@ namespace Curator
         {
             _consoleController.SetRomArgs(romArgsTextBox.Text);
 
-            var rom = _romController.GetRom(romListView?.FocusedItem?.Text);
+            if (romListView.FocusedItem == null)
+                return;
+
+            var rom = romListRoms[romListView.FocusedItem.Index];
             UpdateSelectedRomDetails(rom);
         }
         #endregion

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Collections.Generic;
+﻿using System.Windows.Forms;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Curator.Views.CustomDialogs
 {
