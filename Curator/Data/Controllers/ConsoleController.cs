@@ -19,11 +19,17 @@ namespace Curator.Data.Controllers
 
         public void UpdateName(string consoleName)
         {
+            if (Form1.ActiveConsole == null)
+                return;
+
             Form1.ActiveConsole.Name = consoleName;
         }
 
         public void AddEmulatorPath(string fileName)
         {
+            if (Form1.ActiveConsole == null)
+                return;
+
             Form1.ActiveConsole.EmulatorPath = fileName;
         }
 
@@ -42,18 +48,24 @@ namespace Curator.Data.Controllers
             return Consoles.ToList();
         }
 
-        public void Remove(string name)
+        public void Remove(CuratorDataSet.ConsoleRow console)
         {
-            Consoles.Rows.Remove(Consoles.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => x.Name == name).First());
+            Consoles.Rows.Remove(console);
         }
 
         public void SetEmulatorArgs(string emuArgs)
         {
+            if (Form1.ActiveConsole == null)
+                return;
+
             Form1.ActiveConsole.EmulatorArgs = emuArgs;
         }
 
         public void SetRomArgs(string romArgs)
         {
+            if (Form1.ActiveConsole == null)
+                return;
+
             Form1.ActiveConsole.RomArgs = romArgs;
         }
     }

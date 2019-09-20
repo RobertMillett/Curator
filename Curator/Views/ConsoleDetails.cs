@@ -48,7 +48,7 @@ namespace Curator
 
         private void ConsoleHasChanged(object sender, EventArgs e)
         {
-            var newConsole = (console_ComboBox.SelectedItem as System.Data.DataRowView).Row as CuratorDataSet.ConsoleRow;
+            var newConsole = (console_ComboBox?.SelectedItem as System.Data.DataRowView)?.Row as CuratorDataSet.ConsoleRow;
 
             _consoleController.SetActiveConsole(newConsole);
             UpdateConsoleDetailsView(sender, e);

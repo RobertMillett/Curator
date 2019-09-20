@@ -38,12 +38,8 @@ namespace Curator
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-            //this.StyleManager = metroStyleManager1;
-            //metroStyleManager1.Theme = MetroThemeStyle.Dark;
+        {            
             RegisterEventHandlers();
-
-            ConsoleHasChanged(sender, e);
 
             romListView.Columns[0].Width = romListView.Width - 24;
 

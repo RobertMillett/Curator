@@ -1,5 +1,6 @@
 ﻿using System;
 using Curator.Views.CustomDialogs;
+using Curator.Data;
 
 namespace Curator
 {
@@ -16,10 +17,10 @@ namespace Curator
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var consoleName = RemoveConsoleDialog.ShowDialog();
+            var console = (console_ComboBox.SelectedItem as System.Data.DataRowView)?.Row as CuratorDataSet.ConsoleRow;
 
-            if (!string.IsNullOrEmpty(consoleName))
-                RemoveConsole(consoleName, sender, e);
+            if (console != null)
+                RemoveConsole(console, sender, e);
         }
         #endregion
     }

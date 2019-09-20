@@ -674,7 +674,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.romDetailsPictureIndex.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.romDetailsPictureIndex.BackColor = System.Drawing.Color.Transparent;
-            this.romDetailsPictureIndex.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.romDetailsPictureIndex.FontSize = MetroFramework.MetroLinkSize.Medium;
             this.romDetailsPictureIndex.ForeColor = System.Drawing.Color.Transparent;
             this.romDetailsPictureIndex.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
