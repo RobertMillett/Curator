@@ -21,7 +21,10 @@ namespace Curator
 
         private void DeleteConsole_Button_Click(object sender, EventArgs e)
         {
-            RemoveConsole(console_ComboBox.Text, sender, e);
+            var console = (console_ComboBox.SelectedItem as System.Data.DataRowView)?.Row as CuratorDataSet.ConsoleRow;
+
+            if (console != null)
+                RemoveConsole(console, sender, e);
         }
         #endregion
 
@@ -40,13 +43,13 @@ namespace Curator
             ConsoleHasChanged(sender, e);
         }
 
-        private void RemoveConsole(string consoleName, object sender, EventArgs e)
+        private void RemoveConsole(CuratorDataSet.ConsoleRow console, object sender, EventArgs e)
         {
             if (MetroMessageBox.Show(this, "This will delete the console and all of it's associated data!", "Are you sure?", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                if (_steamController.ShortcutsContainConsole(consoleName))
+                if (_steamController.ShortcutsContainConsole(console.Name))
                 {
-                    var deleteFromSteam = MetroMessageBox.Show(this, $"You have existing Shortcuts with the label '{consoleName}'. Remove these Shortcuts from Steam?", "Are you sure?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    var deleteFromSteam = MetroMessageBox.Show(this, $"You have existing Shortcuts with the label '{console.Name}'. Remove these Shortcuts from Steam?", "Are you sure?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                     if (deleteFromSteam == DialogResult.Yes)
                     {
                         _steamController.DeleteShortcutsByTag(console_ComboBox.Text);
@@ -57,7 +60,7 @@ namespace Curator
                         return;
                 }
 
-                _consoleController.Remove(consoleName);
+                _consoleController.Remove(console);
                 ConsoleHasChanged(sender, e);
             }
         }
