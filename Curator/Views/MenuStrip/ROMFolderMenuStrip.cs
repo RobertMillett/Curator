@@ -1,4 +1,5 @@
 ﻿using Curator.Views.CustomDialogs;
+using System.Windows.Forms;
 using System;
 
 namespace Curator
@@ -7,9 +8,18 @@ namespace Curator
     {
         private void addToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            var romFolderName = AddROMFolderDialog.ShowDialog(this);
+            var console = AddROMFolderDialog.ShowDialog(this);
 
             UpdateRomFolderView();
+
+            if (console == null)
+                return;
+
+            if (PromptToFilter.ShowDialog(this, console) == DialogResult.OK)
+            {
+                if (FilterForConsoleROMDialog.ShowDialog(this) == DialogResult.OK)
+                    UpdateRomFolderView();
+            }   
         }
 
         private void removeToolStripMenuItem1_Click(object sender, EventArgs e)

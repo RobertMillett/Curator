@@ -17,15 +17,15 @@ namespace Curator.Data.Controllers
         public string RomNameConstructor(CuratorDataSet.ROMRow romItem)
         {
             return $"{romItem.Name} ({romItem.Extension.Trim('.').ToUpper()})";
-        }        
+        }
 
-        public List<CuratorDataSet.ROMRow> GetRomsForActiveConsole()
+        public List<CuratorDataSet.ROMRow> GetRomsForConsole(CuratorDataSet.ConsoleRow console, bool filtered = true)
         {
-            var romFolders = Form1._romFolderController.GetRomFoldersForActiveConsole();
+            var romFolders = Form1._romFolderController.GetRomFoldersForConsole(console);
 
             var roms = RomData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => romFolders.Select(y => y.Id).Contains(x.RomFolder_Id));
 
-            return roms.ToList();
+            return filtered ? FilterRoms(roms).ToList() : roms.ToList();
         }
 
         public void DeleteAllRomsForRomFolder(int romFolderId)
@@ -57,7 +57,7 @@ namespace Curator.Data.Controllers
                 foreach (var rom in romList)
                 {
                     var romName = Path.GetFileNameWithoutExtension(rom);
-                    if (!RomData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => x.FileName == rom).Any())
+                    if (!FilterRoms(RomData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => x.FileName == rom)).Any())
                     {
                         var romRow = RomData.NewROMRow();
                         romRow.Name = romName;
@@ -90,7 +90,16 @@ namespace Curator.Data.Controllers
 
         public IEnumerable<CuratorDataSet.ROMRow> GetRomsByRomFolderId(int romFolderId)
         {
-            return RomData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => x.RowState != System.Data.DataRowState.Deleted && x.RomFolder_Id == romFolderId);
+           return FilterRoms(RomData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(x => x.RowState != System.Data.DataRowState.Deleted && x.RomFolder_Id == romFolderId));
+        }
+
+        private IEnumerable<CuratorDataSet.ROMRow> FilterRoms(IEnumerable<CuratorDataSet.ROMRow> roms)
+        {
+            var filter = Form1.ActiveConsole.Filter;
+            if (!string.IsNullOrWhiteSpace(filter))
+                return roms.Where(rom => filter.Contains(rom.Extension));
+
+            return roms;
         }
 
         public IEnumerable<CuratorDataSet.ROMRow> GetAllRoms()
@@ -100,7 +109,7 @@ namespace Curator.Data.Controllers
 
         public IEnumerable<CuratorDataSet.ROMRow> GetAllRomsWhere(Func<CuratorDataSet.ROMRow, bool> func)
         {
-            return RomData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(func);
+            return FilterRoms(RomData.Where(x => x.RowState != System.Data.DataRowState.Deleted).Where(func));
         }
     }
 }

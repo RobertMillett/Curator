@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using Curator.Views.CustomDialogs;
 using Curator.Data;
 
@@ -21,6 +22,14 @@ namespace Curator
 
             if (console != null)
                 RemoveConsole(console, sender, e);
+        }
+
+        private void filterROMsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FilterForConsoleROMDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                UpdateRomListViewItems();
+            }
         }
         #endregion
     }
