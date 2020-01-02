@@ -32,7 +32,14 @@ namespace Curator.Data
             var currentShortcuts = ParseShortCuts();
 
             //Step 2 - Add the ROMS to the list
-            foreach (var rom in CuratorData.ROM.ToList())
+            var romList = new List<CuratorDataSet.ROMRow>();
+            foreach(var console in Form1._consoleController.GetAllConsoles())
+            {
+                foreach (var rom in Form1._romController.GetRomsForConsole(console))
+                    romList.Add(rom);
+            }
+
+            foreach (var rom in romList)
             {
                 var existingRomEntry = currentShortcuts.Where(x => x.AppName == rom.Name && x.Exe.Contains(rom.Extension)).FirstOrDefault();
 
