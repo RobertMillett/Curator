@@ -162,6 +162,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Views\CustomDialogs\FilterForConsoleROMDialog.cs" />
+    <Compile Include="Views\CustomDialogs\PromptToFilter.cs" />
     <Compile Include="Views\CustomDialogs\RemoveROMFolderDialog.cs" />
     <Compile Include="Views\CustomDialogs\AddROMFolderDialog.cs" />
     <Compile Include="Views\CustomDialogs\AddConsoleDialog.cs" />
@@ -230,6 +232,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
+    <None Include="Resources\Filter_noHalo_16x.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

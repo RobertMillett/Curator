@@ -20,6 +20,7 @@
               <xs:element name="EmulatorPath" msprop:Generator_ColumnVarNameInTable="columnEmulatorPath" msprop:Generator_ColumnPropNameInRow="EmulatorPath" msprop:Generator_ColumnPropNameInTable="EmulatorPathColumn" msprop:Generator_UserColumnName="EmulatorPath" type="xs:string" default="" minOccurs="0" />
               <xs:element name="EmulatorArgs" msprop:Generator_ColumnVarNameInTable="columnEmulatorArgs" msprop:Generator_ColumnPropNameInRow="EmulatorArgs" msprop:Generator_ColumnPropNameInTable="EmulatorArgsColumn" msprop:Generator_UserColumnName="EmulatorArgs" type="xs:string" default="" minOccurs="0" />
               <xs:element name="RomArgs" msprop:Generator_ColumnVarNameInTable="columnRomArgs" msprop:Generator_ColumnPropNameInRow="RomArgs" msprop:Generator_ColumnPropNameInTable="RomArgsColumn" msprop:Generator_UserColumnName="RomArgs" type="xs:string" default="" minOccurs="0" />
+              <xs:element name="Filter" msprop:Generator_ColumnVarNameInTable="columnFilter" msprop:Generator_ColumnPropNameInRow="Filter" msprop:Generator_ColumnPropNameInTable="FilterColumn" msprop:Generator_UserColumnName="Filter" type="xs:string" default="" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

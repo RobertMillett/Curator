@@ -43,6 +43,7 @@
             this.CuratorDataSet = new Curator.Data.CuratorDataSet();
             this.AddConsole_Button = new MetroFramework.Controls.MetroButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.filterROMsButton = new MetroFramework.Controls.MetroButton();
             this.fetchRomsButton = new MetroFramework.Controls.MetroButton();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.romFolderToolStrip = new System.Windows.Forms.ToolStripButton();
@@ -102,9 +103,10 @@
             this.consoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rOMFoldersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.filterROMsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.romFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.metroContextMenu1 = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.loadingPicturesSpinner = new MetroFramework.Controls.MetroProgressSpinner();
@@ -242,6 +244,7 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.filterROMsButton);
             this.panel2.Controls.Add(this.fetchRomsButton);
             this.panel2.Controls.Add(this.toolStrip2);
             this.panel2.Controls.Add(this.toolStrip1);
@@ -261,6 +264,19 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(455, 480);
             this.panel2.TabIndex = 1;
+            // 
+            // filterROMsButton
+            // 
+            this.filterROMsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.filterROMsButton.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.filterROMsButton.BackgroundImage = global::Curator.Properties.Resources.Filter_noHalo_16x;
+            this.filterROMsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.filterROMsButton.Location = new System.Drawing.Point(332, 272);
+            this.filterROMsButton.Name = "filterROMsButton";
+            this.filterROMsButton.Size = new System.Drawing.Size(34, 24);
+            this.filterROMsButton.TabIndex = 50;
+            this.filterROMsButton.UseSelectable = true;
+            this.filterROMsButton.Click += new System.EventHandler(this.filterROMsToolStripMenuItem_Click);
             // 
             // fetchRomsButton
             // 
@@ -301,7 +317,7 @@
             this.romFolderToolStrip.Size = new System.Drawing.Size(34, 24);
             this.romFolderToolStrip.Text = "&Open";
             this.romFolderToolStrip.ToolTipText = "Add ROM Folder";
-            this.romFolderToolStrip.Click += new System.EventHandler(this.AddRomFolder_Button_Click);
+            this.romFolderToolStrip.Click += new System.EventHandler(this.addToolStripMenuItem1_Click);
             // 
             // toolStrip1
             // 
@@ -860,7 +876,7 @@
             this.fileToolStripMenuItem,
             this.steamToolStripMenuItem,
             this.consoleToolStripMenuItem,
-            this.rOMFoldersToolStripMenuItem});
+            this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(26, 53);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(246, 24);
@@ -971,7 +987,8 @@
             // 
             this.consoleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addToolStripMenuItem,
-            this.removeToolStripMenuItem});
+            this.removeToolStripMenuItem,
+            this.filterROMsToolStripMenuItem});
             this.consoleToolStripMenuItem.Name = "consoleToolStripMenuItem";
             this.consoleToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
             this.consoleToolStripMenuItem.Text = "Console";
@@ -979,39 +996,46 @@
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.addToolStripMenuItem.Text = "Add";
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.addToolStripMenuItem.Text = "New Console";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.removeToolStripMenuItem.Text = "Remove";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.removeToolStripMenuItem.Text = "Remove Console";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
-            // rOMFoldersToolStripMenuItem
+            // filterROMsToolStripMenuItem
             // 
-            this.rOMFoldersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addToolStripMenuItem1,
-            this.removeToolStripMenuItem1});
-            this.rOMFoldersToolStripMenuItem.Name = "rOMFoldersToolStripMenuItem";
-            this.rOMFoldersToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
-            this.rOMFoldersToolStripMenuItem.Text = "ROM Folders";
+            this.filterROMsToolStripMenuItem.Name = "filterROMsToolStripMenuItem";
+            this.filterROMsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.filterROMsToolStripMenuItem.Text = "Filter ROMs";
+            this.filterROMsToolStripMenuItem.Click += new System.EventHandler(this.filterROMsToolStripMenuItem_Click);
             // 
-            // addToolStripMenuItem1
+            // toolStripMenuItem1
             // 
-            this.addToolStripMenuItem1.Name = "addToolStripMenuItem1";
-            this.addToolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
-            this.addToolStripMenuItem1.Text = "Add";
-            this.addToolStripMenuItem1.Click += new System.EventHandler(this.addToolStripMenuItem1_Click);
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(87, 20);
+            this.toolStripMenuItem1.Text = "ROM Folders";
             // 
-            // removeToolStripMenuItem1
+            // toolStripMenuItem2
             // 
-            this.removeToolStripMenuItem1.Name = "removeToolStripMenuItem1";
-            this.removeToolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
-            this.removeToolStripMenuItem1.Text = "Remove";
-            this.removeToolStripMenuItem1.Click += new System.EventHandler(this.removeToolStripMenuItem1_Click);
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(117, 22);
+            this.toolStripMenuItem2.Text = "Add";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.addToolStripMenuItem1_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(117, 22);
+            this.toolStripMenuItem3.Text = "Remove";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.removeToolStripMenuItem1_Click);
             // 
             // metroContextMenu1
             // 
@@ -1159,9 +1183,11 @@
         private MetroFramework.Controls.MetroButton romDetailsTestButton;
         private System.Windows.Forms.ToolStrip toolStrip3;
         private System.Windows.Forms.ToolStripButton romDetails_helpToolStripButton;
-        private System.Windows.Forms.ToolStripMenuItem rOMFoldersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem filterROMsToolStripMenuItem;
+        private MetroFramework.Controls.MetroButton filterROMsButton;
     }
 }
 

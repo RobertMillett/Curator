@@ -15,7 +15,7 @@ namespace Curator
         public static CuratorDataSet.ConsoleRow ActiveConsole;
         private SteamController _steamController;
         public static ConsoleController _consoleController;
-        private RomController _romController;
+        public static RomController _romController;
         public static RomFolderController _romFolderController;
         private SaveLoadController _saveLoadController;
 

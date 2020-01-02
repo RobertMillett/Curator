@@ -27,8 +27,19 @@ namespace Curator.Data.Controllers
             RomFolderData.Rows.Add(romFolder);
         }
 
-        internal void AddToConsole(string path, CuratorDataSet.ConsoleRow console)
+        internal void AddToConsole(string path, CuratorDataSet.ConsoleRow console, bool addSubFolders = false)
         {
+            if (addSubFolders)
+            {
+                var subDirectories = Directory.GetDirectories(path);
+
+                foreach (var directory in subDirectories)
+                {
+                    AddToConsole(directory, console, addSubFolders);
+                }
+            }
+
+
             var romFolder = RomFolderData.NewRomFolderRow();
             romFolder.Path = path;
             romFolder.Console_Id = console.Id;
@@ -55,7 +66,7 @@ namespace Curator.Data.Controllers
 
         public List<CuratorDataSet.RomFolderRow> GetRomFoldersForConsole(CuratorDataSet.ConsoleRow console)
         {
-            if (Form1.ActiveConsole == null)
+            if (console == null)
                 return new List<CuratorDataSet.RomFolderRow>();
 
             return RomFolderData.Where(x => x.RowState != DataRowState.Deleted).Where(x => x.Console_Id == console.Id).ToList();

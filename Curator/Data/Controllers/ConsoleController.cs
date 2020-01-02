@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Curator.Data.Controllers
@@ -67,6 +68,11 @@ namespace Curator.Data.Controllers
                 return;
 
             Form1.ActiveConsole.RomArgs = romArgs;
+        }
+
+        internal void SaveFilterForConsole(CuratorDataSet.ConsoleRow selectedConsole, string fileExtensions)
+        {
+            selectedConsole.Filter = fileExtensions;
         }
     }
 }

@@ -1,11 +1,14 @@
 ﻿using System.Windows.Forms;
 using System.Linq;
+using Curator.Data;
 
 namespace Curator.Views.CustomDialogs
 {
     public static class AddROMFolderDialog
     {
-        public static string ShowDialog(IWin32Window window)
+        public static CuratorDataSet.ConsoleRow console;
+
+        public static CuratorDataSet.ConsoleRow ShowDialog(IWin32Window window)
         {
             Form prompt = new Form()
             {
@@ -19,8 +22,12 @@ namespace Curator.Views.CustomDialogs
             };
 
             Label consoleNameLabel = new Label() { Left = 18, Top = 20, Text = "Select Console" };
-            var consoleSelector = new ComboBox() { Left = 20, Top = 40, Width = 150 };
+            var consoleSelector = new ComboBox() { Left = 20, Top = 40, Width = 150, DropDownStyle = ComboBoxStyle.DropDownList };
             consoleSelector.Items.AddRange(Form1._consoleController.GetAllConsoles().Select(x => x.Name).ToArray());
+            
+
+            if (Form1.ActiveConsole != null)
+                consoleSelector.SelectedItem = consoleSelector.Items[consoleSelector.Items.IndexOf(Form1.ActiveConsole.Name)];
 
             var romFolderPathDisplayBox = new TextBox
             {
@@ -46,27 +53,34 @@ namespace Curator.Views.CustomDialogs
                 }
             };
 
+            var includeSubFoldersCheckbox = new CheckBox()
+            {
+                Text = "Include Sub-Folders",
+                Left = 20,    
+                Top = 130,
+                Width = 150,
+                CheckAlign = System.Drawing.ContentAlignment.MiddleLeft
+            };
+
             Button okButton = new Button() { Text = "Ok", Left = 350, Width = 50, Top = 130 };
 
             okButton.Click += (sender, e) =>
             {
-                var console = Form1._consoleController.GetAllConsoles().First(x => x.Name == consoleSelector.Text);
+                console = Form1._consoleController.GetAllConsoles().FirstOrDefault(x => x.Name == consoleSelector.Text);
 
                 if (console == null)
-                {
-                    ShowError(consoleSelector, "Console cannot be null");
-                }
+                    return;
 
-                Form1._romFolderController.AddToConsole(romFolderToAdd, console);
+                Form1._romFolderController.AddToConsole(romFolderToAdd, console, includeSubFoldersCheckbox.Checked);
             };
-
 
             Button cancelButton = new Button() { Text = "Cancel", Left = 410, Width = 50, Top = 130, DialogResult = DialogResult.Cancel };
             
             okButton.Click += (sender, e) => {
                 if (string.IsNullOrWhiteSpace(consoleSelector.Text))
                 {
-                    ShowError(consoleSelector, "Name cannot be null");
+                    ShowError(consoleSelector, "Please select a Console");
+                    return;
                 }
                 else
                 {
@@ -80,11 +94,12 @@ namespace Curator.Views.CustomDialogs
             prompt.Controls.Add(consoleNameLabel);
             prompt.Controls.Add(romFolderFileSelector);
             prompt.Controls.Add(romFolderPathDisplayBox);
+            prompt.Controls.Add(includeSubFoldersCheckbox);
 
             prompt.AcceptButton = okButton;
             prompt.CancelButton = cancelButton;
             
-            return prompt.ShowDialog() == DialogResult.OK ? consoleSelector.Text : string.Empty;
+            return prompt.ShowDialog() == DialogResult.OK ? console : null;
         }
 
         private static void ShowError(Control control, string message)

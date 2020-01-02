@@ -34,7 +34,7 @@ namespace Curator
             {
                 if (MetroMessageBox.Show(this, $"Save all current {ActiveConsole.Name} ROM details?", "Curator", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    var roms = _romController.GetRomsForActiveConsole();
+                    var roms = _romController.GetRomsForConsole(ActiveConsole);
                     _saveLoadController.SaveRomsForActiveConsole(roms);
                     ShowSaveSuccessMessage();
                 }

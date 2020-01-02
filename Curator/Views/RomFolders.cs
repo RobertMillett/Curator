@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Curator.Views.CustomDialogs;
 using MetroFramework;
 
 
@@ -65,6 +66,7 @@ namespace Curator
             {
                 _romController.LoadRoms();
                 UpdateRomListViewItems();
+                PromptToFilter.ShowDialog(this, ActiveConsole);
             }
         }
         #endregion
