@@ -20,8 +20,9 @@ A Windows Application to help with importing your emulation collection into Stea
 4. Add the path to a folder containing your console's ROMs using one of the below methods:
 	* Clicking the Open Folder button next to the ROM Folders list box
 	* ROM Folders Header Menu -> Add
-		* You can add as many ROM Folders as you like. Curator does not traverse down sub-folders looking for ROMs.
-5. Go through the list of files in the ROMs list and choose which ones you want to import to Steam (by default all files found in Step 4 will be imported to Steam, this is likely not what you want as many ROMs come with multiple files, only one of which is bootable):
+		* You can add as many ROM Folders as you like.
+		* Curator can also automatically add sub-folders if you choose this option.   
+5. By default all files found in Step 4 will be loaded into Curator, some of which may not be bootable by the emulator. Curator will prompt you to either add a filter to automatically remove all files of a certain type (eg .txt) or you can manually disable these files:
 	* Click on an entry in the ROMs list
 	* In the ROM Details panel, switch the Enabled switch to OFF if you don't want this file imported into Steam.
 6. Export your ROMs to Steam using one of the below methods: 
