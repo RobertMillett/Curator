@@ -10,6 +10,7 @@
             {
                 romDetailsPictureIndex.Visible = false;
                 loadingRomDetailsPicture.Visible = true;
+                romDetailsLibraryPictureIndex.Visible = false;
             }                
 
             taskLabel.Text = message;
@@ -24,6 +25,7 @@
             taskLabel.Visible = false;
 
             romDetailsPictureIndex.Visible = true;
+            romDetailsLibraryPictureIndex.Visible = true;
         }
     }
 }

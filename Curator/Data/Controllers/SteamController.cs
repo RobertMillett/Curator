@@ -64,15 +64,15 @@ namespace Curator.Data
                     Exe = exepath,
                     StartDir = Path.GetDirectoryName(console.EmulatorPath),
                     Index = 0,
-                    Icon = "",
+                    Icon = rom.GridPicture,
                     IsHidden = 0,
                     OpenVR = 0,
                     ShortcutPath = "",
                     Tags = new string[] { console.Name }
                 };
 
-                if (!string.IsNullOrWhiteSpace(rom.GridPicture))
-                    UpdateRomGridImage(newRomEntry, rom.GridPicture);
+                if (!string.IsNullOrWhiteSpace(rom.LibraryPicture))
+                    UpdateRomGridImage(newRomEntry, rom.LibraryPicture);
 
                 if (existingRomEntry != null)
                 {
@@ -227,20 +227,24 @@ namespace Curator.Data
             var thing = Crc32.Crc32Algorithm.Compute(byteArray);
             var longThing = (ulong)thing;
             longThing = (longThing | 0x80000000);
+            /*
             longThing = longThing << 32;
             longThing = (longThing | 0x02000000);
-            var finalConversion = longThing.ToString();
+            var finalConversion = longThing.ToString();*/
 
             // ############# GENERATE APP ID ##################
 
+            var finalNameOne = longThing.ToString() + 'p';
+
             var extension = Path.GetExtension(gridPicturePath);
             var imagesFolder = Path.Combine(Path.GetDirectoryName(SteamShortcutsFile), "grid");
-            var steamGridImageFilePath = Path.Combine(imagesFolder, finalConversion + extension);
+            var steamGridImageFilePathOne = Path.Combine(imagesFolder, finalNameOne + extension);
 
-            if (File.Exists(steamGridImageFilePath))
-                File.Delete(steamGridImageFilePath);
+            if (File.Exists(steamGridImageFilePathOne))
+                File.Delete(steamGridImageFilePathOne);
 
-            File.Copy(gridPicturePath, steamGridImageFilePath);
+
+            File.Copy(gridPicturePath, steamGridImageFilePathOne);
         }
 
         public void SetSteamShortcutFile(string fileName)

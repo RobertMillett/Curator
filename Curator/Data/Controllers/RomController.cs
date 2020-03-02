@@ -78,9 +78,14 @@ namespace Curator.Data.Controllers
             RomData.Rows[RomData.Rows.IndexOf(rom)].AcceptChanges();
         }
 
-        public void SetRomImage(CuratorDataSet.ROMRow rom, string gridPicturePath)
+        public void SetGridImage(CuratorDataSet.ROMRow rom, string gridPicturePath)
         {
             rom.GridPicture = gridPicturePath;
+        }
+
+        public void SetLibraryImage(CuratorDataSet.ROMRow rom, string libraryPicturePath)
+        {
+            rom.LibraryPicture = libraryPicturePath;
         }
 
         private CuratorDataSet.ROMRow GetRomById(int romId)
