@@ -51,7 +51,8 @@ namespace Curator.Data.SteamDb
 
             await PopulateGamesList(urlEncodedROMName);
 
-            var filePath = Path.Combine(ImageLocation, Path.GetFileNameWithoutExtension(rom.FileName)).TrimEnd(' ');
+            var bigPictureFilePath = Path.Combine(ImageLocation, Path.GetFileNameWithoutExtension(rom.FileName).TrimEnd(' '), "Big Picture").TrimEnd(' ');
+            var libraryPictureFilePath = Path.Combine(ImageLocation, Path.GetFileNameWithoutExtension(rom.FileName).TrimEnd(' '), "Library").TrimEnd(' ');
 
             if (!_gamesDictionary.Where(x => x.Key == urlEncodedROMName).Any())
             {
@@ -62,20 +63,36 @@ namespace Curator.Data.SteamDb
             var request = new RestRequest
             {
                 Method = Method.GET,
-                Resource = $"/grids/game/{ _gamesDictionary[urlEncodedROMName]}"                
+                Resource = $"/grids/game/{ _gamesDictionary[urlEncodedROMName]}"
             };
             request.AddHeader("Authorization", "Bearer 850ea77df1c635de67acc76bbb197bd7");
+            request.AddParameter("dimensions", "legacy");
 
             var response = await _steamGridDbClient.ExecuteTaskAsync(request);
-            var gridUrls = JsonConvert.DeserializeObject<GridUrlsResponse>(response.Content).Data;
+            var bigPictureGridUrls = JsonConvert.DeserializeObject<GridUrlsResponse>(response.Content).Data;
+            
+            await SaveImagesToDisc(bigPictureFilePath, bigPictureGridUrls);
 
-            foreach (var gridUrl in gridUrls)
+            request.AddOrUpdateParameter("dimensions", "600x900");
+
+            response = await _steamGridDbClient.ExecuteTaskAsync(request);
+            var libraryPictureUrls = JsonConvert.DeserializeObject<GridUrlsResponse>(response.Content).Data;
+
+            await SaveImagesToDisc(libraryPictureFilePath, libraryPictureUrls);
+
+            if (bigPictureGridUrls.Count > 0)
+                rom.GridPicture = Directory.GetFiles(bigPictureFilePath)[0];
+
+            if (libraryPictureUrls.Count > 0)
+                rom.LibraryPicture = Directory.GetFiles(libraryPictureFilePath)[0];
+        }
+
+        private static async Task SaveImagesToDisc(string bigPictureFilePath, List<GridUrlData> bigPictureGridUrls)
+        {
+            foreach (var gridUrl in bigPictureGridUrls)
             {
-                await SaveGridImageToDisk(filePath, gridUrl.Url);
+                await SaveGridImageToDisk(bigPictureFilePath, gridUrl.Url);
             }
-
-            if (gridUrls.Count > 0)
-                rom.GridPicture = Directory.GetFiles(filePath)[0];
         }
 
         private static string GetUrlEncodedROMName(string name)

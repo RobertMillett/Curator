@@ -43,7 +43,7 @@ namespace Curator
 
         public void UpdateRomListViewItems()
         {
-            romListRoms = new List<CuratorDataSet.ROMRow>();
+             romListRoms = new List<CuratorDataSet.ROMRow>();
 
             var selectedRomFolders = new List<CuratorDataSet.RomFolderRow>();
 

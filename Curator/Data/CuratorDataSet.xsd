@@ -36,6 +36,7 @@
               <xs:element name="OverrideArgs" msprop:Generator_ColumnVarNameInTable="columnOverrideArgs" msprop:Generator_ColumnPropNameInRow="OverrideArgs" msprop:Generator_ColumnPropNameInTable="OverrideArgsColumn" msprop:Generator_UserColumnName="OverrideArgs" type="xs:boolean" default="false" minOccurs="0" />
               <xs:element name="GridPicture" msprop:Generator_ColumnVarNameInTable="columnGridPicture" msprop:Generator_ColumnPropNameInRow="GridPicture" msprop:Generator_ColumnPropNameInTable="GridPictureColumn" msprop:Generator_UserColumnName="GridPicture" type="xs:string" default="" minOccurs="0" />
               <xs:element name="FileName" msprop:Generator_ColumnVarNameInTable="columnFileName" msprop:Generator_ColumnPropNameInRow="FileName" msprop:Generator_ColumnPropNameInTable="FileNameColumn" msprop:Generator_UserColumnName="FileName" type="xs:string" default="" minOccurs="0" />
+              <xs:element name="LibraryPicture" msprop:Generator_ColumnVarNameInTable="columnLibraryPicture" msprop:Generator_ColumnPropNameInRow="LibraryPicture" msprop:Generator_ColumnPropNameInTable="LibraryPictureColumn" msprop:Generator_UserColumnName="LibraryPicture" type="xs:string" default="" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
