@@ -14,24 +14,43 @@ namespace Curator
     public partial class Form1
     {
         private List<string> GridPictureImageLocations;
+        private List<string> LibraryPictureImageLocations;
 
         #region Event Handlers
-        private void romDetailsNextPicture_Button_Click(object sender, EventArgs e)
+        private void romDetailsNextBigPicture_Button_Click(object sender, EventArgs e)
         {
             if (romListView.FocusedItem == null)
                 return;
 
             var rom = romListRoms[romListView.FocusedItem.Index];
-            NavigatePictures(rom, x => x + 1);
+            NavigateGridPictures(rom, x => x + 1);
         }
 
-        private void romDetailsPrevPicture_Button_Click(object sender, EventArgs e)
+        private void romDetailsPrevBigPicture_Button_Click(object sender, EventArgs e)
         {
             if (romListView.FocusedItem == null)
                 return;
 
             var rom = romListRoms[romListView.FocusedItem.Index];
-            NavigatePictures(rom, x => x - 1);
+            NavigateGridPictures(rom, x => x - 1);
+        }
+
+        private void romDetailsNextLibraryPicture_Button_Click(object sender, EventArgs e)
+        {
+            if (romListView.FocusedItem == null)
+                return;
+
+            var rom = romListRoms[romListView.FocusedItem.Index];
+            NavigateLibraryPictures(rom, x => x + 1);
+        }
+
+        private void romDetailsPrevLibraryPicture_Button_Click(object sender, EventArgs e)
+        {
+            if (romListView.FocusedItem == null)
+                return;
+
+            var rom = romListRoms[romListView.FocusedItem.Index];
+            NavigateLibraryPictures(rom, x => x - 1);
         }
 
         private void romDetailsEnabledToggle_CheckedChanged(object sender, EventArgs e)
@@ -113,11 +132,13 @@ namespace Curator
             romDetailsOverride.Checked = rom.OverrideArgs;
             romDetailsEnabledToggle.Checked = rom.Enabled;
             romDetailsGridPicture.ImageLocation = rom.GridPicture;
+            romDetailsLibraryPicture.ImageLocation = rom.LibraryPicture;
             romDetailsPathPreview.Text = _steamController.GetExePath(rom, ActiveConsole);
 
             await LoadGridPictures(rom);
 
-            NavigatePictures(rom, x => x + 0);
+            NavigateGridPictures(rom, x => x + 0);
+            NavigateLibraryPictures(rom, x => x + 0);
         }
 
         private void SetAllDetailsEmpty()
@@ -128,26 +149,28 @@ namespace Curator
             romDetailsOverride.Checked = false;
             romDetailsEnabledToggle.Checked = false;
             romDetailsGridPicture.ImageLocation = string.Empty;
+            romDetailsLibraryPicture.ImageLocation = string.Empty;
             romDetailsPictureIndex.Text = string.Empty;
             romDetailsPictureIndex.Cursor = Cursors.Arrow;
             romDetailsPictureIndex.UseStyleColors = false;
             romDetailsPictureIndex.Style = MetroColorStyle.Default;
             romDetailsPathPreview.Text = string.Empty;
             romDetails_helpToolStripButton.Visible = false;
+            romDetailsLibraryPictureIndex.Visible = false;            
         }
 
-        private void NavigatePictures(CuratorDataSet.ROMRow rom, Func<int, int> direction)
+        private void NavigateGridPictures(CuratorDataSet.ROMRow rom, Func<int, int> direction)
         {
             var currentIndex = GridPictureImageLocations.IndexOf(romDetailsGridPicture.ImageLocation);
 
-            int newIndex = GetNewIndex(currentIndex, direction);
+            int newIndex = GetNewIndex(currentIndex, direction,  GridPictureImageLocations);
 
             if (newIndex >= 0)
             {
                 romDetailsGridPicture.ImageLocation = GridPictureImageLocations[newIndex];
 
                 if (rom.GridPicture != GridPictureImageLocations[newIndex])
-                    _romController.SetRomImage(rom, GridPictureImageLocations[newIndex]);
+                    _romController.SetGridImage(rom, GridPictureImageLocations[newIndex]);
             }   
 
             romDetailsPictureIndex.Text = $"{newIndex} of {GridPictureImageLocations.Count -1}";
@@ -165,29 +188,67 @@ namespace Curator
             }
         }
 
-        private int GetNewIndex(int currentIndex, Func<int, int> direction)
+        private void NavigateLibraryPictures(CuratorDataSet.ROMRow rom, Func<int, int> direction)
         {
-            if (direction(currentIndex) > GridPictureImageLocations.Count - 1)
+            var currentIndex = LibraryPictureImageLocations.IndexOf(romDetailsLibraryPicture.ImageLocation);
+
+            int newIndex = GetNewIndex(currentIndex, direction, LibraryPictureImageLocations);
+
+            if (newIndex >= 0)
+            {
+                romDetailsLibraryPicture.ImageLocation = LibraryPictureImageLocations[newIndex];
+
+                if (rom.GridPicture != LibraryPictureImageLocations[newIndex])
+                    _romController.SetLibraryImage(rom, LibraryPictureImageLocations[newIndex]);
+            }
+
+            romDetailsLibraryPictureIndex.Text = $"{newIndex} of {LibraryPictureImageLocations.Count - 1}";
+            romDetailsLibraryPictureIndex.Visible = true;
+        }
+
+        private int GetNewIndex(int currentIndex, Func<int, int> direction,  List<string> imageLocations)
+        {
+            if (direction(currentIndex) > imageLocations.Count - 1)
                 return 0;
 
             if (direction(currentIndex) < 0)
-                return GridPictureImageLocations.Count - 1;
+                return imageLocations.Count - 1;
 
             return direction(currentIndex);
         }
 
         private async Task LoadGridPictures(CuratorDataSet.ROMRow rom)
         {
+            await LoadBigPictureImages(rom);
+            await LoadLibraryPic(rom);
+        }
+
+        private async Task LoadBigPictureImages(CuratorDataSet.ROMRow rom)
+        {
             await Task.Run(() =>
             {
                 GridPictureImageLocations = new List<string> { string.Empty };
 
-                var imageDirectory = Path.Combine(SteamGridDbClient.ImageLocation, Path.GetFileNameWithoutExtension(rom.FileName)).TrimEnd(' ');
+                var imageDirectory = Path.Combine(SteamGridDbClient.ImageLocation, Path.GetFileNameWithoutExtension(rom.FileName).TrimEnd(' '), "Big Picture").TrimEnd(' ');
                 if (!Directory.Exists(imageDirectory))
                     return;
 
                 GridPictureImageLocations.AddRange(Directory.GetFiles(imageDirectory));
-            });            
+            });
+        }
+
+        private async Task LoadLibraryPic(CuratorDataSet.ROMRow rom)
+        {
+            await Task.Run(() =>
+            {
+                LibraryPictureImageLocations = new List<string> { string.Empty };
+
+                var imageDirectory = Path.Combine(SteamGridDbClient.ImageLocation, Path.GetFileNameWithoutExtension(rom.FileName).TrimEnd(' '), "Library").TrimEnd(' ');
+                if (!Directory.Exists(imageDirectory))
+                    return;
+
+                LibraryPictureImageLocations.AddRange(Directory.GetFiles(imageDirectory));
+            });
         }
 
         private async void romDetailsFetchGridImageButton_Click(object sender, EventArgs e)
@@ -206,7 +267,8 @@ namespace Curator
 
             HideLoading();
 
-            NavigatePictures(rom, x => x + 0);
+            NavigateGridPictures(rom, x => x + 0);
+            NavigateLibraryPictures(rom, x => x + 0);
         }       
 
         private void romDetailsTestButton_Click(object sender, EventArgs e)

@@ -718,6 +718,8 @@ namespace Curator.Data {
             
             private global::System.Data.DataColumn columnFileName;
             
+            private global::System.Data.DataColumn columnLibraryPicture;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public ROMDataTable() {
@@ -825,6 +827,14 @@ namespace Curator.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn LibraryPictureColumn {
+                get {
+                    return this.columnLibraryPicture;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -860,7 +870,7 @@ namespace Curator.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ROMRow AddROMRow(string Name, bool Enabled, int RomFolder_Id, string Extension, string CustomArgs, bool OverrideArgs, string GridPicture, string FileName) {
+            public ROMRow AddROMRow(string Name, bool Enabled, int RomFolder_Id, string Extension, string CustomArgs, bool OverrideArgs, string GridPicture, string FileName, string LibraryPicture) {
                 ROMRow rowROMRow = ((ROMRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -871,7 +881,8 @@ namespace Curator.Data {
                         CustomArgs,
                         OverrideArgs,
                         GridPicture,
-                        FileName};
+                        FileName,
+                        LibraryPicture};
                 rowROMRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowROMRow);
                 return rowROMRow;
@@ -910,6 +921,7 @@ namespace Curator.Data {
                 this.columnOverrideArgs = base.Columns["OverrideArgs"];
                 this.columnGridPicture = base.Columns["GridPicture"];
                 this.columnFileName = base.Columns["FileName"];
+                this.columnLibraryPicture = base.Columns["LibraryPicture"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -933,6 +945,8 @@ namespace Curator.Data {
                 base.Columns.Add(this.columnGridPicture);
                 this.columnFileName = new global::System.Data.DataColumn("FileName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFileName);
+                this.columnLibraryPicture = new global::System.Data.DataColumn("LibraryPicture", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLibraryPicture);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -948,6 +962,7 @@ namespace Curator.Data {
                 this.columnOverrideArgs.DefaultValue = ((bool)(false));
                 this.columnGridPicture.DefaultValue = ((string)(""));
                 this.columnFileName.DefaultValue = ((string)(""));
+                this.columnLibraryPicture.DefaultValue = ((string)(""));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1636,6 +1651,22 @@ namespace Curator.Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string LibraryPicture {
+                get {
+                    try {
+                        return ((string)(this[this.tableROM.LibraryPictureColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LibraryPicture\' in table \'ROM\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableROM.LibraryPictureColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsEnabledNull() {
                 return this.IsNull(this.tableROM.EnabledColumn);
             }
@@ -1692,6 +1723,18 @@ namespace Curator.Data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetFileNameNull() {
                 this[this.tableROM.FileNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsLibraryPictureNull() {
+                return this.IsNull(this.tableROM.LibraryPictureColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetLibraryPictureNull() {
+                this[this.tableROM.LibraryPictureColumn] = global::System.Convert.DBNull;
             }
         }
         
